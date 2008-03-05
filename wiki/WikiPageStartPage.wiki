@@ -1,4 +1,4 @@
-#summary One-a bootloader for linux on the appletv
+#summary -A bootloader for linux on the AppleTV
 
 = Introduction =
 Frustrated creating an AppleTV based linux system. Tired of following voodoo instructions just to build a USB pen boot patchstick to install sshd? Well, atv-bootloader is for you. 
