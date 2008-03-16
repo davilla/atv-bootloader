@@ -38,3 +38,6 @@ Frustrated creating an AppleTV based linux system. Tired of following voodoo ins
   * patchstick
 
   * extending patchstick
+
+  * WinXP and friends
+    * Trying to do anything involving the AppleTV under Windows is not recommended. Windows does lots of hidden things like touching partitions that is has no business touching. Boot a Linux LiveCD instead and do everything from that environment.
