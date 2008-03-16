@@ -1,0 +1,156 @@
+Instructions for formating and creating proper partitions using a Linux LiveCD
+
+= Introduction =
+
+Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formated and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a MythBuntu LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
+
+= Details =
+
+* boot the LiveCD and enable sshd
+{{{
+# boot the LiveCD and open a terminal
+# start sshd for remote terminal access
+sudo /etc/init.d/ssh start
+
+# change the password for the ubuntu user so we can ssh in
+passwd
+current (just hit enter)
+new let5me6in
+again let5me6in
+}}}
+
+* from a terminal on a working linux system (or the above LiveCD terminal)
+{{{
+# now we can ssh in from another box (skip this is using the LiveCD terminal)
+# you will need to replace the below IP address with that of your system
+# I like to do it this way so I can copy/paste rather than type exact commands
+ssh ubuntu@192.168.2.67
+password -> let5me6in
+}}}
+
+* install build tools
+{{{
+# mythbuntu has a problem with PATH so we need to reference the full path for apt-get
+sudo /usr/bin/apt-get install build-essential
+}}}
+
+* build and install the patched parted
+{{{
+# remove the existing parted 
+sudo /usr/bin/apt-get remove parted
+
+# fetch the patched parted
+wget http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz
+tar -xzf parted-1.8.8-atv.tar.gz
+
+# build and install the patched parted
+cd parted-1.8.8-atv.tar.gz
+sudo ./install_parted.sh
+sudo ln -s /usr/local/sbin/parted /sbin/parted
+
+# verify the install
+parted --version
+# you should see "parted (GNU parted) 1.8.8"
+}}}
+
+* build and install hfs support tools
+{{{
+# fetch hfs_support
+wget http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz
+tar -xzf hfs_support-1.0.tar.gz
+
+# build and install
+cd hfs_support/
+sudo ./build_diskdev_cmds.sh
+}}}
+
+* create and format an AppleTV compatible disk
+{{{
+# ** warning
+# ** you must be careful of the target disk/partition
+# ** the below assumes LiveCD boot and USB disk at sda
+# ** warning
+# 
+# zero /dev/sda first or pre-existing guid will not change
+dd if=/dev/zero of=/dev/sda bs=4096 count=1M
+
+# create initial gpt structures
+sudo parted -s /dev/sda mklabel gpt
+
+# find max size of disk (see Disk  /dev/sda: XXXMB from listing)
+sudo parted /dev/sda
+print
+quit
+
+# mine reports "Disk /dev/sda: 20.0GB" so that's our ending point
+
+# create the "EFI" partition
+sudo parted -s /dev/sda mkpart primary fat32 40s 25M
+sudo parted -s /dev/sda set 1 boot on
+
+# create the "Recovery" partition
+sudo parted -s /dev/sda mkpart primary HFS 25M 50M
+sudo parted -s /dev/sda set 2 atvrecv on
+
+# create the "OSBoot" partition
+sudo parted -s /dev/sda mkpart primary HFS 50M 75M
+
+#create the linux root partition
+sudo parted -s /dev/sda mkpart primary ext2 75M 18.9GB
+
+#create the linux swap partition
+sudo parted -s /dev/sda mkpart primary linux-swap 18.9GB 20.0GB
+
+
+# verify the partitions
+sudo parted /dev/sda
+print
+
+# you should see something similar (note boot and atvrecv flags)
+Model: IC25N020 ATDA04-0 (scsi)
+Disk /dev/sda: 20.0GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start   End     Size    File system  Name     Flags  
+ 1      20.5kB  25.0MB  25.0MB               primary  boot   
+ 2      25.0MB  50.0MB  25.0MB               primary  atvrecv
+ 3      50.0MB  75.0MB  25.0MB               primary         
+ 4      75.0MB  18.9GB  18.8GB               primary         
+ 5      18.9GB  20.0GB  1104MB               primary         
+
+
+# format the partitions
+sudo mkfs.msdos -F 32 -n EFI /dev/sda1
+sudo mkfs.hfsplus -v Recovery /dev/sda2
+sudo mkfs.hfsplus -v OSBoot /dev/sda3
+sudo mkfs.ext3  -b 4096 -L mythbuntu /dev/sda4
+we will let the LiveCD setup swap
+sync 
+}}}
+
+* install atv-bootloader
+{{{
+remove/reinsert USB plug, the LiveCD should auto-mount
+at /media/Recovery, /media/OSBoot and /media/mythbuntu
+}}}
+
+{{{
+sudo /usr/bin/apt-get install subversion
+svn checkout http://atv-bootloader.googlecode.com/svn/trunk/ atv-bootloader-read-only
+cd atv-bootloader-read-only
+tar -xzf recovery.tar.gz
+cp mach_kernel recovery/
+cp -arp recovery/* /media/OSBoot/
+cp -arp recovery/* /media/Recovery/
+# remember to copy boot.efi too
+cp boot.efi /media/OSBoot
+cp boot.efi /media/Recovery
+}}}
+
+* now proceed to install your linux distro
+{{{
+remember to install to /dev/sda4 with swap at /dev/sda5
+and don't let grub install the MBR
+
+}}}
