@@ -1,4 +1,4 @@
-#This is a brief description of the AppleTV partition format
+This is a brief description of the AppleTV partition format
 
 = Introduction =
 
