@@ -2,7 +2,7 @@ Install MythBuntu 7.10
 
 = Introduction =
 
-This assumes that you followed the partitioning instructions at [createPartitionsLiveCD partitioning] and are now ready to install MythBuntu.
+This assumes that you followed the partitioning instructions at http://code.google.com/p/atv-bootloader/wiki/CreatePartitionsLiveCD and are now ready to install MythBuntu.
 
 = Details =
 
