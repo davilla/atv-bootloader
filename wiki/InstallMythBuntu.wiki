@@ -1,0 +1,56 @@
+Install MythBuntu 7.10
+
+= Introduction =
+
+This assumes that you followed the partitioning instructions at [createPartitionsLiveCD partitioning] and are now ready to install MythBuntu.
+
+= Details =
+
+* install Mythbuntu
+{{{
+# this assumes /dev/sda4 is "/" and /dev/sda5 is "swap"
+click on install "Mythbuntu"
+
+Prepare disk space (select "Manual")
+
+Prepare Partitions
+	select /dev/sda4 and "edit"
+	change "use as" to ext3
+	change mount point to "/" (without quotes)
+	check the format check box.
+
+	select /dev/sda5 and "edit"
+	change "use as" to swap
+
+	don't install grub as a bootloader
+
+Now follow the normal mythbuntu install but don't reboot yet
+remember to 
+	a) select mac mini IR driver
+	b) select nvidia-new driver
+	c) select and configure TV out for your display
+}}}
+
+* fix console framebuffer support
+{{{
+Ubuntu does console framebuffer in a strange manor so we need to fix it for the AppleTV
+
+unplug/replug USB drive to get the partitions mounted
+
+mount --bind /dev /media/disk/dev
+chroot /media/disk
+df to make sure you are in the correct root filesystem
+"/" should be mounted on /dev/sda4
+
+nano /etc/modprobe.d/blacklist-framebuffer and comment out "blacklist vesafb"
+	#blacklist vesafb
+
+nano /etc/initramfs-tools/modules and add 
+	fbcon
+	vesafb
+
+update-initramfs -u
+
+exit
+umount /media/disk/dev
+}}}
