@@ -150,9 +150,14 @@ at /media/Recovery, /media/OSBoot and /media/mythbuntu
 }}}
 
 {{{
+# pulling from svn
 sudo /usr/bin/apt-get install subversion
 svn checkout http://atv-bootloader.googlecode.com/svn/trunk/ atv-bootloader-read-only
 cd atv-bootloader-read-only
+
+# or just download
+wget http://atv-bootloader.googlecode.com/files/recovery-0.4.tar.gz
+
 tar -xzf recovery.tar.gz
 sudo cp mach_kernel recovery/
 sudo cp -arp recovery/* /media/OSBoot/
