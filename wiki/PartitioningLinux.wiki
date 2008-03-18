@@ -1,4 +1,4 @@
-= Instructions for formating and creating proper AppleTV partitions=
+= Instructions for creating and formating proper AppleTV partitions=
 
 == Introduction ==
 
