@@ -1,41 +1,44 @@
-Install MythBuntu 7.10
+= Install MythBuntu 7.10 =
 
-= Introduction =
+== Introduction ==
 
 This assumes that you followed the partitioning instructions at [Partitioning] and are now ready to install MythBuntu from the LiveCD.
 
-= Details =
+== Details ==
 
-* install Mythbuntu
+* Install Mythbuntu
+   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap"
+
+   Click on install "Mythbuntu"
+
+   Prepare disk space
 {{{
-# this assumes /dev/sda4 is "/" and /dev/sda5 is "swap"
-click on install "Mythbuntu"
-
-Prepare disk space (select "Manual")
-
-Prepare Partitions
-	select /dev/sda4 and "edit"
-	change "use as" to ext3
-	change mount point to "/" (without quotes)
-	check the format check box.
-
-	select /dev/sda5 and "edit"
-	change "use as" to swap
-
-Now follow the normal mythbuntu install but do no reboot yet
-remember to 
-	a) select mac mini IR driver
-	b) select nvidia-new driver
-	c) select and configure the display settings for your monitor
+select "Manual"
 }}}
 
-* fix console framebuffer support
+   Prepare Partitions
 {{{
-Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV
+select /dev/sda4 and "edit"
+change "use as" to ext3
+change mount point to "/" (without quotes)
+check the format check box.
 
-unplug/replug USB drive to get the partitions mounted
-The rest assumes the USB disk is mounted at /media/disk
+select /dev/sda5 and "edit"
+change "use as" to swap
+}}}
 
+    Now follow the normal mythbuntu install but do no reboot yet and remember to 
+{{{
+select mac mini IR driver
+select nvidia-new driver
+select and configure the display settings for your monitor
+}}}
+
+* Fix console framebuffer support
+   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV.
+
+   Unplug/replug USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
+{{{
 mount --bind /dev /media/disk/dev
 chroot /media/disk
 df to make sure you are in the correct root filesystem
@@ -53,4 +56,3 @@ update-initramfs -u
 exit
 umount /media/disk/dev
 }}}
-
