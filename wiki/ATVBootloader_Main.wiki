@@ -1,0 +1,47 @@
+= Introduction =
+Frustrated creating an AppleTV based linux system. Tired of following voodoo instructions just to build bootable USB pen patchstick to install sshd? Well, atv-bootloader is for you. [ATVBootloader_Main m]
+
+
+= Details =
+  * history
+    * The AppleTV is a really neat device. The normal AppleTV is pretty good but lacks hardware assisted nvidia mepg2 decode capabilities. This means that one it limited to 720p mpeg2. To do 1080i mpeg2 decode one needs to look toward the Linux OS as there are existing drivers for nvidia hardware decode.
+
+  * required software tools
+    * The AppleTV requires gpt formated partitions. "parted" can do this but is missing a required GUID format. So you need a patched parted. See the download section for [http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz parted-1.8.8-atv].
+    * The AppleTV uses two HFS formated partitions, while the standard Linux distro can mount HFS disk, formating is missing. See the download section for [http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz HFS support tools].
+
+  * other bootloaders
+    * First Linux boot was done by gimli at http://www.mactel-linux.org/wiki/AppleTV. This bootloader was called "mach_linux_boot" and required the linux kernel to be compiled into the resulting mach_kernel. This worked great but was a little limited in updating the Linux kernel was a pain.
+    * The second bootloader was "mb_boot_tv" done by James McKenzie at http://www.mythic-beasts.com/resources/appletv/ . This bootloader extended mach_linux_boot by enabling the bootloader to search over the internal ata bus and find a boot config that would be used to load the Linux kernel. Network boot was also enabled. This was better, now the kernel could be updated without recompiling the mach_kernel. However, one could netboot using a USB disk but not boot a USB based Linux system. In addition, because mb_boot_tv used it's own boot config format, changes made to grubs menu.lst file during updates required manually updating mb_boot_tv.conf.
+
+  * atv-bootloader
+    * atv-bootloader which uses principals from mach_linux_boot to boot a compiled-in Linux kernel and then finds and boots another Linux kernel using [http://www.ibm.com/developerworks/linux/library/l-kexec.html kexec] (a user-land kernel bootloader). In addition, atv-bootloader translates several EFI structures into standard PC bios structures. This allows a standard Linux kernel to be booted without the numerous EFI patches required by both mach_linux_boot and mb_boot_tv.
+    * atv-bootloader can a) search and find an existing grub menu.lst and auto-boot from it, b) search for a "boot_linux.sh" file and auto-execute it, and c) search for "patchstick.sh" and auto-execute it. The initrd "boot_linux.sh" script currently search sdb then rest of the disk devices (this will be changed in the future once the real boot device can be recovered from the device tree passed by boot.efi).  This procedure allows atv-bootloader to auto-boot a linux install or be extended for other uses. This is controlled by a "Kernel Flag" in com.apple.Boot.plist and has the following definitions 
+{{{
+#search for mb_boot_tv, grub and syslinux/ioslinux config --auto boot default
+"atv-boot=auto"
+
+#search for a "boot_linux.sh" file and execute it.
+"atv_boot=manual"
+
+#search for a "patchstick.sh" file and execute it.
+"atv_boot=patchstick"
+
+#default is to drop to a login prompt (user=root, password=root)
+
+}}}
+    atv-bootloader is located [http://atv-bootloader.googlecode.com/files/recovery-0.4.tar.gz here] and the source is in svn. This contains a prebuilt mach kernel with embedded Linux kernel/initrd along with the required support files. The only thing required is boot.efi which cannot be distributed.
+
+  * create a linux install on a hard disk
+    * [BootEFIExtraction extract boot.efi]
+    * [PartitioningLinux partition for linux  ]
+    * [InstallMythBuntu install mythbuntu]
+
+  * create a rescue USB pen disk
+
+  * create a basic patchstick
+
+  * extending patchstick
+
+  * WinXP and friends
+    * Trying to do anything involving the AppleTV under Windows is not recommended. Windows does lots of hidden things like touching partitions that is has no business touching. Boot a Linux LiveCD instead and do everything from that environment.
