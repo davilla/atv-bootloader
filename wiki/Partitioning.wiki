@@ -2,7 +2,7 @@
 
 == Introduction ==
 
-Basically all Intel Apple computers (including the AppleTV) use GPT as a partition format. The internal disk inside the AppleTV has four partitions. If you want to know more about GPT and GUIDs see [http://en.wikipedia.org/wiki/GUID_Partition_Table]
+All Intel Apple computers (including the AppleTV) use GPT as a partition format. The internal disk inside the AppleTV has four partitions. If you want to know more about GPT and GUIDs see [http://en.wikipedia.org/wiki/GUID_Partition_Table]
 
 The first partition is labeled "EFI" and is FAT32 but it has a special GUID. This partition is typically empty and only used for RAID drives on OS X desktop or server computers. The AppleTV disk does not really need this partition but I always include it on internal hard drives because you never know.
 
