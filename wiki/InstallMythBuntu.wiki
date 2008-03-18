@@ -56,3 +56,21 @@ update-initramfs -u
 exit
 umount /media/disk/dev
 }}}
+
+* Running Mythbuntu
+
+   There are a few things to complete the install once you have MythBuntu running. First open the Update Manager and take all the updates. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
+   Next, fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display.
+{{{
+# from a terminal window, enable coolbits so we can change the nvidia gpu clock
+nvidia-xconfig --cool-bits=1 --no-composite --no-logo
+
+# nvidia-settings is used to change the gpu clock but,
+#   we want it to always be applied on startup of X11
+sudo nano /etc/X11/xinit/xinitrc
+nvidia-settings -a GPUOverclockingState=1
+nvidia-settings -a GPU2DClockFreqs=200,800
+
+# pickup the new settings
+sudo reboot
+}}}
