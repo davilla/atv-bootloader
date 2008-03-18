@@ -16,7 +16,7 @@ The AppleTV firmware boots by looking for a file called boot.efi on OSBoot. Boot
 
 So to get Linux to boot, we create a proper Recovery partition with boot.efi and a mach kernel that is actually a secondary Linux boot loader. The firmware loads boot.efi which loads our "mach kernel" and a dummy kext, at that point we have control and own the box.
 
-Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formated and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a MythBuntu LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
+Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formated and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a [http://www.mythbuntu.org/ MythBuntu] LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
 
 == Details ==
 
