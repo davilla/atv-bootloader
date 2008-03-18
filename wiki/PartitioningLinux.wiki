@@ -96,17 +96,17 @@ sudo parted /dev/sda
 print
 quit
 
-# mine reports "Disk /dev/sda: 20.0GB" so that's our ending point
+# mine reports "Disk /dev/sda: 20.0GB" so that is our ending point
 
-# create the "EFI" partition
+# create a 25MB "EFI" partition
 sudo parted -s /dev/sda mkpart primary fat32 40s 25M
 sudo parted -s /dev/sda set 1 boot on
 
-# create the "Recovery" partition
+# create a 25MB "Recovery" partition
 sudo parted -s /dev/sda mkpart primary HFS 25M 50M
 sudo parted -s /dev/sda set 2 atvrecv on
 
-# create the "OSBoot" partition
+# create a 25MB "OSBoot" partition
 sudo parted -s /dev/sda mkpart primary HFS 50M 75M
 
 #create the linux root partition
@@ -170,6 +170,6 @@ sudo cp -ap boot.efi /media/Recovery
 * now proceed to install your linux distro
 {{{
 remember to install to /dev/sda4 with swap at /dev/sda5
-and don't let grub install the MBR (note, this is being looked into)
+and do not let grub install the MBR (note, this is being looked into)
 
 }}}
