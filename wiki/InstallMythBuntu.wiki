@@ -2,7 +2,7 @@ Install MythBuntu 7.10
 
 = Introduction =
 
-This assumes that you followed the partitioning instructions at http://code.google.com/p/atv-bootloader/wiki/CreatePartitionsLiveCD and are now ready to install MythBuntu.
+This assumes that you followed the partitioning instructions at [Partitioning] and are now ready to install MythBuntu from the LiveCD.
 
 = Details =
 
@@ -22,20 +22,19 @@ Prepare Partitions
 	select /dev/sda5 and "edit"
 	change "use as" to swap
 
-	don't install grub as a bootloader
-
-Now follow the normal mythbuntu install but don't reboot yet
+Now follow the normal mythbuntu install but do no reboot yet
 remember to 
 	a) select mac mini IR driver
 	b) select nvidia-new driver
-	c) select and configure TV out for your display
+	c) select and configure the display settings for your monitor
 }}}
 
 * fix console framebuffer support
 {{{
-Ubuntu does console framebuffer in a strange manor so we need to fix it for the AppleTV
+Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV
 
 unplug/replug USB drive to get the partitions mounted
+The rest assumes the USB disk is mounted at /media/disk
 
 mount --bind /dev /media/disk/dev
 chroot /media/disk
@@ -54,3 +53,4 @@ update-initramfs -u
 exit
 umount /media/disk/dev
 }}}
+
