@@ -154,17 +154,17 @@ sudo /usr/bin/apt-get install subversion
 svn checkout http://atv-bootloader.googlecode.com/svn/trunk/ atv-bootloader-read-only
 cd atv-bootloader-read-only
 tar -xzf recovery.tar.gz
-cp mach_kernel recovery/
-cp -arp recovery/* /media/OSBoot/
-cp -arp recovery/* /media/Recovery/
+sudo cp mach_kernel recovery/
+sudo cp -arp recovery/* /media/OSBoot/
+sudo cp -arp recovery/* /media/Recovery/
 # remember to copy boot.efi too
-cp boot.efi /media/OSBoot
-cp boot.efi /media/Recovery
+sudo cp -ap boot.efi /media/OSBoot
+sudo cp -ap boot.efi /media/Recovery
 }}}
 
 * now proceed to install your linux distro
 {{{
 remember to install to /dev/sda4 with swap at /dev/sda5
-and don't let grub install the MBR
+and don't let grub install the MBR (note, this is being looked into)
 
 }}}
