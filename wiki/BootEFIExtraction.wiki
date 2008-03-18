@@ -4,7 +4,7 @@ Instructions on how to get a copy of the AppleTV boot.efi file
 
 During power-on boot, AppleTV efi firmware finds and executes the file boot.efi on a "Recovery" or "OSBoot" partition. This boot.efi file is responsible for loading the mach kernel and kexc drivers using com.apple.Boot.plist. It must be the original AppleTV boot.efi as it is signed and efi firmware checks the certificate and will rejected a "bad" boot.efi file. So for atv-bootlaoder to work, you need a copy of boot.efi. This raises the chicken-or-egg question of how do you get boot.efi without opening the AppleTV and removing the hard drive.
 
-The solution is simple, extract it from the AppleTV update. The following instructions detail how to download the AppleTV 1.1 update and extract boot.efi using [http://vu1tur.eu.org/tools/ dmg2img]. This is the only file required to enable atv-bootloader to boot linux so unless you are interested in creating a patchstick (reference need), you can delete the downloaded/converted files.
+The solution is simple, extract it from the AppleTV update. The following instructions detail how to download the AppleTV 1.1 update and extract boot.efi using [http://vu1tur.eu.org/tools/ dmg2img]. This is the only file required to enable atv-bootloader to boot linux so unless you are interested in creating a [BuildingPatchstick patchstick], you can delete the downloaded/converted files.
 
 
 = Details =
