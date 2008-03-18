@@ -98,7 +98,7 @@ quit
 
 # mine reports "Disk /dev/sda: 20.0GB" so that is our ending point
 
-# create a 25MB "EFI" partition
+# create a 25MB "EFI" partition (starting at sector 40 is important)
 sudo parted -s /dev/sda mkpart primary fat32 40s 25M
 sudo parted -s /dev/sda set 1 boot on
 
