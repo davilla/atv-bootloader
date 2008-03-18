@@ -1,4 +1,4 @@
-= Install MythBuntu 7.10 =
+= Install [http://www.mythbuntu.org/ MythBuntu] 7.10 =
 
 == Introduction ==
 
