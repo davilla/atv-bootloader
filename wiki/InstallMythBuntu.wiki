@@ -2,7 +2,7 @@
 
 == Introduction ==
 
-This assumes that you followed the partitioning instructions at [Partitioning] and are now ready to install MythBuntu from the LiveCD.
+This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ MythBuntu] from the LiveCD.
 
 == Details ==
 
