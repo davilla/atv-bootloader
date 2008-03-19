@@ -2,7 +2,7 @@
 
 == Introduction ==
 
-This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ MythBuntu] from the LiveCD using a normal PC hardware platform.
+This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ MythBuntu] from the LiveCD using a normal PC hardware platform. You can actually install other versions of Ubuntu 7.10 Gutsy from a LiveCD, the instructions are the same.
 
 == Details ==
 
