@@ -76,9 +76,9 @@ sudo nano /etc/X11/xinit/xinitrc
 nvidia-settings -a GPUOverclockingState=1
 nvidia-settings -a GPU2DClockFreqs=200,800
 
-# fix up the MBR to make efi firmware happy.
+# fix up the MBR to make efi firmware happy and get quick boots
 # remember to pick the correct device selection with dd.
-wget mbr_fast-1.0.bin
+wget http://atv-bootloader.googlecode.com/files/mbr_fast-1.0.bin
 sudo dd if=mbr_fast.bin of=/dev/sda bs=512 count=1
 
 # pickup the new settings
