@@ -79,7 +79,7 @@ nvidia-settings -a GPU2DClockFreqs=200,800
 # fix up the MBR to make efi firmware happy and get quick boots
 # remember to pick the correct device selection with dd.
 wget http://atv-bootloader.googlecode.com/files/mbr_fast-1.0.bin
-sudo dd if=mbr_fast.bin of=/dev/sda bs=512 count=1
+sudo dd if=mbr_fast-1.0.bin of=/dev/sda bs=512 count=1
 
 # pickup the new settings
 sudo reboot
