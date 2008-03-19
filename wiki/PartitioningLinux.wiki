@@ -170,6 +170,4 @@ sudo cp -ap boot.efi /media/Recovery
 * now proceed to install your linux distro
 {{{
 remember to install to /dev/sda4 with swap at /dev/sda5
-and do not let grub install the MBR (note, this is being looked into)
-
 }}}
