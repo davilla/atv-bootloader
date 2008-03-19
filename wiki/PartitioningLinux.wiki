@@ -170,4 +170,9 @@ sudo cp -ap boot.efi /media/Recovery
 * now proceed to install your linux distro
 {{{
 remember to install to /dev/sda4 with swap at /dev/sda5
+
+it is ok to install grub, in fact you will need the menu.lst that grub creates,
+however the MBR that grub installs needs to be over-written to enable
+fast boots to the tux/atv logo. This can be done after your linux install is running
+and is outlined in the installing MythBuntu page.
 }}}
