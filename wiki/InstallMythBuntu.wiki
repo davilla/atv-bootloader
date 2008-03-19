@@ -25,6 +25,11 @@ check the format check box.
 
 select /dev/sda5 and "edit"
 change "use as" to swap
+
+It's ok to install grub, we need the grub structure (menu.lst) to boot
+we will need to replace the grub MBR with one the efi firmware likes
+so that the boot to the tux/atv logo drops form 30-60 seconds to 11.
+we do this later when the install is running native on the AppleTV.
 }}}
 
     Now follow the normal mythbuntu install but do no reboot yet and remember to 
@@ -70,6 +75,11 @@ nvidia-xconfig --cool-bits=1 --no-composite --no-logo
 sudo nano /etc/X11/xinit/xinitrc
 nvidia-settings -a GPUOverclockingState=1
 nvidia-settings -a GPU2DClockFreqs=200,800
+
+# fix up the MBR to make efi firmware happy.
+# remember to pick the correct device selection with dd.
+wget mbr_fast-1.0.bin
+sudo dd if=mbr_fast.bin of=/dev/sda bs=512 count=1
 
 # pickup the new settings
 sudo reboot
