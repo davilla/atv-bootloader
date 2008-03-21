@@ -58,7 +58,7 @@ wget http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz
 tar -xzf parted-1.8.8-atv.tar.gz
 
 # build and install the patched parted
-cd parted-1.8.8-atv.tar.gz
+cd parted-1.8.8-atv
 sudo ./install_parted.sh
 sudo ln -s /usr/local/sbin/parted /sbin/parted
 
