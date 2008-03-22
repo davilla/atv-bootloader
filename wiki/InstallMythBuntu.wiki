@@ -64,8 +64,9 @@ umount /media/disk/dev
 
 * Running Mythbuntu
 
-   There are a few things to complete the install once you have MythBuntu running. First open the Update Manager and take all the updates. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
-   Next, fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This is working for 169 nvidia driver series and might also work with the installed 100.14.19 version.
+   There are a few things to complete the install once you have MythBuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
+
+   Fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This is working for 169.xx nvidia driver series and might also work with the installed 100.14.19 version.
 {{{
 #------------------------------------------------
 # from a terminal window, enable coolbits so we can change the nvidia gpu clock
@@ -83,10 +84,10 @@ sudo nano /etc/modprobe.d/nvidia-kernel-nkc
 options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 
 # nvidia-settings is used to actually change the gpu clock but,
-# we want it to always be applied on startup of X11. It has to be done
-# after X11 is up so we create an autostart entry for the username that was setup
-# during the install. I'm using "user" here, you should replace "user" with
-# your username.
+# we want it to always be applied after the startup of X11. We create an 
+# autostart entry for the username that was setup during the install. 
+# I'm using "user" here, you should replace "user" with your username.
+#
 sudo nano /home/user/.config/autostart/nvidia_fixes.desktop
 [Desktop Entry]
 Encoding=UTF-8
@@ -109,17 +110,58 @@ nvidia-settings -a GPU2DClockFreqs=200,800
 sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
 
 # when X11 is up on the next reboot, you can verify the gpu clock change
-# by doing the following in a terminal window and look for "GPU2DClockFreqs"
+# by doing the following in a terminal window and look for "GPU2DClockFreqs". 
+# You should see 200 for gpu and 800 for vram and NOT 360 for gpu and 720 for vram.
+#
 sudo nvidia-settings -q all
+}}}
 
+   Patch the Realtek audio module to correctly identify the AppleTV and enable analog (rca) output. This involves patching the existing linux-ubuntu-modules-2.6.22-2.6.22 install, so remember that if you allows this to be updated in the future, you will have to reapply this patch. Thanks to Jason (SredniV in the MythBuntu forums) for figuring out the deb part.
+{{{
+# move to the standard location for kernel source
+cd /usr/src
+# get the source code for the current ubuntu modules
+sudo apt-get source linux-ubuntu-modules-2.6.22-14-generic
+cd /usr/src/linux-ubuntu-modules-2.6.22-2.6.22/ubuntu/media/snd-hda-intel
 
+# patch patch_realtek.c
+# download the patch
+sudo wget http://atv-bootloader.googlecode.com/files/atv-realtek-rca-audio-2.6.22-14-generic.patch
+# first, check the patch for errors
+sudo patch --dry-run < atv-realtek-rca-audio-2.6.22-14-generic.patch
+# if no errors then apply the patch
+sudo patch < atv-realtek-rca-audio-2.6.22-14-generic.patch
+
+# back to the level of the module deb source
+cd ../../..
+
+# rebuilt the modules
+sudo fakeroot debian/rules binary-arch arch=i386 flavours="generic"
+
+# the build will end with the following error, that's ok
+dpkg-deb: --extract needs a target directory.
+Perhaps you should be using dpkg --install ?
+make: *** [binary-udebs] Error 2
+
+# up one more level to where the deb is placed 
+cd ..
+sudo dpkg --install linux-ubuntu-modules-2.6.22-14-generic_2.6.22-14.37_i386.deb
+
+# the change takes effect on the next reboot
+}}}
+
+   The AppleTV efi firmware and boot.efi are picky about the master boot record (MBR). While the AppleTV will eventually boot atv-bootloader with a "wrong" MBR, it might take 30-60 seconds before it tries. We fix this by replacing the MBR with one that was correctly created for Apple EFI boot. 
+{{{
 #------------------------------------------------
 # fix up the MBR to make efi firmware happy and get quick boots
 # remember to pick the correct device selection with dd.
 wget http://atv-bootloader.googlecode.com/files/mbr_fast-1.0.bin
 sudo dd if=mbr_fast-1.0.bin of=/dev/sda bs=512 count=1
+}}}
 
+   Ok, that was not too hard, reboot to pickup the changes.
+{{{
 #------------------------------------------------
-# pickup the new settings
+# pickup all the changes
 sudo reboot
 }}}
