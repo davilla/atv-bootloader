@@ -65,22 +65,61 @@ umount /media/disk/dev
 * Running Mythbuntu
 
    There are a few things to complete the install once you have MythBuntu running. First open the Update Manager and take all the updates. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
-   Next, fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display.
+   Next, fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This is working for 169 nvidia driver series and might also work with the installed 100.14.19 version.
 {{{
+#------------------------------------------------
 # from a terminal window, enable coolbits so we can change the nvidia gpu clock
 nvidia-xconfig --cool-bits=1 --no-composite --no-logo
 
-# nvidia-settings is used to change the gpu clock but,
-#   we want it to always be applied on startup of X11
-sudo nano /etc/X11/xinit/xinitrc
+# really enable nvidia gpu to be underclocked, the AppleTV is a 7300 mobile chipset
+# normally mobile chipsets are not allowed to have clock changes so we have to do
+# some nvidia voodoo commands. I've seen two places to add this,
+#  a) /etc/modprobe.d/nvidia-kernel-nkc
+#  b) /etc/modprobe.d/options
+#
+# both locations seem to work for me.
+#
+sudo nano /etc/modprobe.d/nvidia-kernel-nkc
+options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
+
+# nvidia-settings is used to actually change the gpu clock but,
+# we want it to always be applied on startup of X11. It has to be done
+# after X11 is up so we create an autostart entry for the username that was setup
+# during the install. I'm using "user" here, you should replace "user" with
+# your username.
+sudo nano /home/user/.config/autostart/nvidia_fixes.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=nvidia xvmc hang fixup
+Comment=fixes nvidia problems with xvmc decode
+Exec=/usr/sbin/nvidia_hang_fix.sh
+StartupNotify=false
+Terminal=false
+Hidden=false
+
+# now create the actual script
+sudo nano /usr/sbin/nvidia_hang_fix.sh
+#!/bin/bash
 nvidia-settings -a GPUOverclockingState=1
 nvidia-settings -a GPU2DClockFreqs=200,800
 
+# change the file permission so it can execute
+sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
+
+# when X11 is up on the next reboot, you can verify the gpu clock change
+# by doing the following in a terminal window and look for "GPU2DClockFreqs"
+sudo nvidia-settings -q all
+
+
+#------------------------------------------------
 # fix up the MBR to make efi firmware happy and get quick boots
 # remember to pick the correct device selection with dd.
 wget http://atv-bootloader.googlecode.com/files/mbr_fast-1.0.bin
 sudo dd if=mbr_fast-1.0.bin of=/dev/sda bs=512 count=1
 
+#------------------------------------------------
 # pickup the new settings
 sudo reboot
 }}}
