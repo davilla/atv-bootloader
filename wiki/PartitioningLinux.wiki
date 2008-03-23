@@ -18,6 +18,10 @@ So to get Linux to boot, we create a proper Recovery partition with boot.efi and
 
 Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formated and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a [http://www.mythbuntu.org/ MythBuntu] LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
 
+*WARNING*
+If you are installing to the original AppleTV internal drive, you should backup the original hard drive. See the linux section of [http://wiki.awkwardtv.org/wiki/Backup_your_original_Hard_Drive Backup_your_original_Hard_Drive] and search for backup in [http://wiki.awkwardtv.org/wiki/Linux_on_Apple_TV Linux_on_Apple_TV] for details on backing up the original hard drive. It is possible to restore from the AppleTV 1.1 update but it's better to have the backup. A backup will take approximately 3GB to 40GB of space depending if the backup is compressed.
+
+
 == Details ==
 
 * boot the LiveCD and enable sshd
