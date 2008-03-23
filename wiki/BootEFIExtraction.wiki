@@ -28,13 +28,19 @@ wget http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg
 #
 # convert it to an img format
 dmg2img 2Z694-5248-45.dmg atv.img
+# if you get "Segmentation fault (core dumped)" that might be ok, mine did that
+# but I could mount and extract boot.efi
 mkdir atv-update
 
 # mount the converted img
-mount -o loop -t hfsplus atv.img atv-update
+sudo mount -o loop -t hfsplus atv.img atv-update
 
 # extract boot.efi
-cp -ap atv-update/System/Library/CoreServices/boot.efi /.
+sudo cp -ap atv-update/System/Library/CoreServices/boot.efi ./
+
+# check that boot.efi looks ok
+ls -l boot,efi
+# should see "-rw-r--r-- 1 root    root       298800 2007-06-19 00:47 boot.efi"
 }}}
 
 * cleanup (if you are not building a patchstick)
