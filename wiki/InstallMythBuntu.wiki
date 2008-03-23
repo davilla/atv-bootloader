@@ -44,8 +44,8 @@ select and configure the display settings for your monitor
 
    Unplug/replug USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
 {{{
-mount --bind /dev /media/disk/dev
-chroot /media/disk
+sudo mount --bind /dev /media/disk/dev
+sudo chroot /media/disk
 df to make sure you are in the correct root filesystem
 "/" should be mounted on /dev/sda4
 
@@ -59,7 +59,7 @@ nano /etc/initramfs-tools/modules and add
 update-initramfs -u
 
 exit
-umount /media/disk/dev
+sudo umount /media/disk/dev
 }}}
 
 * Running Mythbuntu
