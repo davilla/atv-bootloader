@@ -62,7 +62,7 @@ exit
 sudo umount /media/disk/dev
 }}}
 
-   Now you can a) reinstall the drive back into the AppleTV or b) install the drive into a 2.5 to USB drive adapter. Power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper right corner). After that you linux install should boot. If you are using a USB drive converter, you might have to use the IR remote and press "menu" and "-" buttons down during power on to force a recovery boot.
+   Now you can a) reinstall the drive back into the AppleTV or b) install the drive into a 2.5 to USB drive adapter. Power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper right corner). After that you linux install should boot. If you are using a USB drive converter, you might have to use the IR remote and press "menu" and "-" buttons down during power on to force a USB recovery boot.
 
 * Running Mythbuntu
 
