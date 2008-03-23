@@ -90,7 +90,7 @@ sudo ./build_diskdev_cmds.sh
 # ** warning
 # 
 # zero /dev/sda first or pre-existing guid will not change
-dd if=/dev/zero of=/dev/sda bs=4096 count=1M
+sudo dd if=/dev/zero of=/dev/sda bs=4096 count=1M
 
 # create initial gpt structures
 sudo parted -s /dev/sda mklabel gpt
