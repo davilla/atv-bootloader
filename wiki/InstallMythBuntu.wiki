@@ -2,9 +2,9 @@
 
 == Introduction ==
 
-This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ MythBuntu] from the LiveCD using a normal PC hardware platform. You can install other versions of Ubuntu 7.10 Gutsy from a LiveCD, the instructions are the same. 
+This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ MythBuntu] from the LiveCD using a normal PC hardware platform. You can install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD, the instructions are the similar. 
 
-A warning here, if you install MythBuntu and select mythfrontend only, it will expect an existing MythTV backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
+A warning here, if you install [http://www.mythbuntu.org/ MythBuntu] and select mythfrontend only, it will expect an existing MythTV backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
 
 == Details ==
 
