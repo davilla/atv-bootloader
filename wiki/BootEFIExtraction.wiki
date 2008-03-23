@@ -11,11 +11,29 @@ The solution is simple, extract it from the AppleTV update. The following instru
 
 * download the update and extract boot.efi
 {{{
-sudo /usr/bin/apt-get install dmg2img
+# install some required tools to build dmg2img
+#
+sudo apt-get install build-essential zlib1g-dev
+
+# download and built dmg2img
+wget http://vu1tur.eu.org/tools/download.pl?dmg2img.tar.gz
+# the downloaded file has a funny name but that is not a problem
+tar -xzf download.pl?dmg2img.tar.gz
+cd dmg2img
+make
+sudo make install
+
+# download the AppleTV r1.1 update
 wget http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg
+#
+# convert it to an img format
 dmg2img 2Z694-5248-45.dmg atv.img
 mkdir atv-update
+
+# mount the converted img
 mount -o loop -t hfsplus atv.img atv-update
+
+# extract boot.efi
 cp -ap atv-update/System/Library/CoreServices/boot.efi /.
 }}}
 
