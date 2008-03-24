@@ -162,7 +162,7 @@ cd atv-bootloader-read-only
 # or just download
 wget http://atv-bootloader.googlecode.com/files/recovery-0.4.tar.gz
 
-tar -xzf recovery.tar.gz
+sudo tar -xzf recovery-0.4.tar.gz
 sudo cp -arp recovery/* /media/OSBoot/
 sudo cp -arp recovery/* /media/Recovery/
 # remember to copy boot.efi too
