@@ -1,0 +1,172 @@
+= Install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] =
+
+= *WARNING UNDER CONSTRUCTION* =
+
+== Introduction ==
+
+This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD using a normal PC hardware platform.
+
+== Details ==
+
+* Install Ubuntu Gutsy
+   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap"
+
+   Click on install "Mythbuntu"
+
+   Prepare disk space
+{{{
+select "Manual"
+}}}
+
+   Prepare Partitions
+{{{
+select /dev/sda4 and "edit"
+change "use as" to ext3
+change mount point to "/" (without quotes)
+check the format check box.
+
+select /dev/sda5 and "edit"
+change "use as" to swap
+
+It's ok to install grub, we will need the grub structure (menu.lst) to boot.
+we will replace the grub MBR with one that efi firmware likes
+so that the boot to the tux/atv logo drops form 30-60 seconds to 11.
+we do this later when the install is running native on the AppleTV.
+}}}
+
+* Fix console framebuffer support
+   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV.
+
+   Unplug/replug USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
+{{{
+sudo mount --bind /dev /media/disk/dev
+#
+sudo chroot /media/disk
+df to make sure you are in the correct root filesystem
+"/" should be mounted on /dev/sda4
+
+#install ssh
+#sudo apt-get install openssh-server
+
+sudo apt-get install nvidia-glx-new
+sudo nvidia-glx-config enable
+sudo nvidia-xconfig --cool-bits=1 --no-composite --no-logo
+
+nano /etc/modprobe.d/blacklist-framebuffer and comment out "blacklist vesafb"
+	#blacklist vesafb
+
+nano /etc/initramfs-tools/modules and add 
+	fbcon
+	vesafb
+
+update-initramfs -u
+
+exit
+sudo umount /media/disk/dev
+}}}
+
+   Now you can a) reinstall the drive back into the AppleTV or b) install the drive into a 2.5 to USB drive adapter. Power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper left corner). After that you linux install should boot. If you are using a USB drive converter, you might have to use the IR remote and press "menu" and "-" buttons down during power on to force a USB recovery boot.
+
+* Running Ubuntu Gutsy
+
+   There are a few things to complete the install once you have Ubuntu running. First open the Update Manager and take all the updates then reboot. 
+   
+   Fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This is working for 169.xx nvidia driver series and might also work with the installed 100.14.19 version.
+{{{
+#------------------------------------------------
+# from a terminal window, enable coolbits so we can change the nvidia gpu clock
+nvidia-xconfig --cool-bits=1 --no-composite --no-logo
+
+# really enable nvidia gpu to be underclocked, the AppleTV is a 7300 mobile chipset
+# normally mobile chipsets are not allowed to have clock changes so we have to do
+# some nvidia voodoo commands. I've seen two places to add this,
+#  a) /etc/modprobe.d/nvidia-kernel-nkc
+#  b) /etc/modprobe.d/options
+#
+# both locations seem to work for me.
+#
+sudo nano /etc/modprobe.d/nvidia-kernel-nkc
+options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
+
+# nvidia-settings is used to actually change the gpu clock but,
+# we want it to always be applied after the startup of X11. We create an 
+# autostart entry for the username that was setup during the install. 
+# I'm using "user" here, you should replace "user" with your username.
+#
+sudo nano /home/user/.config/autostart/nvidia_fixes.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=nvidia xvmc hang fixup
+Comment=fixes nvidia problems with xvmc decode
+Exec=/usr/sbin/nvidia_hang_fix.sh
+StartupNotify=false
+Terminal=false
+Hidden=false
+
+# now create the actual script
+sudo nano /usr/sbin/nvidia_hang_fix.sh
+#!/bin/bash
+nvidia-settings -a GPUOverclockingState=1
+nvidia-settings -a GPU2DClockFreqs=200,800
+
+# change the file permission so it can execute
+sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
+
+# when X11 is up on the next reboot, you can verify the gpu clock change
+# by doing the following in a terminal window and look for "GPU2DClockFreqs". 
+# You should see 200 for gpu and 800 for vram and NOT 360 for gpu and 720 for vram.
+#
+sudo nvidia-settings -q all
+}}}
+
+   Patch the Realtek audio module to correctly identify the AppleTV and enable analog (rca) output. This involves patching the existing linux-ubuntu-modules-2.6.22-2.6.22 install, so remember that if you allows this to be updated in the future, you will have to reapply this patch. Thanks to Jason (SredniV in the MythBuntu forums) for figuring out the deb part.
+{{{
+# move to the standard location for kernel source
+cd /usr/src
+# get the source code for the current ubuntu modules
+sudo apt-get source linux-ubuntu-modules-2.6.22-14-generic
+cd /usr/src/linux-ubuntu-modules-2.6.22-2.6.22/ubuntu/media/snd-hda-intel
+
+# patch patch_realtek.c
+# download the patch
+sudo wget http://atv-bootloader.googlecode.com/files/atv-realtek-rca-audio-2.6.22-14-generic.patch
+# first, check the patch for errors
+sudo patch --dry-run < atv-realtek-rca-audio-2.6.22-14-generic.patch
+# if no errors then apply the patch
+sudo patch < atv-realtek-rca-audio-2.6.22-14-generic.patch
+
+# back to the level of the module deb source
+cd ../../..
+
+# rebuilt the modules
+sudo fakeroot debian/rules binary-arch arch=i386 flavours="generic"
+
+# the build will end with the following error, that's ok
+dpkg-deb: --extract needs a target directory.
+Perhaps you should be using dpkg --install ?
+make: *** [binary-udebs] Error 2
+
+# up one more level to where the deb is placed 
+cd ..
+sudo dpkg --install linux-ubuntu-modules-2.6.22-14-generic_2.6.22-14.37_i386.deb
+
+# the change takes effect on the next reboot
+}}}
+
+   The AppleTV efi firmware and boot.efi are picky about the master boot record (MBR). While the AppleTV will eventually boot atv-bootloader with a "wrong" MBR, it might take 30-60 seconds before it tries. We fix this by replacing the MBR with one that was correctly created for Apple EFI boot. 
+{{{
+#------------------------------------------------
+# fix up the MBR to make efi firmware happy and get quick boots
+# remember to pick the correct device selection with dd.
+wget http://atv-bootloader.googlecode.com/files/mbr_fast-1.0.bin
+sudo dd if=mbr_fast-1.0.bin of=/dev/sda bs=512 count=1
+}}}
+
+   Ok, that was not too hard, reboot to pickup the changes.
+{{{
+#------------------------------------------------
+# pickup all the changes
+sudo reboot
+}}}
