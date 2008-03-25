@@ -70,7 +70,7 @@ sudo umount /media/disk/dev
 
    There are a few things to complete the install once you have MythBuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
 
-   Fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This step includes upgrading to the nvidia 169.12 driver. The upgrade step assumes that the 100.14.19 (default) is installed as it helps having a working xorg.conf.
+   Fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This step includes upgrading to the nvidia 169.12 driver. The upgrade step assumes that the 100.14.19 (default) is installed as it helps having a working xorg.conf. *WARNING, the nvidia upgrade method is under construction at the current time*
 {{{
 #------------------------------------------------
 # I do this from a remote ssh login, you really have to do this as you need
