@@ -74,13 +74,14 @@ load_linux(unsigned int args)
 	vmode.height = mach_bp->video.height;
 	vmode.xmargin = 0;
 	// clear the screen
+	//sleep(10);
 	memset((char*)mach_bp->video.addr, 0x00, vmode.width * vmode.height * 4);
 	//
 	VIDEO_CURSOR_POSX = 0;
 	VIDEO_CURSOR_POSY = 0;
 	VIDEO_ATTR = 0xffc8c8c8;
 	//
-	printk("ATV: ATV_BootLoader (http://code.google.com/p/atv-bootloader)\n");
+	printk("ATV: ATV_BootLoader v0.5 (http://code.google.com/p/atv-bootloader)\n");
 	printk("ATV: Copyright (C) 2008 ATV Bootloader Team - Licensed under the GPL v2\n");
 	printk("ATV: FB Start 0x%08X, with %d height %d rowb %d depth %d\n", 
 		mach_bp->video.addr, 
@@ -90,7 +91,7 @@ load_linux(unsigned int args)
 		mach_bp->video.depth);
 
 	// find the kernel and load it in the proper location
-	kernel_ptr = (unsigned char*)getsectdatafromheader(&_mh_execute_header, "__VMLINUZ", "__vmlinuz", &kernel_len);
+	kernel_ptr = (unsigned char*)getsectdatafromheader(&_mh_execute_header, "__TEXT", "__vmlinuz", &kernel_len);
 	//printk("ATV: kernel_ptr = 0x%08X, kernel_len = 0x%08X\n", kernel_ptr, kernel_len);
 	// kernel integrity check
 	if (kernel_ptr[0x1FE] != 0x55 || kernel_ptr[0x1FF] != 0xAA) {
@@ -108,7 +109,7 @@ load_linux(unsigned int args)
 	memcpy(kernel_start, &kernel_ptr[ (kernel_ptr[0x1F1] + 1) * 512 ], kernel_size);
 
 	// find possible initrd, start_kernel will handle loading into a proper location)
-	initrd_ptr   = (unsigned char*)getsectdatafromheader(&_mh_execute_header, "__INITRD", "__initrd", &initrd_len);
+	initrd_ptr   = (unsigned char*)getsectdatafromheader(&_mh_execute_header, "__TEXT", "__initrd", &initrd_len);
 	//printk("ATV: initrd_ptr = 0x%08X, initrd_len = 0x%08X\n", initrd_ptr, initrd_len);
 	initrd_start = initrd_ptr;
 	initrd_size  = initrd_len;
