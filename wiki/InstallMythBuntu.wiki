@@ -145,7 +145,7 @@ sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
 sudo nvidia-settings -q all
 }}}
 
-   Patch the Realtek audio module to correctly identify the AppleTV and enable analog (rca) output. This involves patching the existing linux-ubuntu-modules-2.6.22-2.6.22 install, so remember that if you allows this to be updated in the future, you will have to reapply this patch. Thanks to Jason (SredniV in the [http://www.mythbuntu.org/ MythBuntu] forums) for figuring out the deb part.
+   Patch the Realtek audio module to correctly identify the AppleTV and enable analog (rca) output. This involves patching the existing linux-ubuntu-modules-2.6.22-2.6.22 install, so remember that if you allows this to be updated in the future, you will have to reapply this patch. Thanks to Jason (SredniV in the [http://ubuntuforums.org/showthread.php?t=720676&page=3 MythBuntu forums]) for figuring out the deb part.
 {{{
 # move to the standard location for kernel source
 cd /usr/src
