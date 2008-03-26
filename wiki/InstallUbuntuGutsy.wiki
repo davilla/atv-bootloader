@@ -45,22 +45,44 @@ sudo chroot /media/disk
 df to make sure you are in the correct root filesystem
 "/" should be mounted on /dev/sda4
 
+#------------------------------------------------
 #install ssh
-#sudo apt-get install openssh-server
+sudo apt-get install openssh-server
 
-sudo apt-get install nvidia-glx-new
-sudo nvidia-glx-config enable
-sudo nvidia-xconfig --cool-bits=1 --no-composite --no-logo
-
-nano /etc/modprobe.d/blacklist-framebuffer and comment out "blacklist vesafb"
+#------------------------------------------------
+# enable vesafb console support
+sudo nano /etc/modprobe.d/blacklist-framebuffer and comment out "blacklist vesafb"
 	#blacklist vesafb
 
-nano /etc/initramfs-tools/modules and add 
+sudo nano /etc/initramfs-tools/modules and add 
 	fbcon
 	vesafb
 
-update-initramfs -u
+sudo update-initramfs -u
 
+#------------------------------------------------
+# get build tools for installing the nvidia binary driver
+#
+sudo apt-get install linux-headers-`uname -r` build-essential gcc gcc-3.4 xserver-xorg-dev
+
+# remove and purge the current nvidia driver (100.14.19)
+sudo apt-get --purge remove nvidia-glx nvidia-glx-new nvidia-settings nvidia-kernel-common
+
+# edit linux-restricted-modules-common and change
+# DISABLED_MODULES="" to DISABLED_MODULES="nv nvidia_new"
+sudo nano /etc/default/linux-restricted-modules-common
+
+# download the current nvidia binary
+wget http://us.download.nvidia.com/XFree86/Linux-x86/169.12/NVIDIA-Linux-x86-169.12-pkg1.run
+
+# run the nvidia installer, take the defaults (yes) and update the current xorg.conf (last step)
+sudo sh NVIDIA-Linux-x86-169.12-pkg1.run 
+
+# run the nvidia xconfig tool again to enable coolbits so we can change the nvidia gpu clock
+sudo nvidia-xconfig --cool-bits=1 --no-composite --no-logo
+
+
+# exit chroot
 exit
 sudo umount /media/disk/dev
 }}}
@@ -74,26 +96,19 @@ sudo umount /media/disk/dev
    Fix the nvidia binary driver so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. This is working for 169.xx nvidia driver series and might also work with the installed 100.14.19 version.
 {{{
 #------------------------------------------------
-# from a terminal window, enable coolbits so we can change the nvidia gpu clock
-nvidia-xconfig --cool-bits=1 --no-composite --no-logo
-
-# really enable nvidia gpu to be underclocked, the AppleTV is a 7300 mobile chipset
-# normally mobile chipsets are not allowed to have clock changes so we have to do
-# some nvidia voodoo commands. I've seen two places to add this,
-#  a) /etc/modprobe.d/nvidia-kernel-nkc
-#  b) /etc/modprobe.d/options
+# The AppleTV is a 7300 mobile chipset, normally mobile chipsets are not
+# allowed to have clock changes so we have to do some nvidia voodoo commands. 
+# add the following to /etc/modprobe.d/options
 #
-# both locations seem to work for me.
-#
-sudo nano /etc/modprobe.d/nvidia-kernel-nkc
+sudo nano /etc/modprobe.d/options
 options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 
 # nvidia-settings is used to actually change the gpu clock but,
 # we want it to always be applied after the startup of X11. We create an 
 # autostart entry for the username that was setup during the install. 
-# I'm using "user" here, you should replace "user" with your username.
+# I'm using "username" here, you should replace "username" with your username.
 #
-sudo nano /home/user/.config/autostart/nvidia_fixes.desktop
+sudo nano /home/username/.config/autostart/nvidia_fixes.desktop
 [Desktop Entry]
 Encoding=UTF-8
 Version=0.9.4
