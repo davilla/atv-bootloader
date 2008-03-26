@@ -77,14 +77,18 @@ sudo umount /media/disk/dev
 # to stop the X11 display driver or the nvidia install will not proceed.
 
 # get build tools  
-sudo apt-get install build-essential
+sudo apt-get install build-essential  gcc gcc-3.4 xserver-xorg-dev
 sudo apt-get install linux-headers-2.6.22-14-generic
 
 # stop X11, remember do this from a ssh session.
 sudo /etc/init.d/gdm stop
 
 # remove and purge the current nvidia driver (100.14.19)
-sudo apt-get remove --purge nvidia-glx-new
+sudo apt-get --purge remove nvidia-glx nvidia-glx-new nvidia-settings nvidia-kernel-common
+
+# edit linux-restricted-modules-common and change
+# DISABLED_MODULES="" to DISABLED_MODULES="nv nvidia_new"
+sudo nano /etc/default/linux-restricted-modules-common
 
 # download the current nvidia binary
 wget http://us.download.nvidia.com/XFree86/Linux-x86/169.12/NVIDIA-Linux-x86-169.12-pkg1.run
@@ -103,13 +107,8 @@ sudo /etc/init.d/gdm start
 #------------------------------------------------
 # The AppleTV is a 7300 mobile chipset, normally mobile chipsets are not
 # allowed to have clock changes so we have to do some nvidia voodoo commands. 
-# I've seen two places to add this,
-#  a) /etc/modprobe.d/nvidia-kernel-nkc
-#  b) /etc/modprobe.d/options
-#
-# both locations seem to work for me.
-#
-sudo nano /etc/modprobe.d/nvidia-kernel-nkc
+# add the following to /etc/modprobe.d/options
+sudo nano /etc/modprobe.d/options
 options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 
 # nvidia-settings is used to actually change the gpu clock but,
