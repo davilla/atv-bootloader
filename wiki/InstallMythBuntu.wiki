@@ -146,6 +146,9 @@ sudo nvidia-settings -q all
 
    Patch the Realtek audio module to correctly identify the AppleTV and enable analog (rca) output. This involves patching the existing linux-ubuntu-modules-2.6.22-2.6.22 install, so remember that if you allows this to be updated in the future, you will have to reapply this patch. Thanks to Jason (SredniV in the [http://ubuntuforums.org/showthread.php?t=720676&page=3 MythBuntu forums]) for figuring out the deb part.
 {{{
+# get some build tools
+sudo apt-get install fakeroot kernel-wedge
+
 # move to the standard location for kernel source
 cd /usr/src
 # get the source code for the current ubuntu modules
@@ -154,11 +157,11 @@ cd /usr/src/linux-ubuntu-modules-2.6.22-2.6.22/ubuntu/media/snd-hda-intel
 
 # patch patch_realtek.c
 # download the patch
-sudo wget http://atv-bootloader.googlecode.com/files/atv-realtek-rca-audio-2.6.22-14-generic.patch
+sudo wget http://atv-bootloader.googlecode.com/files/atv-realtek-rca-audio-r2-2.6.22-14-generic.patch
 # first, check the patch for errors
-sudo patch --dry-run < atv-realtek-rca-audio-2.6.22-14-generic.patch
+sudo patch --dry-run < atv-realtek-rca-audio-r2-2.6.22-14-generic.patch
 # if no errors then apply the patch
-sudo patch < atv-realtek-rca-audio-2.6.22-14-generic.patch
+sudo patch < atv-realtek-rca-audio-r2-2.6.22-14-generic.patch
 
 # back to the level of the module deb source
 cd ../../..
