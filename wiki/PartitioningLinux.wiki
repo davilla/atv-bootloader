@@ -160,7 +160,7 @@ svn checkout http://atv-bootloader.googlecode.com/svn/trunk/ atv-bootloader-read
 cd atv-bootloader-read-only
 
 # or just download
-wget http://atv-bootloader.googlecode.com/files/recovery-0.4.tar.gz
+wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
 
 sudo tar -xzf recovery-0.4.tar.gz
 sudo cp -arp recovery/* /media/OSBoot/
