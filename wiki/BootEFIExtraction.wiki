@@ -39,13 +39,13 @@ sudo mount -o loop -t hfsplus atv.img atv-update
 sudo cp -ap atv-update/System/Library/CoreServices/boot.efi ./
 
 # check that boot.efi looks ok
-ls -l boot,efi
+ls -l boot.efi
 # should see "-rw-r--r-- 1 root    root       298800 2007-06-19 00:47 boot.efi"
 }}}
 
 * cleanup (if you are not building a patchstick)
 {{{
-umount atv-update
+sudo umount atv-update
 rmdir atv-update
 rm atv.img
 rm 2Z694-5248-45.dmg
