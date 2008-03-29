@@ -40,5 +40,8 @@ make: *** [binary-udebs] Error 2
 cd ..
 sudo dpkg --install linux-ubuntu-modules-2.6.22-14-generic_2.6.22-14.37_i386.deb
 
-# the change takes effect on the next reboot
+# the change takes effect on the next reboot and you should see
+dmesg | grep hda_codec
+hda_codec: Detected AppleTV RealTek Subsystem ID
+
 }}}
