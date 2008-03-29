@@ -20,7 +20,7 @@ Ubuntu uses the "restricted linux modules" package to control the installation a
 
 # get build tools  
 sudo apt-get install build-essential gcc gcc-3.4 xserver-xorg-dev
-sudo apt-get install linux-headers-2.6.22-14-generic
+sudo apt-get install linux-headers-`uname -r`
 
 # stop X11, remember do this from a ssh session.
 sudo /etc/init.d/gdm stop
@@ -94,7 +94,8 @@ sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
 sudo nvidia-settings -q all
 }}}
 
-= TroubleShooting =
+
+= Problems =
 
 There have been some reports of some remaining bits of the "restricted linux modules" package preventing the loading of the 169.xx nvidia binary driver. The fix was to edit "/etc/modprobe.d/lrm-video" and comment out the loading of the packaged nvidia module by changing the original
 {{{
