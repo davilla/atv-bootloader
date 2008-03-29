@@ -12,7 +12,7 @@ The nvidia gpu needs to be under-clocked to prevent nvidia xvmc related hangs/vi
 
 Ubuntu uses the "restricted linux modules" package to control the installation and startup of nvidia binary driver. The 169.xx series drivers are not available in the repositories for Gutsy nor it seems will they be backported so a simple at-get update is not possible. So we need to manually disable nvidia hardware from the "restricted linux modules" package and install the most recent version. Some people use [http://www.albertomilone.com/nvidia_scripts1.html Envy] to automatically do this, I prefer the manual steps.
 
- Remove the installed nvidia driver and disable the use of the "restricted driver manager" to control nvidia hardware.
+ Remove the installed nvidia driver and disable the use of the "restricted linux modules" package to control nvidia hardware.
 {{{
 #------------------------------------------------
 # I do this from a remote ssh login, you really have to do this as you need
