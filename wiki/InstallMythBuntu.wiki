@@ -74,7 +74,7 @@ sudo umount /media/disk/dev
     * [UpdateNvidiaDriver Update nvidia driver]
     * [UpdateAudioDriver Update audio driver]
     * [UpdateIRDriver Update IR driver]
-    * [UpdateMBR Update MBR with gptsync]
+    * [UpdateMBR Update the boot disk MBR with gptsync]
   
 
    The AppleTV efi firmware and boot.efi are picky about the master boot record (MBR). While the AppleTV will eventually boot atv-bootloader with a "wrong" MBR, it might take 30-60 seconds before it tries. We fix this by replacing the MBR with one that was correctly created for Apple EFI boot. 
