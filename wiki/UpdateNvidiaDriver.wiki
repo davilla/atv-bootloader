@@ -2,11 +2,15 @@
 
 = Introduction =
 
-The nvidia binary driver needs to be updated to the 169.xx series so you do not get nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. The 169.xx series nvidia drivers enabled the ability to under-clock the nvidia chipset. This simple step took me months to resolve. This assumes that the nvidia binary driver is installed and is used for X11 display. The upgrade step assumes that the 100.14.19 (default) is installed as it helps having a working xorg.conf.
+There are two nvidia drivers used under Linux, the "nv" driver which comes from kernel sources and the "nvidia" driver which comes from nvidia. We need to use the "nvidia" driver to gain hardware decode acceleration support. The "nvidia" driver is not "open source" as it contains a binary blob of code. As such many Linux distributions place certain restrictions regarding the installation. Ubuntu (and MythBuntu) resolve this by using a "restricted driver manager" to control the installation. This seems to work fine unless the version of the nvidia driver one requires has not been updated or backported by the Ubuntu developers. This is the case here, so we need to do the update manually.
+
+= Why =
+
+The nvidia gpu needs to be under-clocked to prevent nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. This simple step took me months to resolve. The 100.14.xx series driver does not allow gpu clock changes to 7300 chipsets so we need to update to the 169.xx series driver. These instructions assume that the 100.14.19 (default) is installed as it helps having a working xorg.conf.
 
 = Details =
 
-Ubuntu uses a "restricted driver manager" to control the installation and startup of nvidia binary driver. The 169.xx series drivers are not available in the repositories nor it seems will they be backported so a simple at-get update is not possible. So we need to manually remove it and install the most recent version.
+Ubuntu uses a "restricted driver manager" to control the installation and startup of nvidia binary driver. The 169.xx series drivers are not available in the repositories for Gutsy nor it seems will they be backported so a simple at-get update is not possible. So we need to manually remove it and install the most recent version.
 
  Remove the installed nvidia driver and disable the use of the "restricted driver manager" to control nvidia hardware.
 {{{
@@ -43,7 +47,7 @@ sudo /etc/init.d/gdm start
 # run glxgears from a terminal window to check xvmc. I get about 2106.5 FPS
 }}}
 
-Now that a 169.xx series nvidia driver is installed, we need to under-clock it to prevent hangs/video corruption. The AppleTV uses a 7300 mobile chipset, normally mobile chipsets are not allowed to have clock changes so we have to do some nvidia voodoo commands to alter this behavior and we also want to have this fix automatically applied every X11 starts running.
+Now that a 169.xx series nvidia driver is installed, we need to under-clock it to prevent hangs/video corruption when doing xvmc decode. The AppleTV uses a 7300 mobile chipset, normally mobile chipsets are not allowed to have clock changes so we have to do some nvidia voodoo commands to alter this behavior and we also want to have this fix automatically applied every X11 starts running.
 
    Enabled gpu clock changes. The following forces the nvidia driver to treat the chipset as non-mobile and disabled "PowerMister" which provide dynamic clock changes depending on gpu load.
 {{{
