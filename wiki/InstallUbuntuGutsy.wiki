@@ -23,7 +23,7 @@ select "Manual"
 {{{
 if you see /dev/sda1 marked as /media/primary
 select /dev/sda1 and "edit"
-change "use as" to donotuse
+change "use as" to dontuse
 
 select /dev/sda4 and "edit"
 change "use as" to ext3
