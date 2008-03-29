@@ -2,7 +2,7 @@
 
 = Introduction =
 
-There are two nvidia drivers used under Linux, the "nv" driver which comes from kernel sources and the "nvidia" driver which comes from nvidia. We need to use the "nvidia" driver to gain hardware decode acceleration support. The "nvidia" driver is not "open source" as it contains a binary blob of code. As such many Linux distributions place certain restrictions regarding the installation. Ubuntu (and MythBuntu) resolve this by using a "restricted driver manager" to control the installation. This seems to work fine unless the version of the nvidia driver one requires has not been updated or backported by the Ubuntu developers. This is the case here, so we need to do the update manually.
+There are two nvidia drivers used under Linux, the "nv" driver which comes from kernel sources and the "nvidia" driver which comes from nvidia. We need to use the "nvidia" driver to gain hardware decode acceleration support. The "nvidia" driver is not "open source" as it contains a binary blob of code. As such many Linux distributions place certain restrictions regarding the installation. Ubuntu (and MythBuntu) resolve this by using a "restricted linux modules" package to control the installation. This seems to work fine unless the version of the nvidia driver one requires has not been updated or backported by the Ubuntu developers. This is the case here, so we need to do the update manually.
 
 = Why =
 
@@ -10,7 +10,7 @@ The nvidia gpu needs to be under-clocked to prevent nvidia xvmc related hangs/vi
 
 = Details =
 
-Ubuntu uses a "restricted driver manager" to control the installation and startup of nvidia binary driver. The 169.xx series drivers are not available in the repositories for Gutsy nor it seems will they be backported so a simple at-get update is not possible. So we need to manually remove it and install the most recent version.
+Ubuntu uses the "restricted linux modules" package to control the installation and startup of nvidia binary driver. The 169.xx series drivers are not available in the repositories for Gutsy nor it seems will they be backported so a simple at-get update is not possible. So we need to manually disable nvidia hardware from the "restricted linux modules" package and install the most recent version. Some people use [http://www.albertomilone.com/nvidia_scripts1.html Envy] to automatically do this, I prefer the manual steps.
 
  Remove the installed nvidia driver and disable the use of the "restricted driver manager" to control nvidia hardware.
 {{{
@@ -92,4 +92,23 @@ sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
 # You should see 200 for gpu and 800 for vram and NOT 360 for gpu and 720 for vram.
 #
 sudo nvidia-settings -q all
+}}}
+
+= TroubleShooting =
+
+There have been some reports of some remaining bits of the "restricted linux modules" package preventing the loading of the 169.xx nvidia binary driver. The fix was to edit "/etc/modprobe.d/lrm-video" and comment out the loading of the packaged nvidia module by changing the original
+{{{
+# Make nvidia/nvidia_legacy and fglrx use /sbin/lrm-video to load
+install fglrx /sbin/lrm-video fglrx $CMDLINE_OPTS
+install nvidia /sbin/lrm-video nvidia $CMDLINE_OPTS
+install nvidia_legacy /sbin/lrm-video nvidia_legacy $CMDLINE_OPTS
+install nvidia_new /sbin/lrm-video nvidia_new $CMDLINE_OPTS
+}}}
+to this
+{{{
+# Make nvidia/nvidia_legacy and fglrx use /sbin/lrm-video to load
+install fglrx /sbin/lrm-video fglrx $CMDLINE_OPTS
+#install nvidia /sbin/lrm-video nvidia $CMDLINE_OPTS
+#install nvidia_legacy /sbin/lrm-video nvidia_legacy $CMDLINE_OPTS
+#install nvidia_new /sbin/lrm-video nvidia_new $CMDLINE_OPTS
 }}}
