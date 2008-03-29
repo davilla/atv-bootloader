@@ -9,9 +9,10 @@ This assumes that you followed the partitioning instructions  [PartitioningLinux
 == Details ==
 
 * Install Ubuntu Gutsy
-   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap"
 
-   Click on install "Mythbuntu"
+   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap". It's ok to install grub, in fact we need the grub structure (menu.lst) to boot. We will replace the grub MBR with one that efi firmware likes so that the boot to the tux/atv logo drops form 30-60 seconds to 11. We do this later when the install is running on the AppleTV.
+
+   Click on the "Install" desktop icon
 
    Prepare disk space
 {{{
@@ -20,6 +21,10 @@ select "Manual"
 
    Prepare Partitions
 {{{
+if you see /dev/sda1 marked as /media/primary
+select /dev/sda1 and "edit"
+change "use as" to donotuse
+
 select /dev/sda4 and "edit"
 change "use as" to ext3
 change mount point to "/" (without quotes)
@@ -27,15 +32,6 @@ check the format check box.
 
 select /dev/sda5 and "edit"
 change "use as" to swap
-
-if you see /dev/sda1 marked as /media/primary
-select /dev/sda1 and "edit"
-change "use as" to donotuse
-
-It's ok to install grub, in fact we need the grub structure (menu.lst) to boot.
-we will replace the grub MBR with one that efi firmware likes
-so that the boot to the tux/atv logo drops form 30-60 seconds to 11.
-we do this later when the install is running native on the AppleTV.
 }}}
 
 * Fix console framebuffer support
