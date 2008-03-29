@@ -28,7 +28,11 @@ check the format check box.
 select /dev/sda5 and "edit"
 change "use as" to swap
 
-It's ok to install grub, we will need the grub structure (menu.lst) to boot.
+if you see /dev/sda1 marked as /media/primary
+select /dev/sda1 and "edit"
+change "use as" to donotuse
+
+It's ok to install grub, in fact we need the grub structure (menu.lst) to boot.
 we will replace the grub MBR with one that efi firmware likes
 so that the boot to the tux/atv logo drops form 30-60 seconds to 11.
 we do this later when the install is running native on the AppleTV.
