@@ -1,0 +1,128 @@
+= Update the IR driver =
+
+= Introduction =
+
+The Apple IR controller is a USB device similar to that of the MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module.
+
+= Details =
+
+There are two methods for fixing this, an older method which involves patching appleir.c and the preferred method which involves patching usbhid.c. While patching appleir.c is easier, I choose the preferred method as it moves IR control out of the kernel and into userspace. This update is in two parts, first patch/rebuild "drivers/hid/usbhid/usbhid.c", then patch/rebuild lirc.
+
+ Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.
+{{{
+sudo apt-get install  kernel-package libncurses-dev ncurses-dev  unzip
+sudo apt-get source linux-image-2.6.22-14-generic
+
+cd /usr/src/linux-source-2.6.22-2.6.22/drivers/hid/usbhid/
+
+sudo wget http://atv-bootloader.googlecode.com/files/atv-hid-quirks-enable-ir-r1-2.6.22-14-generic.patch
+
+# test the patch (this should complete without errors)
+sudo patch --dry-run < atv-hid-quirks-enable-ir-r1-2.6.22-14-generic.patch
+
+# apply the patch
+sudo patch  < atv-hid-quirks-enable-ir-r1-2.6.22-14-generic.patch
+
+# cd back to the root of linux source
+cd ../../../
+
+# copy the current kernel config into the kernel source tree
+sudo cp /boot/config-2.6.22-14-generic ./config
+sudo make oldconfig
+# this will take some time
+sudo make modules
+
+# copy the rebuild usbhid module into runtime location
+sudo cp drivers/hid/usbhid/usbhid.ko /lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/usbhid.ko
+
+# rebuild the initramfs
+sudo update-initramfs -u
+
+reboot
+
+# /dev/usb/hiddev0 should now be present
+}}}
+
+ Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for a apple hiddev device. This part will fix this and rebuild lirc.
+{{{
+# get the source and source dependencies
+sudo apt-get build-dep lirc
+apt-get source lirc
+
+cd lirc-0.8.2
+# get the lirc patch
+wget http://atv-bootloader.googlecode.com/files/lirc-0.8.2-macmini-repeat.patch
+# test the patch
+patch --dry-run -p1 < ../lirc-0.8.2-macmini-repeat.patch
+# apply the patch
+patch -p1 < ../lirc-0.8.2-macmini-repeat.patch
+
+# rebuild the lirc package
+sudo dpkg-buildpackage
+
+# install the package and choose Apple Mac Mini when asked
+sudo dpkg -i ../lirc*deb
+}}}
+
+ Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch.
+{{{
+sudo nano /etc/lirc/hardware.conf
+#replace DEVICE="" with
+#DEVICE="/dev/usb/hiddev0"
+
+#to build the appropriate /etc/lirc/lircd.conf with my remote's current codes:
+sudo /etc/init.d/lirc stop
+
+#use PLUS, MINUS, PREV, NEXT, MENU and PLAY for the button
+#names for the Apple remote and follow the instructions from irrecord
+sudo irrecord -H macmini -d /dev/usb/hiddev0 /etc/lirc/lircd.conf
+
+#nano ~/.mythtv/lircrc and append
+begin
+       prog = mythtv
+       button  = PLUS
+       config = Up
+       repeat = 1
+end
+
+begin
+       prog = mythtv
+       button  = MINUS
+       config = Down
+       repeat = 1
+end
+
+begin
+       prog = mythtv
+       button  = MENU
+       config = Escape
+       repeat = 1
+end
+
+begin
+       prog = mythtv
+       button  = PLAY
+       config = Space
+       repeat = 1
+end
+
+begin
+       prog = mythtv
+       button  = NEXT
+       config = Right
+       repeat = 1
+end
+
+begin
+       prog = mythtv
+       button  = PREV
+       config = Left
+       repeat = 1
+end
+
+# restart lirc
+sudo /etc/init.d/lirc stop
+
+# test your configuration by running the following app and pressing the IR buttons
+irw /dev/lircd
+}}}
