@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The Apple IR controller is a USB device similar to that of the MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module.
+The Apple IR controller is a USB device similar to that of the MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR interface on the AppleTVi is physcially able to recognize and distingusih all 6x256 codes, and no others. The sequences are all of the form 0x87EEXXYY, where XX picks out the set and YY is the code. 
 
 = Details =
 
