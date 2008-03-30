@@ -113,8 +113,8 @@ begin
     prog = mythtv
     button = PLUS
     config = Up
-    repeat = 1
-    delay = 1
+    repeat = 2
+    delay = 0
 end
 
 begin
@@ -122,8 +122,8 @@ begin
     prog = mythtv
     button = MINUS
     config = Down
-    repeat = 1
-    delay = 1
+    repeat = 2
+    delay = 0
 end
 
 begin
@@ -131,8 +131,8 @@ begin
     prog = mythtv
     button = MENU
     config = Escape
-    repeat = 1
-    delay = 1
+    repeat = 2
+    delay = 0
 end
 
 begin
@@ -140,8 +140,8 @@ begin
     prog = mythtv
     button = PLAY
     config = Space
-    repeat = 1
-    delay = 1
+    repeat = 2
+    delay = 0
 end
 
 begin
@@ -149,8 +149,8 @@ begin
     prog = mythtv
     button = NEXT
     config = Right
-    repeat = 1
-    delay = 1
+    repeat = 2
+    delay = 0
 end
 
 begin
@@ -158,8 +158,8 @@ begin
     prog = mythtv
     button = PREV
     config = Left
-    repeat = 1
-    delay = 1
+    repeat = 2
+    delay = 0
 end
 }}}
 
