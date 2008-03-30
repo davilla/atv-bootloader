@@ -2,14 +2,15 @@
 
 == Introduction ==
 
-This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ MythBuntu] from the LiveCD using a normal PC hardware platform. You can install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD, the instructions are the similar. 
+This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD using a normal PC hardware platform. You can install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD, the instructions are the similar. 
 
-A *warning* here, if you install [http://www.mythbuntu.org/ MythBuntu] and select mythfrontend only, it will expect an existing [http://www.mythtv.org/ MythTV] backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
+A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and select mythfrontend only, it will expect an existing [http://www.mythtv.org/ MythTV] backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
 
 == Details ==
 
 * Install Mythbuntu
-   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap"
+
+   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap". *WARNING, If you have existing attached hard drives and are installing from the LiveCD, the safest method is to physically disconnect those drives. It's very easy to overlook a setting in "Prepare Partitions" that can alter your existing grub settings.*
 
    Click on install "Mythbuntu"
 
@@ -28,13 +29,17 @@ check the format check box.
 select /dev/sda5 and "edit"
 change "use as" to swap
 
+if you see any other marked partitions
+select them and "edit"
+change "use as" to dontuse
+
 It's ok to install grub, we will need the grub structure (menu.lst) to boot.
 we will replace the grub MBR with one that efi firmware likes
 so that the boot to the tux/atv logo drops form 30-60 seconds to 11.
 we do this later when the install is running native on the AppleTV.
 }}}
 
-    Now follow the normal mythbuntu install but do no reboot yet and remember to 
+    Now follow the normal mythbuntu install but do not reboot yet and remember to 
 {{{
 select mac mini IR driver
 select nvidia-new driver
