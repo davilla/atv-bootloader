@@ -2,7 +2,7 @@
 
 = Introduction =
 
-There are two nvidia drivers used under Linux, the "nv" driver which comes from kernel sources and the "nvidia" driver which comes from nvidia. We need to use the "nvidia" driver to gain hardware decode acceleration support. The "nvidia" driver is not "open source" as it contains a binary blob of code. As such many Linux distributions place certain restrictions regarding the installation. Ubuntu (and MythBuntu) resolve this by using a "restricted linux modules" package to control the installation. This seems to work fine unless the version of the nvidia driver one requires has not been updated or backported by the Ubuntu developers. This is the case here, so we need to do the update manually.
+There are two nvidia drivers used under Linux, the "nv" driver which comes from kernel sources and the "nvidia" driver which comes from nvidia. We need to use the "nvidia" driver to gain hardware decode acceleration support. The "nvidia" driver is not "open source" as it contains a binary blob of code. As such many Linux distributions place certain restrictions regarding the installation. Ubuntu (and Mythbuntu) resolve this by using a "restricted linux modules" package to control the installation. This seems to work fine unless the version of the nvidia driver one requires has not been updated or backported by the Ubuntu developers. This is the case here, so we need to do the update manually.
 
 = Why =
 
