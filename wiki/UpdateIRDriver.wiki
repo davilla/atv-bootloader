@@ -15,13 +15,13 @@ sudo apt-get source linux-image-2.6.22-14-generic
 
 cd /usr/src/linux-source-2.6.22-2.6.22/drivers/hid/usbhid/
 
-sudo wget http://atv-bootloader.googlecode.com/files/atv-hid-quirks-enable-ir-r1-2.6.22-14-generic.patch
+sudo wget http://atv-bootloader.googlecode.com/files/atv-hid-quirks-enable-ir-r2-2.6.22-14-generic.patch
 
 # test the patch (this should complete without errors)
-sudo patch --dry-run < atv-hid-quirks-enable-ir-r1-2.6.22-14-generic.patch
+sudo patch --dry-run < atv-hid-quirks-enable-ir-r2-2.6.22-14-generic.patch
 
 # apply the patch
-sudo patch  < atv-hid-quirks-enable-ir-r1-2.6.22-14-generic.patch
+sudo patch  < atv-hid-quirks-enable-ir-r2-2.6.22-14-generic.patch
 
 # cd back to the root of linux source
 cd ../../../
