@@ -169,7 +169,7 @@ end
  Restart lirc and test
 {{{
 # restart lirc
-sudo /etc/init.d/lirc stop
+sudo /etc/init.d/lirc restart
 
 # test your configuration by running the following app and pressing the IR buttons
 irw /dev/lircd
