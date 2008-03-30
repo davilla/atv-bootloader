@@ -64,62 +64,107 @@ sudo dpkg-buildpackage
 sudo dpkg -i ../lirc*deb
 }}}
 
- Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch.
+ Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch. Remember lircd.conf assigns symbols to the signals from the remote, and ~/.lircrc associates those symbols to actions in programs
 {{{
+sudo /etc/init.d/lirc stop
+
 sudo nano /etc/lirc/hardware.conf
 #replace DEVICE="" with
 #DEVICE="/dev/usb/hiddev0"
+}}}
 
-#to build the appropriate /etc/lirc/lircd.conf with my remote's current codes:
-sudo /etc/init.d/lirc stop
-
+ You can generate an lircd.conf from scratch
+{{{
 #use PLUS, MINUS, PREV, NEXT, MENU and PLAY for the button
 #names for the Apple remote and follow the instructions from irrecord
 sudo irrecord -H macmini -d /dev/usb/hiddev0 /etc/lirc/lircd.conf
+}}}
 
+ Or use this one, but watch out, the AppleIR "pre_data" is different when the remote is paired with the AppleTV so you might have to change "pre_data" to match your Apple IR remote.
+{{{
+begin remote
+  name  Apple_IR
+  bits            8
+  eps            30
+  aeps          100
+
+  one             0     0
+  zero            0     0
+  pre_data_bits   24
+  pre_data       0x87EE4A
+  gap          211995
+
+      begin codes
+          PREV                     0x09
+          NEXT                     0x06
+          PLUS                     0x0A
+          MINUS                    0x0C
+          PLAY                     0x05
+          MENU                     0x03
+      end codes
+end remote
+}}}
+
+ Append this to your ~/.mythtv/lircrc
+{{{
 #nano ~/.mythtv/lircrc and append
 begin
-       prog = mythtv
-       button  = PLUS
-       config = Up
-       repeat = 1
+    remote = Apple_IR
+    prog = mythtv
+    button = PLUS
+    config = Up
+    repeat = 1
+    delay = 1
 end
 
 begin
-       prog = mythtv
-       button  = MINUS
-       config = Down
-       repeat = 1
+    remote = Apple_IR
+    prog = mythtv
+    button = MINUS
+    config = Down
+    repeat = 1
+    delay = 1
 end
 
 begin
-       prog = mythtv
-       button  = MENU
-       config = Escape
-       repeat = 1
+    remote = Apple_IR
+    prog = mythtv
+    button = MENU
+    config = Escape
+    repeat = 1
+    delay = 1
 end
 
 begin
-       prog = mythtv
-       button  = PLAY
-       config = Space
-       repeat = 1
+    remote = Apple_IR
+    prog = mythtv
+    button = PLAY
+    config = Space
+    repeat = 1
+    delay = 1
 end
 
 begin
-       prog = mythtv
-       button  = NEXT
-       config = Right
-       repeat = 1
+    remote = Apple_IR
+    prog = mythtv
+    button = NEXT
+    config = Right
+    repeat = 1
+    delay = 1
 end
 
 begin
-       prog = mythtv
-       button  = PREV
-       config = Left
-       repeat = 1
+    remote = Apple_IR
+    prog = mythtv
+    button = PREV
+    config = Left
+    repeat = 1
+    delay = 1
 end
+}}}
 
+ Restart lirc and test
+{{{
 # restart lirc
 sudo /etc/init.d/lirc stop
 
