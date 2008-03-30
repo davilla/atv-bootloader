@@ -21,6 +21,8 @@ Creating the proper disk format and partitions is critical for booting Linux on 
 *WARNING*
 If you are installing to the original AppleTV internal drive, you should backup the original hard drive. See the linux section of [http://wiki.awkwardtv.org/wiki/Backup_your_original_Hard_Drive Backup_your_original_Hard_Drive] and search for backup in [http://wiki.awkwardtv.org/wiki/Linux_on_Apple_TV Linux_on_Apple_TV] for details on backing up the original hard drive. It is possible to restore from the AppleTV 1.1 update but it's tricky. It's better to have the backup. A backup will take approximately 3GB to 40GB of space depending if the backup is compressed and you only really need to backup the original recovery partition.
 
+*WARNING*
+It's very easy to get confused and partition the wrong drive. Yes, I've done it too. So if you are booted from the LiveCD and have an existing install on another hard drive, the safest method is to physically disconnect this hard drive until the partitioning and installation process is complete.
 
 == Details ==
 
