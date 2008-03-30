@@ -44,7 +44,7 @@ select and configure the display settings for your monitor
 * Fix console framebuffer support
    Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV.
 
-   Unmount any USB drive partitions and then unplug/replug USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
+   Unmount any USB drive partitions and then unplug/replug the USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
 {{{
 sudo mount --bind /dev /media/disk/dev
 sudo chroot /media/disk
@@ -68,7 +68,7 @@ sudo umount /media/disk/dev
 
 * Running Mythbuntu
 
-   There are a few things to complete the install once you have MythBuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
+   There are a few things to complete the install once you have Mythbuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document). 
 
    Several additional items need to be updated/patched for supporting AppleTV hardware. The following are on separate pages as the procedures are similar for other debian based distributions.
     * [UpdateNvidiaDriver Update nvidia driver]
@@ -82,3 +82,7 @@ sudo umount /media/disk/dev
 # pickup all the changes
 sudo reboot
 }}}
+
+* Updating Mythbuntu
+
+   A few things to watch out for. If you take an update that changes the kernel or kernel modules, then you will have to redo the nvidia binary driver install and patch/rebuild the audio driver and IR driver. Because of this, you should disable kernel updates. 
