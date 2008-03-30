@@ -12,6 +12,9 @@ This assumes that you followed the partitioning instructions  [PartitioningLinux
 
    This assumes /dev/sda4 is "/" and /dev/sda5 is "swap". It's ok to install grub, in fact we need the grub structure (menu.lst) to boot. We will replace the grub MBR with one that efi firmware likes so that the boot to the tux/atv logo drops form 30-60 seconds to 11. We do this later when the install is running on the AppleTV.
 
+*WARNING*
+   If you have existing attached hard drives and are installing from the LiveCD, the safest method is to physically disconnect those drives. It's very easy to overlook a setting in Prepare Partitions that can alter your existing grub settings.
+
    Click on the "Install" desktop icon
 
    Prepare disk space
@@ -21,10 +24,6 @@ select "Manual"
 
    Prepare Partitions
 {{{
-if you see /dev/sda1 marked as /media/primary
-select /dev/sda1 and "edit"
-change "use as" to dontuse
-
 select /dev/sda4 and "edit"
 change "use as" to ext3
 change mount point to "/" (without quotes)
@@ -32,6 +31,10 @@ check the format check box.
 
 select /dev/sda5 and "edit"
 change "use as" to swap
+
+if you see any other marked partitions
+select them and "edit"
+change "use as" to dontuse
 }}}
 
 * Fix console framebuffer support
