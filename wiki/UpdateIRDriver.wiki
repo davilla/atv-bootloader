@@ -45,6 +45,9 @@ reboot
 
  Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for an apple hiddev device. This part will fix this and rebuild lirc.
 {{{
+# install lirc
+sudo apt-get install lirc
+
 # get the source and source dependencies
 sudo apt-get build-dep lirc
 apt-get source lirc
