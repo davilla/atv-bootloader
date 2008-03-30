@@ -76,7 +76,7 @@ sudo nano /etc/lirc/hardware.conf
 #DEVICE="/dev/usb/hiddev0"
 }}}
 
- You can generate an lircd.conf from scratch
+ You can generate an /etc/lirc/lircd.conf from scratch
 {{{
 #use PLUS, MINUS, PREV, NEXT, MENU and PLAY for the button
 #names for the Apple remote and follow the instructions from irrecord
