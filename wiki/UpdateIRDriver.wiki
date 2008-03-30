@@ -48,10 +48,10 @@ reboot
 # get the source and source dependencies
 sudo apt-get build-dep lirc
 apt-get source lirc
-
-cd lirc-0.8.2
 # get the lirc patch
 wget http://atv-bootloader.googlecode.com/files/lirc-0.8.2-macmini-repeat.patch
+
+cd lirc-0.8.2
 # test the patch
 patch --dry-run -p1 < ../lirc-0.8.2-macmini-repeat.patch
 # apply the patch
