@@ -59,7 +59,7 @@ sudo nano /etc/modprobe.d/options
 options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 }}}
 
-   Create an autostart entry for X11. This is used to automatically apply our clock changes when X11 starts running. Clock changes using "nvidia-settings" are not saved and restored on restart so we have to do this manually. MythBuntu uses"/home/username/.config/autostart/" as the path to autostart apps. If you are running a different debian distribution then you will need to figure out where to place these additions.
+   Create an autostart entry for X11. This is used to automatically apply our clock changes when X11 starts running. Clock changes using "nvidia-settings" are not saved and restored on restart so we have to do this manually. Ubuntu and MythBuntu uses "/home/username/.config/autostart/" as the path to autostart apps. If you are running a different debian distribution then you will need to figure out where to place these additions.
 {{{
 # nvidia-settings is used to actually change the gpu clock but,
 # we want it to always be applied after the startup of X11. Create an 
