@@ -45,7 +45,7 @@ reboot
 
  Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for an apple hiddev device. This part will fix this and rebuild lirc.
 {{{
-# install lirc
+# install lirc package and choose Apple Mac Mini if asked
 sudo apt-get install lirc
 
 # get the source and source dependencies
@@ -63,7 +63,7 @@ patch -p1 < ../lirc-0.8.2-macmini-repeat.patch
 # rebuild the lirc package
 sudo dpkg-buildpackage
 
-# install the package and choose Apple Mac Mini when asked
+# install the package and choose Apple Mac Mini if asked
 sudo dpkg -i ../lirc*deb
 }}}
 
