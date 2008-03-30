@@ -1,7 +1,5 @@
 = Install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] =
 
-= *WARNING UNDER CONSTRUCTION* =
-
 == Introduction ==
 
 This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD using a normal PC hardware platform.
