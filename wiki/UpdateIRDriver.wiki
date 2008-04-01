@@ -2,7 +2,7 @@
 
 = Introduction =
 
-The Apple IR controller is a USB device similar to that of the !MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR interface on the AppleTVi is physcially able to recognize and distingusih all 6x256 codes, and no others. The sequences are all of the form 0x87EEXXYY, where XX picks out the set and YY is the code. This info comes from the [http://www.hifi-remote.com/forums/viewtopic.php?p=59792#59792 JP1 project]
+The Apple IR controller is a USB device similar to that of the !MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR interface on the AppleTVi is physcially able to recognize and distingusih all 6x256 codes, and no others. The sequences are all of the form 0x87EEXXYY, where XX picks out the set and YY is the code. This info comes from the [http://www.hifi-remote.com/forums/viewtopic.php?p=59792#59792 JP1 remote project]
 
 For a raw analysis of the [http://www.barchard.net/files/apple_ir_remote_analysis.html Apple IR remote protocol]. And [http://cweiske.de/tagebuch/Getting%20Apple%20Remote,%20Macbook%20and%20LIRC%20work%20together.htm web page] that mentions handling the repeat in a different method (I do not think this is relevant anymore due to the lirc repeat patch).
 
