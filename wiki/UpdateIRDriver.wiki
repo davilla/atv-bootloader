@@ -137,7 +137,7 @@ begin remote
 end remote
 }}}
 
- Append this to your ~/.mythtv/lircrc
+ Append this to your ~/.mythtv/lircrc or use  [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz Ben's python script]
 {{{
 #nano ~/.mythtv/lircrc and append
 begin
