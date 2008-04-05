@@ -1,0 +1,11 @@
+= MPlayer on the AppleTV =
+
+MPlayer is the de-facto standard for video content playback. It support numerous rendering and decode options.can be used for testing various SD and HD content playback on the AppleTV. I test using the standard installed MPlayer under Ubuntu, sometimes I pull from svn and build from source as H.264 decode/render is a moving target right now.
+
+MPlayer has no problems with SD content. That's 480i/p mepg2 or 480i/p mpeg4/H.264 content. It can play back using GL, Xv or XvMC (mpeg2 only).
+
+Mplayer has no problems with mepg2 HD content using Xv or XvMC. 1080i using Xv can put the cpu usage very close to max so I suggest using XvMC for 1080i mepg2 HD content. GL rendering is not possible.
+
+MPlayer has no problems with 720p mpeg4/H.264 HD content using Xv. Some very high bitrate content will require use of the "-lavdopts fast:skiploopfilter=all" option. GL rendering is lower bitrate content is possible but it's best to stick with Xv.
+
+MPlayer cannot play 1080p mpeg4/H.264 HD content even with "-lavdopts fast:skiploopfilter=all" option. As 1080p mpeg4/H.264 HD content is extremely cpu intensive, this is no surprise.
