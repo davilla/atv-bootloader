@@ -6,7 +6,7 @@ The Apple IR controller is a USB device similar to that of the !MacMini but the 
 
 For a raw analysis of the [http://www.barchard.net/files/apple_ir_remote_analysis.html Apple IR remote protocol]. And [http://cweiske.de/tagebuch/Getting%20Apple%20Remote,%20Macbook%20and%20LIRC%20work%20together.htm web page] that mentions handling the repeat in a different method (I do not think this is relevant anymore due to the lirc repeat patch).
 
-Contributed by [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz Ben Firshman], here's an alternate to using "~/.mythtv/lircrc". This is a python script that enables greater functionality using the Apple IR Remote. It completely replaces using lircrc for control of a MythFrontEnd so make sure "~/.mythtv/lircrc" is removed before installing. Thanks Ben.
+Contributed by Ben Firshman, [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz here's an alternate] to using "~/.mythtv/lircrc". This is a python script that enables greater functionality using the Apple IR Remote. It completely replaces using lircrc for control of a MythFrontEnd so make sure "~/.mythtv/lircrc" is removed before installing. Thanks Ben.
 
 = Details =
 
