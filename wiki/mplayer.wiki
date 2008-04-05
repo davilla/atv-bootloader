@@ -1,6 +1,6 @@
 = MPlayer on the AppleTV =
 
-MPlayer is the de-facto standard for video content playback. It support numerous rendering and decode options.can be used for testing various SD and HD content playback on the AppleTV. I test using the standard installed MPlayer under Ubuntu, sometimes I pull from svn and build from source as H.264 decode/render is a moving target right now.
+MPlayer is the de-facto standard for video content playback on Linux. It support numerous rendering and decode options and as such can be used for testing various SD and HD content playback on the AppleTV. I test using the standard installed MPlayer under Ubuntu, sometimes I pull from svn and build from source as H.264 decode/render is a moving target right now.
 
 MPlayer has no problems with SD content. That's 480i/p mepg2 or 480i/p mpeg4/H.264 content. It can play back using GL, Xv or XvMC (mpeg2 only).
 
