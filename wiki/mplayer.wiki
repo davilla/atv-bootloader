@@ -9,3 +9,5 @@ Mplayer has no problems with mpeg2 HD content using Xv or XvMC. 1080i using Xv c
 MPlayer has no problems with 720p mpeg4/H.264 HD content using Xv. Some very high bitrate content will require use of the "-lavdopts fast:skiploopfilter=all" option. GL rendering is lower bitrate content is possible but it's best to stick with Xv.
 
 MPlayer cannot play 1080p mpeg4/H.264 HD content even with "-lavdopts fast:skiploopfilter=all" option. As 1080p mpeg4/H.264 HD content is extremely cpu intensive, this is no surprise.
+
+MPlayer, with [http://urandom.ca/mebox/downloads.php this overlay patch], supports an externally rendered overlay (vf_overlay) with minimal cpu overhead. This means that one could develop a simple application that handles navigation, EPG and OSD while using MPlayer to decode and render SD and HD content. Development versions of [http://smplayer.sourceforge.net/ SMPlayer] and [http://freevo.sourceforge.net/ Freevo] seem to be using this feature.
