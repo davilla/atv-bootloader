@@ -12,7 +12,7 @@ Video Content
 Video Output
   The AppleTV has both component (analog) and HDMI (digital) output. Both outputs are capable of good video quality. For most people the video output choice is more dependend on their video display device. I use several display monitors depending on where my AppleTV is located as it moves around over time. 
 
-  a) 4:3 ratio 1024 x 768 LCD via a HDMI -> DVI adapter. This is ok but suffers from a beat pattern between the displayed content and the LCD retrace frequency. So decoded content looks good but every few seconds, fast moving objects get a wavy edge to them. This is not a de-interlace problem but a artifact of running the content display at one frequency and the actual display at another. Lesson here is always have the video output device define the retrace frequency rather than pick some odd ball retrace frequency. Since most video content is 24, 30 or 60 frames per second, you really want something like 60 (really 59.99) frames per second.  This way you get nice up and down frequency conversions without funny beat patterns.
+  a) 4:3 ratio 1024 x 768 LCD via a HDMI -> DVI adapter. This is ok but suffers from a beat pattern between the displayed content and the LCD retrace frequency. So decoded content looks good but every few seconds, fast moving objects get a wavy edge to them. This is not a de-interlace problem but a artifact of running the content display at one frequency and the actual display at another. Lesson here is always have the video output device define the retrace frequency rather than pick some odd ball retrace frequency. Since most video content is 24, 30 or 60 frames per second, you really want something like 60 (really 59.99) frames per second.  This way you get nice up and down frequency conversions without funny beat patterns. I could fix this issue for this display monitor but I really don't care. This monitor is only used for atv-bootloader development as it does not have an issue with overscan masking the command-line output.
 
   b) 4:3 ratio NTSC TV with 480i component inputs. This is a standard NTSC TV. This is in my "office", so when I'm doing AppleTV development, I use this as the video output monitor. I can even test HD content as this has the same decode cpu footprint as a real HDTV because the scaling from HD content (1080i or 720P) to NTSC (720 x 480) is done using the hardware scaler on the nvidia chipset. You want the display device (nvida chipset) to define the display output characteristics. The nvidia binary module supports HD480i, HD480p, HD720p, HD1080i and HD1080p as "TVStandard". For more selections, see the nvidia binary readme. Here's an xorg section for SD content over component. Change the "TVStandard" to a HD format for a HDTV using component.
 {{{
@@ -89,7 +89,5 @@ Section "Extensions"
     Option         "Composite" "Disable"
 EndSection
 }}}
-
-
 
 
