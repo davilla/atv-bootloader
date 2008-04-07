@@ -5,7 +5,7 @@ The quality of video playback is dependent on numerous factors. Quality of your 
 Video Content
   Obviously, poor video content is going to give poor video playback. There's no amount of filters or display tricks that will fix poor content. Compressed formats (mpeg2, mpeg4 and H.264) tend to be more sensitive to poor content as one can control the amount of compression the is applied during encoding. This is reflected in a quantity know as bit-rate. Generally larger bit-rates are less compressed than lower bit=rates. 
 
-  I capture from two sources. The first is for SD content and I use a PVR-150 via s-video to capture the video output from a Dish Network 311 receiver. I have two identical setups for this and use the IR blaster from the PVR-150 to change channels. First thing to note is Dish Network uses mpeg2 as a compression method for the 311 receiver. So even though I'm capturing from an analog s-video output, the SD content will have varying amounts of compression artifacts due to the nature of the original video source. Second, the PVR-150 converts the analog video to digital mpeg2 in hardware. So to get the best quality, the PVR-150 need to be setup to capture/convert at a high bit-rate. I use 9Mb/sec. Maybe a little excessive but that yields about 2.2GB per 1 hour recording. I can live with that since I have about 3TB of storage for captured video.
+  I capture from two sources. The first is for SD content and I use a PVR-150 via s-video to capture the video output from a Dish Network 311 receiver. I also use the IR blaster from the PVR-150 to change channels.  I have two identical setups for a "dual tuner" capture device under MythTV. First thing to note is Dish Network uses mpeg2 as a compression method for the 311 receiver. So even though I'm capturing from an analog s-video output, the SD content will have varying amounts of compression artifacts due to the nature of the original video source. Second, the PVR-150 converts the analog video to digital mpeg2 in hardware. So to get the best quality, the PVR-150 need to be setup to capture/convert at a high bit-rate. I use 9Mb/sec. Maybe a little excessive but that yields about 2.2GB per 1 hour recording. I can live with that since I have about 3TB of storage for captured video.
 
   The second source is a HDHomeRun connected to an external antenna for off-the-air ATSC HD content. This gives me two independent tuners for recording local channels in 480p, 720p and 1080i. Since it is capturing ATSC HD content, this means mpeg2 and I have no control over the compression as the local station/network controls this function. Generally any 720p or 1080i ATSC HD content will be good quality. The only factor that might cause problems is the reception. I'm about 50 miles away from the local stations so I use a big directional antenna to obtain good reception. 
 
@@ -89,5 +89,3 @@ Section "Extensions"
     Option         "Composite" "Disable"
 EndSection
 }}}
-
-
