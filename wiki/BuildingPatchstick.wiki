@@ -1,6 +1,51 @@
-= Introduction =
+= Build a basic Patchstick =
 
-placeholder for building a patchstick
+Here we continue creating a patchstick. Previously we extracted boot.efi and partitioned a USB pen drive with a recovery and second hfsplus partitions. This assumes that the recovery partition is mounted at "/media/Recovery" and the second partition is mounted at "/media/Patchstick".
+
+Download recovery.tar.gz and copy it to the recovery partition
+{{{
+# download recovery files
+wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
+
+sudo tar -xzf recovery-0.5.tar.gz
+sudo cp -arp recovery/* /media/Recovery/
+}}}
+
+Don't forget to copy boot.efi to the recovery partition
+{{{
+sudo cp -ap boot.efi /media/Recovery
+}}}
+
+Now make a simple patchstick script to test functionality. There is an existing sample patchstick.sh in recovery.tar.gz and we are just moving to the second partition where we will place all the other bits. You could just keep everything on the recovery partition (make it larger if you do this) but this keeps booting and patching separate.
+{{{
+mv /media/Recovery/patchstick.sh /media/Patchstick/
+}}}
+
+edit com.apple.Boot.plist and change the following line
+{{{
+<string>atv-boot=auto video=vesafb</string>
+}}}
+
+to
+{{{
+<string>atv-boot=patchstick video=vesafb</string>
+}}}
+
+Now sync and unmount both partitions 
+{{{
+sync
+umount /media/Recovery
+umount /media/Patchstick
+}}}
+
+Pull the USB pen drive and place into the USB port on the AppleTV and reboot/power on. You might have to use the IR remote and press "menu" and "-" buttons down during power on to force a USB recovery boot.
+
+You should see the tux/atv logo, then Linux kernel boot and then finally
+{{{
+this is a patchstick stript
+}}}
+
+If you have a USB keyboard attached, you can login (user=root password=root) and poke around. The USB pen drive will be at "/dev/sdb" and the internal ata drive is at "/dev/sda".
 
 
-= Details =
+To be Continued...
