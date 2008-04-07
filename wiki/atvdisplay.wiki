@@ -10,7 +10,7 @@ Video Content
   The second source is a HDHomeRun connected to an external antenna for off-the-air ATSC HD content. This gives me two independent tuners for recording local channels in 480p, 720p and 1080i. Since it is capturing ATSC HD content, this means mpeg2 and I have no control over the compression as the local station/network controls this function. Generally any 720p or 1080i ATSC HD content will be good quality. The only factor that might cause problems is the reception. I'm about 50 miles away from the local stations so I use a big directional antenna to obtain good reception. 
 
 Video Output
-  The AppleTV has both component (analog) and HDMI (digital) output. Both outputs are capable of good video quality. For most people the video output choice is more dependend on their video display device. I use a) standard 4:3 ratio LCD via a HDMI -> DVI adapter, b) 4:3 ratio NTSC TV with 480i component inputs and 
+  The AppleTV has both component (analog) and HDMI (digital) output. Both outputs are capable of good video quality. For most people the video output choice is more dependend on their video display device. I use several display monitors depending on where my AppleTV is located as it moves around over time. 
 
   a) 4:3 ratio 1024 x 768 LCD via a HDMI -> DVI adapter. This is ok but suffers from a beat pattern between the displayed content and the LCD retrace frequency. So decoded content looks good but every few seconds, fast moving objects get a wavy edge to them. This is not a de-interlace problem but a artifact of running the content display at one frequency and the actual display at another. Lesson here is always have the video output device define the retrace frequency rather than pick some odd ball retrace frequency. Since most video content is 24, 30 or 60 frames per second, you really want something like 60 (really 59.99) frames per second.  This way you get nice up and down frequency conversions without funny beat patterns.
 
@@ -89,8 +89,6 @@ Section "Extensions"
     Option         "Composite" "Disable"
 EndSection
 }}}
-
-
 
 
 
