@@ -1,8 +1,14 @@
 = AppleTV/Linux combo =
 
-This take a little setup but might be worth it for some users. Here we are going to put both the AppleTV OS and Linux on an internal ATA disk. To boot Linux, we use a small USB pen drive with just atv-bootloader installed. When booting from the USB pen drive, it will search for GRUBs menu.lst and find it on the Linux partition on the internal ATA drive and boot it. Pull the USB pen drive and reboot -- presto back to the AppleTV OS.
+This take a little setup but might be worth it for some users. I do not recommend this procedure for first time installation of Linux. Installing Linux to a external USB disk is easer and does not require the AppleTV to be opened. Once you open it, Apple can and will void the warrantee. 
 
-Just for kicks we are also going to move from the standard 40GB 4200 rpm drive to a 100GB 7200 rpm drive. For reference.
+With this procedure, we are going to put both the AppleTV OS and Linux on an internal ATA disk. To boot Linux, we use a small USB pen drive with just atv-bootloader installed. When atv-bootloader is loaded, it will search for GRUBs menu.lst and find it on the Linux partition on the internal ATA drive and boot it. Pull the USB pen drive and reboot -- presto back to the AppleTV OS.
+
+And just for kicks we are also going to move from the standard 40GB 4200 rpm drive to a 100GB 7200 rpm drive. This method requires a "Factory Restore" as the disk partition UUIDs will change and that confuses efi firmware. A "Factory Restore" is a recovery mode for the AppleTV where a disk image located on the recovery partition is reinstalled to OSBoot. *Any content on OSBoot and Media partition will be lost.* There might be other ways around this, feel free to investigate.
+
+So, a nutshell, we are going to create GPT partitions on the new disk that match the original disk. Add two more two partitions for Linux usage. Copy the contents of the original recovery partition to the new disk. Then install Linux. Boot to AppleTV OS and do the "Factory Restore" then update to the newer version. Boot to Linux and do the post install fixes. Remember that these instructions are a guide not a script to cut and paste. They will need to be altered (drive identifiers, sector counts, etc) to suite your particular setup. 
+
+For reference
 {{{
 "sdb" is the original AppleTV in a external USB enclosure
 "sdc" is the new 100GB in a external USB enclosure
@@ -24,7 +30,7 @@ Switch parted to sector display
 (parted) quit                                                         
 }}}
 
-You should see something similar but don't worry if the absolute sector numbers are diffferent.
+You should see something similar but don't worry if the absolute sector numbers are slightly diffferent.
 {{{
 Model: IC25N040 ATCS04-0 (scsi)
 Disk /dev/sdb: 78140160s
@@ -38,14 +44,16 @@ Number  Start     End        Size       File system  Name      Flags
  4      2732016s  77878015s  75146000s  hfs+         Media            
 }}}
 
-Now exit parted and gpt format the new disk
+Now exit parted and GPT format the new disk
 {{{
-# always zero starting section of the disk first
+# always zero the starting sectors of the disk first
 sudo dd if=/dev/zero of=/dev/sdc bs=4096 count=1M
+
+# create the GPT format
 sudo parted -s /dev/sdc mklabel gpt
 }}}
 
-Run parted on the new disk to find the exact number of sectors.
+Use parted on the new disk to find the exact number of sectors.
 {{{
 sudo parted /dev/sdc
 GNU Parted 1.8.8
@@ -61,7 +69,7 @@ Partition Table: gpt
 (parted) quit
 }}}
 
-This 100GB disk has 195371568 sectors but we can't use them all as GPT has a second partition table at the end that we do not want to overwrite. Subtract 97 from 195371568 gives 195371471 and that's our final end point. Create partitions on the new disk that match the AppleTV
+This 100GB disk has 195371568 sectors but we can't use them all as GPT has a second partition table at the end and we do not want to overwrite this secondary table. Subtract 97 from 195371568 gives 195371471 and that's our final end point. Create partitions on the new disk that match the AppleTV
 {{{
 # 1-EFI
 sudo parted -s /dev/sdc mkpart primary fat32 40s 69671s
@@ -87,24 +95,23 @@ sudo parted -s /dev/sdc mkpart primary ext3 77878016s 193323471s
 sudo parted -s /dev/sdc mkpart primary linux-swap 193323472s 195371471s
 }}}
 
-Format the partitions, note that we are using journaled hfsplus to match the original disk format. When you format Swap, a disk UUID wil be returned, remember this UUID for later.
+Format the partitions, note that we are using journaled hfsplus to match the original disk format. We let the Linux install deal with swap.
 {{{
 sudo mkfs.msdos -F 32 -n EFI /dev/sdb1
 sudo mkfs.hfsplus -J -v Recovery /dev/sdb2
 sudo mkfs.hfsplus -J -v OSBoot /dev/sdb3
 sudo mkfs.hfsplus -J -v Media /dev/sdb4
 sudo mkfs.ext3  -b 4096 -L Linux /dev/sdb5
-sudo mkswap /dev/sdb6
-Setting up swapspace version 1, size = 1048571 kB
-no label, UUID=6dd96702-c8cb-491f-99fe-f35594dcf47f
 }}}
 
-Setup for the clone by making two mount points called "src" and "dst". The source partition gets mounted at "src", the destination gets mounted at "dst" and the contents get copied over. Repeat for each AppleTV partition except EFI. One thing to note here about mounting journaled hfsplus file systems. Linux will not normally mount a journaled hfsplus for write access. This is because the kernel hfsplus module is not capable of replaying the journal if the disk was not unmounted cleanly. Bad things happen when you write to an journaled file system that is "dirty". But the "fsck.hfsplus" from the hfs tools we built earler can replay the journal and fix any issues and then we can then we can safely force the mount read/write.
+Setup for the clone by making two mount points called "src" and "dst". The source partition gets mounted at "src", the destination gets mounted at "dst" and the contents get copied over. Only copy the recovery partition as OSBoot and Media will be re-created during the "Factory Restore" process. 
+
+One thing to note here about mounting journaled hfsplus file systems. Linux will not normally mount a journaled hfsplus for write access. This is because the kernel hfsplus module is not capable of replaying the journal if the disk was not unmounted cleanly. Bad things will happen when you write to an journaled file system that is "dirty". But the "fsck.hfsplus" from the hfs tools we built earler can replay the journal and fix any issues and then we can then we can safely force the mount read/write.
 {{{
 # make sure the original AppleTV has a clean file system
-fsck.hfsplus /dev/sdb2
-fsck.hfsplus /dev/sdb3
-fsck.hfsplus /dev/sdb4
+sudo fsck.hfsplus /dev/sdb2
+sudo fsck.hfsplus /dev/sdb3
+sudo fsck.hfsplus /dev/sdb4
 
 # create the mount points
 mkdir src dst
@@ -112,31 +119,25 @@ mkdir src dst
 # clone Recovery
 sudo mount /dev/sdb2 src
 sudo mount -o force /dev/sdc2 dst
-cp -arp src/* dst/
-umount src dst
+sudo cp -arp src/* dst/
+sudo umount src dst
 
-# clone OSBoot
-sudo mount /dev/sdb3 src
-sudo mount -o force /dev/sdc3 dst
-cp -arp src/* dst/
-umount src dst
-
-# clone Media
-sudo mount /dev/sdb4 src
-sudo mount -o force /dev/sdc4 dst
-cp -arp src/* dst/
-umount src dst
+# done with the mount points so delete them
+sudo rmdir src dst
 }}}
 
-Now install Linux to /dev/sdc5 with swap on /dev/sdc6. Remember de-select any partitons other than sdc5 and sdc6 and run "gptsync" to fix up the MBR so efi firmware is happy.
+Now follow one of the guides and install Linux to /dev/sdc5 with swap on /dev/sdc6. Remember de-select all  partitons other than sdc5 and sdc6, install grub and build and run "gptsync" after the install to fix up the MBR so efi firmware is happy.
 
-Make a USB pen drive with just a recovery partition and the contents of recovery.tar.gz. 
+Make a USB pen drive with just a recovery partition and the contents of recovery.tar.gz. atv-bootloader is just the contents of recovery.tar.gz (note, I am leaving the version number off so I do not have to fix bad links every time the version changes).
 
-After installing Linux to the new disk, re-install it into the AppleTV. 
+After installing Linux to the new disk, re-install the disk into the AppleTV and power up. It should boot to the recovery screen, select "Factory Reset" and wait until it is done. Now you can upgrade to the new version of the AppleTV OS if desired.
 
-Boot with USB pen removed -> AppleTV OS, 
+Boot to Linux with the USB pen inserted and do the post install fixes for Linux.
 
-boot with USB pen installed -> LInux.
+Now, you have both the AppleTV OS and Linux installed on the internal ATA disk.
+
+Power up with USB pen removed -> AppleTV OS, 
+
+Power up with USB pen installed -> LInux.
 
 You might have to force USB boot by holding the IR remote "menu" and "-" buttons down.
-
