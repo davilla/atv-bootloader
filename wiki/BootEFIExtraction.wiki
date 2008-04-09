@@ -38,9 +38,10 @@ sudo mount -o loop -t hfsplus atv.img atv-update
 # extract boot.efi
 sudo cp -ap atv-update/System/Library/CoreServices/boot.efi ./
 
-# check that boot.efi looks ok
+# check that boot.efi looks good, the time stamp might be different.
+# It's the permissions and byte count that are important.
 ls -l boot.efi
-# should see "-rw-r--r-- 1 root    root       298800 2007-06-19 00:47 boot.efi"
+# Mine reports "-rw-r--r-- 1 root    root       298800 2007-06-19 00:47 boot.efi"
 }}}
 
 * cleanup (if you are not building a patchstick)
