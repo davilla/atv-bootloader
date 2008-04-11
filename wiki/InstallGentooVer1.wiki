@@ -325,7 +325,7 @@ timeout 10
 default 0
 title Linux 2.6.24.4-v01
 root (hd0,3)
-kernel /boot/kernel-2.6.24.4v01 video=vesafb video=vesafb root=/dev/hdb4 irqpoll
+kernel /boot/kernel-2.6.24.4v01 video=vesafb root=/dev/hdb4
 }}}
 
 Exit the chroot environment:
