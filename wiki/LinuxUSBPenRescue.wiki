@@ -61,7 +61,7 @@ This does several things, enables networking using DHCP, prints the network conf
 
 Ok, unmount and we are done building the USB rescue pen drive.
 {{{
-umount penboot
+sudo umount penboot
 }}}
 
 = Usage =
