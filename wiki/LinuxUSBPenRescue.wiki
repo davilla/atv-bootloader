@@ -35,7 +35,7 @@ sudo tar -xzf recovery-0.5.tar.gz
 sudo cp -arp recovery/* penboot/
 }}}
 
-We going to override the normal auto boot sequence as we need to get into a command-line enviroment to "fix" our problem. Now edit com.apple.Boot.plst on the recovery partition and change the atv-boot parameter from "auto"
+We going to override the normal auto boot sequence as we need to get into a command-line enviroment to "fix" our problem. Now edit "penboot/com.apple.Boot.plist" on the recovery partition and change the atv-boot parameter from "auto"
 {{{
 <string>atv-boot=auto video=vesafb</string>
 }}}
@@ -45,7 +45,7 @@ to "manual"
 <string>atv-boot=manual video=vesafb</string>
 }}}
 
-When "manual" is selected, atv-bootloader now searches for a file called "boot_linux.sh" on any disk partition and execute it. The search path starts with USB devices. The recovery.tar.gz contents contains a sample "boot_linux.sh" with the kexec load commented out. So edit penboot/boot_linux.sh and add the following
+When "manual" is selected, atv-bootloader now searches for a file called "boot_linux.sh" on any disk partition and execute it. The search path starts with USB devices. The recovery.tar.gz contents contains a sample "boot_linux.sh" with the kexec load commented out. So edit "penboot/boot_linux.sh" and add the following
 {{{
 ifconfig eth0 0.0.0.0
 /sbin/udhcpc
