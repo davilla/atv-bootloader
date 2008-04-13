@@ -1,3 +1,5 @@
+http://atv-bootloader.googlecode.com/svn/trunk/logos/ubuntu.png
+
 = Install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] =
 
 == Introduction ==
