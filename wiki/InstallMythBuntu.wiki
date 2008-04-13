@@ -1,3 +1,5 @@
+http://code.google.com/p/atv-bootloader/source/browse/trunk/logos/mythbuntu.png
+
 = Install [http://www.mythbuntu.org/ MythBuntu] 7.10 =
 
 == Introduction ==
