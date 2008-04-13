@@ -1,8 +1,8 @@
 = Build a basic Patchstick =
 
-* [BootEFIExtraction extract boot.efi] *
+* [BootEFIExtraction Extract boot.efi] *
 
-* [PartitioningPatchstick partition for patchstick] *
+* [PartitioningPatchstick Partition for patchstick] *
 
 We have extracted boot.efi and partitioned a USB pen drive with a recovery and second hfsplus partitions using the above links. This guide assumes that the recovery partition is mounted at "/media/Recovery" and the second partition is mounted at "/media/Patchstick".
 
