@@ -1,3 +1,5 @@
+http://atv-bootloader.googlecode.com/svn/trunk/logos/gentoo.jpg
+
 == Introduction ==
 
 This page describes the process to install Gentoo Linux on an Apple TV device and was contributed by Oscar Schnitzer folowing  [http://forum.awkwardtv.org/viewtopic.php?f=23&t=1491 a post on the awkwardtv forum]. Thanks Oscar. This installation uses the "atv bootloader", described at http://code.google.com/p/atv-bootloader however that page sets up a Ubuntu system, whereas our instructions (below) set up a Gentoo system.
