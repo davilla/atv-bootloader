@@ -7,11 +7,11 @@ http://atv-bootloader.googlecode.com/svn/trunk/logos/ubuntu.png
 Installation of [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD using a normal PC hardware platform.
 
 == Details ==
-* [BootEFIExtraction extract boot.efi]
+* [BootEFIExtraction Extract boot.efi]
 
-* [PartitioningLinux standard partition for Linux only]
+* [PartitioningLinux Standard partition for Linux only]
 
-* [AlternatePartitioning1 alternate partition for AppleTV/Linux]
+* [AlternatePartitioning1 Alternate partition for AppleTV/Linux]
 
 * Install Ubuntu Gutsy
 
