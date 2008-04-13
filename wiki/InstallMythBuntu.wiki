@@ -9,11 +9,11 @@ These instructions are for the installation of  [http://www.mythbuntu.org/ Mythb
 A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and select mythfrontend only, it will expect an existing [http://www.mythtv.org/ MythTV] backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
 
 == Details ==
-* [BootEFIExtraction extract boot.efi]
+* [BootEFIExtraction Extract boot.efi]
 
-* [PartitioningLinux standard partition for Linux only]
+* [PartitioningLinux Standard partition for Linux only]
 
-* [AlternatePartitioning1 alternate partition for AppleTV/Linux]
+* [AlternatePartitioning1 Alternate partition for AppleTV/Linux]
 
 * Install Mythbuntu
 
