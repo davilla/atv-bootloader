@@ -4,11 +4,16 @@ http://atv-bootloader.googlecode.com/svn/trunk/logos/mythbuntu.png
 
 == Introduction ==
 
-This assumes that you followed the partitioning instructions  [PartitioningLinux here] and are now ready to install [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD using a normal PC hardware platform. You can install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD, the instructions are the similar. 
+These instructions are for the installation of  [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD using a normal PC hardware platform. You can install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD, the instructions are the similar. 
 
 A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and select mythfrontend only, it will expect an existing [http://www.mythtv.org/ MythTV] backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
 
 == Details ==
+* [BootEFIExtraction extract boot.efi]
+
+* [PartitioningLinux standard partition for Linux only]
+
+* [AlternatePartitioning1 alternate partition for AppleTV/Linux]
 
 * Install Mythbuntu
 
