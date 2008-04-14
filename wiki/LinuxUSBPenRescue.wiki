@@ -33,6 +33,8 @@ sudo mount /dev/sdb1 penboot
 wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
 sudo tar -xzf recovery-0.5.tar.gz
 sudo cp -arp recovery/* penboot/
+# remember to copy boot.efi too
+sudo cp -ap boot.efi penboot/
 }}}
 
 We going to override the normal auto boot sequence as we need to get into a command-line enviroment to "fix" our problem. Now edit "penboot/com.apple.Boot.plist" on the recovery partition and change the atv-boot parameter from "auto"
