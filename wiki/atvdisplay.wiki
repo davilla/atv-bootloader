@@ -89,3 +89,7 @@ Section "Extensions"
     Option         "Composite" "Disable"
 EndSection
 }}}
+
+= Other xorg.conf setups =
+Help out others by posting your " device" and "screen" sections in the comments if you figure out settings for other displays.
+
