@@ -1,0 +1,6 @@
+= Development Blog =
+
+This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
+
+= April 15, 2008 =
+Blog started, Doing real work right now so no updates until I get home later.
