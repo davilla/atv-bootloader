@@ -4,3 +4,7 @@ This blog contains the development notes of what I'm working on. Check back freq
 
 = April 15, 2008 =
 Blog created, Doing real work right now so no updates until I get home later.
+
+8:14pm - home again, now it's play time. 1st thing on the list is patch generation for IR and audio. Nothing new, same old kernel patches. For those unfamiliar with the process, you take the existing patch and try to apply using dry-run. If it works you're done. If not, then you need to figure out what's wrong and manually fix the patch. These two patches are easy. The kernel is question is version 2.6.23. Not too old but the typical problem of the kernel not knowing about the AppleTV device IDs.
+
+IR patch is dirt simple, This fixes "usbhid.ko" with four lines of code to add to "drivers/hid/usbhid/hid-quirks.c". Audio is also simple, this fixes "snd-hda-intel.ko" and gets applied to "sound/pci/hda/patch_realtek.c". This patch is redundant as this distro uses ALSA for audio support and ALSA builds it's own "snd-hda-intel.ko" which will overwrite the kernel version.  So we will also have to fix "snd-hda-intel.ko" in ALSA which is at "alsa-kernel/pci/hda/patch_realtek.c". It might seem silly to patch the kernel version but I do this just in case ALSA somehow did not get installed. The ALSA fix is more complicated as the current patch does not apply properly as the ALSA version of "patch_realtek.c" is slightly newer than that in 2.6.23 and it's internal structure has changed. Live in the update lane. 
