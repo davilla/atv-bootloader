@@ -32,5 +32,5 @@ Bingo, there it is. Run "alsamixer and un-mute the digital output and I should h
 
 Once I test everything, and am confident that all is good, I generate diifs from the original code and the patched code,  then ship them upstream to the distro devs.
 
-12:05am -done testing and everything looks good so off the patches go swimming their way upstream. Memo to self, need to pull the dev source for ALSA and the kernel, create patches and submit them so they get into mailine source code.
+12:05am - done patching/building/testing and everything looks good so off the patches go swimming their way upstream. Memo to self, need to pull the dev source for ALSA and the kernel, create patches and submit them so they get into mainline source code.
  
