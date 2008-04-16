@@ -2,7 +2,22 @@
 
 = Introduction =
 
-The Apple IR controller is a USB device similar to that of the !MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR interface on the AppleTVi is physcially able to recognize and distingusih all 6x256 codes, and no others. The sequences are all of the form 0x87EEXXYY, where XX picks out the set and YY is the code. This info comes from the [http://www.hifi-remote.com/forums/viewtopic.php?p=59792#59792 JP1 remote project]
+The Apple IR controller is a USB device similar to that of the !MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR receiver on the AppleTV is physcially able to recognize and distingusih all 6x256 codes, and no others. 
+
+The sequences are all of the form 0x87EEXXYY, where XX is the ID code (UID) and YY is the key code. This info comes from the [http://www.hifi-remote.com/forums/viewtopic.php?p=59792#59792 JP1 remote project] The UID is used for paring IR remotes to IR controllers under OS X. When you pare a IR remote to the computer what you are doing is telling OS X to only listen to an Apple IR remote with this UID. A certain key press on the Apple IR remote will increment the UID. For example, the "menu" button on my remote has this for the IR code 
+{{{
+0x87EE4A03
+}}}
+
+The pre-data is "0x87EE", the UID is "0x4A" and the key is "0x03". If I increment the UID code, now I get this for the "menu" button 
+{{{
+0x87EE4B03
+}}}
+
+There are 256 possible UID codes. So 256 x 6 possible combinations that the AppleTV IR controller (actually all Apple IR receiver) will decode. This means that you can use a learning remote instead of the Apple IR remote to gain access to more than six buttons. To do this, use the learning remote to learn six buttons from the Apple IR remote. Then increment the UID by pressing "Menu" and "Play/Pause", then learn another set of six buttons. rinse, repeat until you have enough buttons defined. 
+
+Now use irrecord to create your lirc.conf from the learning remote. Then you have the AppleTV IR controller responding to the learning remote which has more than six buttons.
+
 
 For a raw analysis of the [http://www.barchard.net/files/apple_ir_remote_analysis.html Apple IR remote protocol]. And [http://cweiske.de/tagebuch/Getting%20Apple%20Remote,%20Macbook%20and%20LIRC%20work%20together.htm web page] that mentions handling the repeat in a different method (I do not think this is relevant anymore due to the lirc repeat patch).
 
@@ -11,8 +26,23 @@ Contributed by Ben Firshman, [http://atv-bootloader.googlecode.com/files/applere
 = Details =
 
 There are two methods for fixing this, an older method which involves patching appleir.c and the preferred method which involves patching usbhid.c. While patching appleir.c is easier, I choose the preferred method as it moves IR control out of the kernel and into userspace. This update is in two parts, first patch/rebuild "drivers/hid/usbhid/usbhid.c", then patch/rebuild lirc. Just to remind users of lirc, lircd.conf assigns symbols to the signals from the remote and ~/.lircrc associates those symbols to actions in programs.
+{{{
+Note: there seems to be a way to alter usbhid without rebuilding the module.
+This has the form;
 
- Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.
+modprobe usbhid quirks=0x<vendor_id>:0x<product_id>:<quirk value>
+
+So for the Apple IR receiver IDs and HID_QUIRK_HIDDEV it would be;
+
+options usbhid quirks=0x15c2:0x8242:0x00000010
+
+This would go into modprobe.conf or modules.d/usbhid, or modprobe.d/usbhid then
+do a "modules-update".
+
+This does not work for me and if anyone gets it working, please post you details.
+}}}
+
+Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.
 {{{
 sudo apt-get install  kernel-package libncurses-dev ncurses-dev  unzip
 sudo apt-get source linux-image-2.6.22-14-generic
@@ -47,7 +77,7 @@ reboot
 # /dev/usb/hiddev0 should now be present
 }}}
 
- Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for an apple hiddev device. This part will fix this and rebuild lirc.
+Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for an apple hiddev device. This part will fix this and rebuild lirc.
 {{{
 # install lirc package and choose Apple Mac Mini if asked
 sudo apt-get install lirc
@@ -71,7 +101,7 @@ sudo dpkg-buildpackage
 sudo dpkg -i ../lirc*deb
 }}}
 
- Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch. Remember lircd.conf assigns symbols to the signals from the remote, and ~/.lircrc associates those symbols to actions in programs
+Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch. Remember lircd.conf assigns symbols to the signals from the remote, and ~/.lircrc associates those symbols to actions in programs
 {{{
 sudo /etc/init.d/lirc stop
 
@@ -80,14 +110,14 @@ sudo nano /etc/lirc/hardware.conf
 #DEVICE="/dev/usb/hiddev0"
 }}}
 
- You can generate an /etc/lirc/lircd.conf from scratch
+You can generate an /etc/lirc/lircd.conf from scratch
 {{{
 #use PLUS, MINUS, PREV, NEXT, MENU and PLAY for the button
 #names for the Apple remote and follow the instructions from irrecord
 sudo irrecord -H macmini -d /dev/usb/hiddev0 /etc/lirc/lircd.conf
 }}}
 
- Or use this one, but watch out, the AppleIR "pre_data" is different when the remote is paired with the AppleTV so you might have to change "pre_data" to match your Apple IR remote.
+Or use this one, but watch out, the AppleIR "pre_data" is different when the remote is paired with the AppleTV so you might have to change "pre_data" to match your Apple IR remote.
 {{{
 begin remote
   name  Apple_IR
@@ -112,7 +142,7 @@ begin remote
 end remote
 }}}
 
- Here's another variant
+Here's another variant
 {{{
 begin remote
  name  Apple_IR
@@ -137,7 +167,7 @@ begin remote
 end remote
 }}}
 
- Append this to your ~/.mythtv/lircrc or use  [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz Ben's python script]
+Append this to your ~/.mythtv/lircrc or use  [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz Ben's python script]
 {{{
 #nano ~/.mythtv/lircrc and append
 begin
@@ -195,7 +225,7 @@ begin
 end
 }}}
 
- Restart lirc and test
+Restart lirc and test
 {{{
 # restart lirc
 sudo /etc/init.d/lirc restart
