@@ -4,7 +4,7 @@ http://atv-bootloader.googlecode.com/svn/trunk/logos/mythbuntu.png
 
 == Introduction ==
 
-These instructions are for the installation of  [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD using a normal PC hardware platform.
+These instructions are for the installation of  [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD using a normal PC hardware platform. The idea is to use an normal PC and a external USB disk to install Mythbuntu onto the external disk. This consist of , a) you boot off the LiveCD, b) download and extract boot.efi, c) build disk partitioning tools for GPT format, d) build hfsplus formating tools, e) GPT format the external USB disk, f) install Mythbuntu, g) post install fixes and last h) post boot fixes.
 
 A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and select mythfrontend only, it will expect an existing [http://www.mythtv.org/ MythTV] backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
 
