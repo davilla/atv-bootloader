@@ -34,12 +34,16 @@ modprobe usbhid quirks=0x<vendor_id>:0x<product_id>:<quirk value>
 
 So for the Apple IR receiver IDs and HID_QUIRK_HIDDEV it would be;
 
-options usbhid quirks=0x15c2:0x8242:0x00000010
+options usbhid quirks=0x05AC:0x8241:0x10
 
 This would go into modprobe.conf or modules.d/usbhid, or modprobe.d/usbhid then
 do a "modules-update".
 
-This does not work for me and if anyone gets it working, please post you details.
+another method is to add this to the kernel boot params
+
+usbhid.quirks=0x05AC:0x8241:0x10
+
+This does not work for me and if anyone gets it working, please post the details.
 }}}
 
 Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.
