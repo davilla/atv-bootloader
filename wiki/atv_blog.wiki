@@ -7,6 +7,16 @@ Grrrr, last night was a bust, blocked at every turn. I was trying the get KnoppM
 
 Think I have it. It's tricky but you have to do the KnoppMyth install using normal partitioning, but after getting the six choice dialog, atl-F2 into a console and re-partition the disk GPT with first three like KnoppMyth wants and a fourth being "Recovery". AppleTV efi firmware does not care which partition is "Recovery" so make it the last one so KnoppMyth does not get confused.  You have to do it this way because the KnoppMyth install script does not understand GPT partitions and the only choice is to partition. Once you partition, then you get the six choice dialog.
 
+Also KnoppMyth does not seem to pay attention to loading module option so we have to force our options. Edit "/etc/rc..local" and add
+{{{
+modprobe -r usbhid
+modprobe usbhid quirks=0x05ac:0x8241:0x10
+modprobe -r nvidia
+modprobe nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
+}}}
+
+This unloads usbhid and nvidia modules, then loads them with a) usbhid quirk to enable the AppleTV IR controller and b) nvidia with mobile and powermiser disabled. Notice that with a) we don't have to patch and recompile the kernel, yea. This change will be propagated to the other distro installs once I get a chance to verify.
+
 = April 15, 2008 =
 Blog created, Doing real work right now so no updates until I get home later.
 
