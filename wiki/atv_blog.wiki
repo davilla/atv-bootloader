@@ -15,7 +15,7 @@ modprobe -r nvidia
 modprobe nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 }}}
 
-This unloads usbhid and nvidia modules, then loads them with a) usbhid quirk to enable the AppleTV IR controller and b) nvidia with mobile and powermiser disabled. Notice that with a) we don't have to patch and recompile the kernel, yea. This change will be propagated to the other distro installs once I get a chance to verify.
+This unloads usbhid and nvidia modules, then loads them with a) usbhid quirk to enable the AppleTV IR controller and b) nvidia with mobile and powermiser disabled so we can underclock the gpu. Notice that with a) we don't have to patch and recompile the kernel, yea. This change will be propagated to the other distro installs once I get a chance to verify.
 
 = April 15, 2008 =
 Blog created, Doing real work right now so no updates until I get home later.
