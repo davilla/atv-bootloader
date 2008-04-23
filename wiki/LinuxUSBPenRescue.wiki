@@ -2,7 +2,7 @@
 
 Here's the situation, you have made a bad choice in rebuilding a kernel and now your AppleTV Linux install panics on boot. How do you fix it? Typically you boot a LiveCD and restore the previous kernel but a cd based boot is not possible yet. Well, that's where a atv-bootloader based USB pen drive rescue boot saves the day.
 
-In this section, we will build an atv-bootloader based USB pen drive that can be used for standalone boot. We will also enable telnet so we don't need a USB keyboard attached and can do everything remotely using a telnet session.
+In this section, we will build an atv-bootloader based USB pen drive that can be used for standalone boot. We will also enable telnet so we don't need a USB keyboard attached and can do everything remotely using a telnet session using a wired network connection.
 
 = Details =
 
@@ -59,7 +59,7 @@ ifconfig
 telnetd -l /bin/login
 }}}
 
-This does several things, enables networking using DHCP, prints the network config so you know the IP address and starts the telnet demon.
+This does several things, enables wired networking using DHCP, prints the network config so you know the IP address and starts the telnet demon.
 
 Ok, unmount and we are done building the USB rescue pen drive.
 {{{
