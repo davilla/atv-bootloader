@@ -87,6 +87,7 @@ sudo umount /media/disk/dev
     * [UpdateAudioDriver Update audio driver]
     * [UpdateIRDriver Update IR driver]
     * [UpdateMBR Update the boot disk MBR with gptsync]
+    * [InstallWireless Install wireless driver]
   
    Ok, that was not too hard, reboot to pickup the changes.
 {{{
