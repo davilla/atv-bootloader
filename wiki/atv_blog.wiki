@@ -2,6 +2,9 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= April 23, 2008 =
+Google's maintenance of the wiki pages is starting to get on my nerves. But I'm now editing via svn. Must be some serious maintenance going on. New page on [InstallWireless installing ndiswrapper for wireless]. It's pretty simple.
+
 = April 17, 2008 =
 Grrrr, last night was a bust, blocked at every turn. I was trying the get KnoppMyth to install onto a disk with GPT format. I think there is a way to shortcut the installer so I'm not forced to use cfdisk to partition, but I needed to build parted and hfs support. Of course, there was no room on the ramdisk that the installer uses. So tonight's exercise will be re-installing KnoppMyth the original way, building the apps I need, slipping them onto the atv-bootloader pen drive on a ext2 partition. Then try the shortcut again but this time I will have the partitioning support rebuilt and I should be able to slip them into the ramdisk filesytem. In theory -). More later tonight when I get home.
 
