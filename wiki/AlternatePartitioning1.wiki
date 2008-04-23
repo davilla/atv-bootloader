@@ -118,7 +118,7 @@ mkdir src dst
 
 # clone Recovery
 sudo mount /dev/sdb2 src
-sudo mount -o force /dev/sdc2 dst
+sudo mount -t hfsplus -o rw,force /dev/sdc2 dst
 sudo cp -arp src/* dst/
 sudo umount src dst
 
