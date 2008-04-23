@@ -66,7 +66,12 @@ wlan0     IEEE 802.11g  ESSID:off/any
           Tx excessive retries:0  Invalid misc:0   Missed beacon:0
 }}}
 
-Now, connect to an existing wireless network (HomeBase in my case) with "iwconfig wlan0 essid HomeBase". Now doing "iwconfig" should give you something like this. Note that "ESSID:", "Access Point:" and various other values are now filled in.
+Now, connect to an existing wireless network ("HomeBase" in my case) with
+{{{
+iwconfig wlan0 essid HomeBase
+}}}
+
+Now doing "iwconfig" should give you something like this. Note that "ESSID:", "Access Point:" and various other values are now filled in.
 {{{
 lo        no wireless extensions.
 
@@ -93,7 +98,7 @@ Now that the ndiswrapper kernel module is working and the wlan0 device is create
 dhclient wlan0
 }}}
 
-To test, use "ping" but tell ping to use the wireless IP as the source of the ping otherwise it will use the wired network as default if that's enabled. "192.168.2.53" is the IP of the AppleTV wireless network side, "192.168.2.200" is my MythTV backend. Change these to reflect your network settings.
+To test, use "ping" but tell ping to use the wireless IP as the source of the ping otherwise it will use the wired network as default if that's enabled. "192.168.2.53" is the IP of my AppleTV wireless network side, "192.168.2.200" is my MythTV backend. Change these to reflect your network settings.
 
 {{{
 ping -I 192.168.2.53 192.168.2.200
