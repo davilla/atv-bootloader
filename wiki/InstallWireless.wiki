@@ -1,6 +1,6 @@
 = Enable 802.11 Wireless Networking =
 
-The AppleTV has built-in Wi-Fi 802.11b, 802.11g, or 802.11n wireless network capability provided by a Broadcom BCM94321MC chipset. This is a PCI-E 1X card in a mini-pcie form-factor. The Broadcom BCM94321MC is support under Linux by ndiswrapper which provides a Linux kernel module that "wraps" a Windows driver. The reason for this is that Broadcom does not provide Linux drivers and there are not open source replacements (yet). The Windows driver cannot be bundled with ndiswrapper as it is the property of Broadcom.
+The AppleTV has built-in Wi-Fi 802.11b, 802.11g, or 802.11n wireless network capability provided by the Broadcom Dual-Band 802.11n BCM94321MC (BCM4328) chipset. This is a PCI-E 1X card in a PCI Express¨ Mini Card form-factor. The Broadcom BCM94321MC is support under Linux by ndiswrapper which provides a Linux kernel module that "wraps" a Windows driver. The reason for this is that Broadcom does not provide Linux drivers and there are not open source replacements (yet). The Windows driver cannot be bundled with ndiswrapper as it is the property of Broadcom.
 
 So to enable 802.11 wireless under Linux, you need to a) install ndiswrapper, b) download and extract a Windows based Broadcom driver and c) load and configure the wireless.
 
