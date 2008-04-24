@@ -1,4 +1,4 @@
-http://atv-bootloader.googlecode.com/svn/trunk/logos/gentoo.jpg
+http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/gentoo.jpg
 
 == Introduction ==
 
