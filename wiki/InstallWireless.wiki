@@ -45,7 +45,7 @@ usbcore: registered new interface driver ndiswrapper
 }}}
 
 
-Use "iwconfig" to see that wlan0 exists, you should see something like this
+Use "sudo iwconfig" to see that wlan0 exists, you should see something like this
 {{{
 lo        no wireless extensions.
 
@@ -68,10 +68,10 @@ wlan0     IEEE 802.11g  ESSID:off/any
 
 Now, connect to an existing wireless network ("HomeBase" in my case) with
 {{{
-iwconfig wlan0 essid HomeBase
+sudo iwconfig wlan0 essid HomeBase
 }}}
 
-Now doing "iwconfig" should give you something like this. Note that "ESSID:", "Access Point:" and various other values are now filled in.
+Now doing "sudo iwconfig" should give you something like this. Note that "ESSID:", "Access Point:" and various other values are now filled in.
 {{{
 lo        no wireless extensions.
 
