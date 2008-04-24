@@ -104,8 +104,21 @@ To test, use "ping" but tell ping to use the wireless IP as the source of the pi
 ping -I 192.168.2.53 192.168.2.200
 }}}
 
-To finish up, the "-m" option on ndiswrapper creates "/etc/modprobe.d/ndiswrapper" and edit "/etc/modules" and add "ndiswrapper" so that it loads at boot time. Done.
+To finish up, the "-m" option on ndiswrapper creates "/etc/modprobe.d/ndiswrapper" and edit "/etc/modules" and add "ndiswrapper" so that it loads at boot time. Setup "/etc/network/interfaces" and you are done.
 {{{
 sudo ndiswrapper -m
 # add ndiswrapper to "/etc/modules"
 }}}
+
+
+Example of a DHCP setup for "/etc/network/interfaces"
+{{{
+# wireless network interface (DHCP)auto wlan0iface wlan0 inet dhcp
+}}}
+
+Example of a static IP setup for "/etc/network/interfaces" using WEP
+{{{
+# wireless network interface (static)auto wlan0iface wlan0 inet staticwireless-essid MY_ESSIDwireless-key MY_WIRELESS_KEYaddress 192.168.1.22netmask 255.255.255.0gateway 192.168.1.1
+}}}
+
+
