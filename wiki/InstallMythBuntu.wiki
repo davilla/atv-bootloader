@@ -54,7 +54,7 @@ select and configure the display settings for your monitor
 }}}
 
 * Fix console framebuffer support
-   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV.
+   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV. Also add "8139too" to prevent "8139cp" from attempting to load.
 
    Unmount any USB drive partitions and then unplug/replug the USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
 {{{
@@ -69,6 +69,7 @@ nano /etc/modprobe.d/blacklist-framebuffer and comment out "blacklist vesafb"
 nano /etc/initramfs-tools/modules and add 
 	fbcon
 	vesafb
+	8139too
 
 update-initramfs -u
 

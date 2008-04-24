@@ -41,7 +41,7 @@ change "use as" to dontuse
 
 * Fix console framebuffer support
 
-   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV.
+   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV. 
 
    Unmount any USB drive partitions and then unplug/replug the USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
 {{{
@@ -66,7 +66,7 @@ Errors were encountered while processing:
 E: Sub-process /usr/bin/dpkg returned an error code (1)
 }}}
 
-   Fix console framebuffer support by adding fncon and vesafb to the initramfs
+   Fix console framebuffer support by adding fncon and vesafb to the initramfs. Also add "8139too" to prevent "8139cp" from attempting to load.
 {{{
 #------------------------------------------------
 # enable vesafb console support
@@ -76,6 +76,7 @@ sudo nano /etc/modprobe.d/blacklist-framebuffer and comment out "blacklist vesaf
 sudo nano /etc/initramfs-tools/modules and add 
 	fbcon
 	vesafb
+	8139too
 
 sudo update-initramfs -u
 }}}
