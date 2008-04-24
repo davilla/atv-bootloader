@@ -2,7 +2,6 @@
 #define _UTILS_H_
 
 #include	"types.h"
-#include	<string.h>
 
 void	msleep(int s);
 void	sleep(int s);
