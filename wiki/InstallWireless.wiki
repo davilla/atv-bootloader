@@ -11,7 +11,7 @@ tar -zxvf ndiswrapper-1.52.tar.gz
 cd ndiswrapper-1.52
 make distclean
 make
-make install
+sudo make install
 }}}
 
 Download and extract a Windows based Broadcom driver.
@@ -21,13 +21,13 @@ wget http://ftp.us.dell.com/network/R140746.EXE
 unzip -d R140746 R140746.EXE
 #
 # this will extract the required bits from the Windows driver
-ndiswrapper -i R140746/DRIVER/bcmwl5.inf
+sudo ndiswrapper -i R140746/DRIVER/bcmwl5.inf
 }}}
 
 
 Load the ndiswrapper kernel module and check dmesg.
 {{{
-modprobe -v ndiswrapper
+sudo modprobe -v ndiswrapper
 dmesg
 }}}
 
@@ -95,7 +95,7 @@ wlan0     IEEE 802.11g  ESSID:"HomeBase"
 
 Now that the ndiswrapper kernel module is working and the wlan0 device is created, you can fetch a DHCP address and then the normal "ifconfig" will show the IP assigned to the wireless network.
 {{{
-dhclient wlan0
+sudo dhclient wlan0
 }}}
 
 To test, use "ping" but tell ping to use the wireless IP as the source of the ping otherwise it will use the wired network as default if that's enabled. "192.168.2.53" is the IP of my AppleTV wireless network side, "192.168.2.200" is my MythTV backend. Change these to reflect your network settings.
@@ -106,6 +106,6 @@ ping -I 192.168.2.53 192.168.2.200
 
 To finish up, the "-m" option on ndiswrapper creates "/etc/modprobe.d/ndiswrapper" and edit "/etc/modules" and add "ndiswrapper" so that it loads at boot time. Done.
 {{{
-ndiswrapper -m
+sudo ndiswrapper -m
 # add ndiswrapper to "/etc/modules"
 }}}
