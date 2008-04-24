@@ -11,8 +11,6 @@
 
 
 #include <stdarg.h>
-#include <sys/types.h>
-#include <string.h>
 
 /* haha, don't need ctype.c */
 #define isdigit(c)	((c) >= '0' && (c) <= '9')
