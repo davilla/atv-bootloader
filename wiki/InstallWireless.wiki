@@ -66,7 +66,7 @@ wlan0     IEEE 802.11g  ESSID:off/any
           Tx excessive retries:0  Invalid misc:0   Missed beacon:0
 }}}
 
-Now, connect to an existing wireless network ("HomeBase" in my case) with
+Now, connect to an existing unsecured wireless network ("!HomeBase" in my case) with
 {{{
 sudo iwconfig wlan0 essid HomeBase
 }}}
