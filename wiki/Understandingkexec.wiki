@@ -50,7 +50,7 @@ This will unmount any disks and do an immediate reboot into the new kernel. If y
 
 Now armed with this knowledge you can boot any Linux kernel even those that atv-bootloader cannot auto boot. For example, syslinux/isolinux support is currently broke and LILO support is missing (these will be fixed soon). 
 
-[http://mysettopbox.tv/ KnoppMyth] uses LILO so one can use the above guide to boot the KnoppMyth installer, install KnoppMyth to the internal PATA disk, then craft a "atv-boot=manual" invoked "boot_linux.sh" that atv-bootloader uses to boot the installed KnoppMyth. Here is an example of such a "boot_linux.sh" that can boot KnoppMyth KM5F27 installed to the internal PATA disk.
+[http://mysettopbox.tv/ KnoppMyth] uses LILO so one can use the above guide to boot the !KnoppMyth installer, install !KnoppMyth to the internal PATA disk, then craft a "atv-boot=manual" invoked "boot_linux.sh" that atv-bootloader uses to boot the installed !KnoppMyth. Here is an example of such a "boot_linux.sh" that can boot !KnoppMyth KM5F27 installed to the internal PATA disk.
 {{{
 mkdir tmp
 mount /dev/sda1 tmp
