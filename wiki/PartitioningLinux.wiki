@@ -54,7 +54,7 @@ password -> let5me6in
 sudo /usr/bin/apt-get install build-essential
 }}}
 
-* build and install the patched parted
+* build and install the patched parted.
 {{{
 # remove the existing parted 
 sudo /usr/bin/apt-get remove parted
@@ -72,6 +72,16 @@ sudo ln -s /usr/local/sbin/parted /sbin/parted
 parted --version
 # you should see "parted (GNU parted) 1.8.8"
 }}}
+
+*UPDATE* If you get a failed build on a warning about C99 inline functions not supported, then edit "install_parted.sh" and change
+{{{
+./configure --enable-static=yes
+}}} 
+to
+{{{
+./configure CFLAGS="-fgnu89-inline" --enable-static=yes
+}}}
+
 
 * build and install hfs support tools
 {{{
