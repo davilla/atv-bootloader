@@ -43,6 +43,10 @@ sudo cp -ap atv-update/System/Library/CoreServices/boot.efi ./
 # It is the permissions and byte count that are important.
 ls -l boot.efi
 # Mine reports "-rw-r--r-- 1 root    root       298800 2007-06-19 00:47 boot.efi"
+
+# and 
+md5sum boot.efi
+280323d8700e4cfef15116f7e50590e3  boot.efi
 }}}
 
 * cleanup (if you are not building a patchstick)
