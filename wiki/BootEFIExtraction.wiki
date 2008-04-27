@@ -17,20 +17,18 @@ The solution is simple, extract it from the AppleTV update. The following instru
 sudo apt-get install build-essential zlib1g-dev
 
 # download and built dmg2img
-wget http://vu1tur.eu.org/tools/download.pl?dmg2img.tar.gz
-# the downloaded file has a funny name but that is not a problem
-tar -xzf download.pl?dmg2img.tar.gz
+wget http://atv-bootloader.googlecode.com/files/atv-dmg2img-1.0.tar.gz
+tar -xzf atv-dmg2img-1.0.tar.gz
 cd dmg2img
-make
-sudo make install
+sudo ./install_dmg2img.sh
 
 # download the AppleTV r1.1 update
 wget http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg
 #
 # convert it to an img format
 dmg2img 2Z694-5248-45.dmg atv.img
-# if you get "Segmentation fault (core dumped)" that might be ok, mine did that
-# but I could mount and extract boot.efi
+
+# create a mount point
 mkdir atv-update
 
 # mount the converted img

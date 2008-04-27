@@ -2,6 +2,8 @@
 
 == Introduction ==
 
+Make sure you first [ATVBackup backup] if you intend on changing the original AppleTV internal PATA.
+
 All Intel Apple computers (including the AppleTV) use GPT as a partition format. The internal disk inside the AppleTV has four partitions. If you want to know more about GPT and GUIDs see [http://en.wikipedia.org/wiki/GUID_Partition_Table]
 
 The first partition is labeled "EFI" and is FAT32 but it has a special GUID. This partition is typically empty and only used for RAID drives on OS X desktop or server computers. The AppleTV disk does not really need this partition but I always include it on internal hard drives because you never know.
@@ -51,7 +53,7 @@ password -> let5me6in
 * install build tools
 {{{
 # mythbuntu has a problem with PATH so we need to reference the full path for apt-get
-sudo /usr/bin/apt-get install build-essential
+sudo /usr/bin/apt-get install build-essential patch
 }}}
 
 * build and install the patched parted.
@@ -73,7 +75,7 @@ parted --version
 # you should see "parted (GNU parted) 1.8.8"
 }}}
 
-*UPDATE* If you get a failed build on a warning about C99 inline functions not supported, then edit "install_parted.sh" and change
+*UPDATE 4.26.2008* If you get a failed build on a warning about C99 inline functions not supported, then edit "install_parted.sh" and change
 {{{
 ./configure --enable-static=yes
 }}} 
@@ -169,9 +171,9 @@ at /media/Recovery, /media/OSBoot and /media/mythbuntu
 
 {{{
 # download recovery files
-wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
+wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
 
-sudo tar -xzf recovery-0.5.tar.gz
+sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* /media/OSBoot/
 sudo cp -arp recovery/* /media/Recovery/
 # remember to copy boot.efi too

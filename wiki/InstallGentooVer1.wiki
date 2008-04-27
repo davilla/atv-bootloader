@@ -2,6 +2,8 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/gentoo.jpg
 
 == Introduction ==
 
+Make sure you first [ATVBackup backup] if you intend on changing the original AppleTV internal PATA.
+
 This page describes the process to install Gentoo Linux on an Apple TV device and was contributed by Oscar Schnitzer folowing  [http://forum.awkwardtv.org/viewtopic.php?f=23&t=1491 a post on the awkwardtv forum]. Thanks Oscar. This installation uses the "atv bootloader", described at http://code.google.com/p/atv-bootloader however that page sets up a Ubuntu system, whereas our instructions (below) set up a Gentoo system.
 
 The aim of our installation was to produce a device that has a good USB support,and that uses as little RAM as possible.  Hence an emphasis has been placed on USB and a lean kernel, and very little on (for example) video and sound.
@@ -38,25 +40,21 @@ First, you need to get a copy of boot.efi.  In my case I copied it from my Apple
 
 On the Fedora host system, you can do this like this.  First, get and install the DMG converter:
 {{{
-wget http://vu1tur.eu.org/tools/download.pl?dmg2img.tar.gz
-tar -xzf download.pl\?dmg2img.tar.gz 
+wget http://atv-bootloader.googlecode.com/files/atv-dmg2img-1.0.tar.gz
+tar -xzf atv-dmg2img-1.0.tar.gz
 cd dmg2img
-make
-sudo make install
-cd ..
-rm -rf dmg2img
+sudo ./install_dmg2img.sh
 }}}
 
 Now download the 179MB DMG that we need, and extract the tasty morsel at its center:
 {{{
 wget http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg
 dmg2img 2Z694-5248-45.dmg
-#(You may get a segmentation fault at this point; it doesn't matter)
 mkdir atv-update
 sudo mount -o loop -t hfsplus 2Z694-5248-45.img atv-update
 cp -ap atv-update/System/Library/CoreServices/boot.efi .
 sudo umount atv-update
-rm download.pl\?dmg2img.tar.gz 2Z694-5248-45.img
+rm atv-dmg2img-1.0.tar.gz 2Z694-5248-45.img
 }}}
 
 We now have boot.efi in our current directory.
@@ -178,8 +176,8 @@ Remove the USB connection for the target HDD, and then reinsert it after a short
 
 Now we download and install the bootloader files.
 {{{
-wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
-sudo tar -xzf recovery-0.5.tar.gz
+wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
+sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* /media/OSBoot/
 sudo cp -arp recovery/* /media/Recovery/
 sudo cp -ap boot.efi /media/OSBoot

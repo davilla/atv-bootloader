@@ -2,6 +2,13 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= April 26, 2008 =
+Updates abound. 
+ # New version of "recovery.tar.gz" (aka atv-bootloader). Adds "mkfs.msdos", "mkfs.ext3", "mkfs.hfsplus", "gptsync" and "partprobe" to the initramfs. This completes the command-line tools required to build AppleTV and Linux partitions using only atv-bootloader. 
+ # Slight mods to the internal scripts based on freeback from users.
+ # New version of dmg2img, this fixes the segmentation fault error.
+ # New backup/restore wiki page. You can use atv-bootloader to completely backup and restore the original contents of the internal PATA disk. This even has an "opps" section that can restore to factory even if you did not create a backup.
+
 = April 23, 2008 =
 Google's maintenance of the wiki pages is starting to get on my nerves. But I'm now editing via svn. Must be some serious maintenance going on. New page on [InstallWireless installing ndiswrapper for wireless]. It's pretty simple.
 

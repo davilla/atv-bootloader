@@ -26,7 +26,7 @@ Frustrated creating an AppleTV based linux system. Tired of following voodoo ins
 #default is to drop to a login prompt (user=root, password=root)
 
 }}}
-    atv-bootloader is located [http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz here] and the source is in svn. This contains a prebuilt "fake" mach kernel with embedded Linux kernel/initrd along with the required support files. The only thing required is boot.efi which cannot be distributed.
+    atv-bootloader is located [http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz here] and the source is in svn. This contains a prebuilt "fake" mach kernel with embedded Linux kernel/initrd along with the required support files. The only thing required is boot.efi which cannot be distributed.
 
   * software tools
     * The AppleTV requires gpt formated partitions. "parted" can do this but is missing a required GUID format. So you need a patched parted. See the download section for [http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz parted-1.8.8-atv].

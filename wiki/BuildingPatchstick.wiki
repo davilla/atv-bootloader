@@ -9,9 +9,9 @@ We have extracted boot.efi and partitioned a USB pen drive with a recovery and s
 Download recovery.tar.gz and copy it to the recovery partition
 {{{
 # download recovery files
-wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
+wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
 
-sudo tar -xzf recovery-0.5.tar.gz
+sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* /media/Recovery/
 }}}
 

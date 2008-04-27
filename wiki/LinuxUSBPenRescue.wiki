@@ -30,8 +30,8 @@ mkdir penboot
 sudo mount /dev/sdb1 penboot
 
 # download atv-bootloader (recovery.tar.gz) and install it
-wget http://atv-bootloader.googlecode.com/files/recovery-0.5.tar.gz
-sudo tar -xzf recovery-0.5.tar.gz
+wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
+sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* penboot/
 # remember to copy boot.efi too
 sudo cp -ap boot.efi penboot/
