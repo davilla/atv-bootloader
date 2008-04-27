@@ -1,6 +1,6 @@
-= Booting a !LiveCD =
+= Booting a LiveCD =
 
-This guide describes how to boot a Linux !LiveCD directly from the AppleTV. It requires;
+This guide describes how to boot a Linux LiveCD directly from the AppleTV. It requires;
  # An working Linux computer capable of telnet
  # A network with a DHCP server (router, etc)
  # AppleTV (of course).
@@ -9,10 +9,10 @@ This guide describes how to boot a Linux !LiveCD directly from the AppleTV. It r
  # A USB cdrom drive.
  # A USB mouse.
  # A USB keyboard.
- # An exiting !LiveCD.
+ # An exiting LiveCD.
  # An existing USB flash drive with atv-bootloader installed.
 
-Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy !LiveCD using atv-bootloader. 
+Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy LiveCD using atv-bootloader. 
 
 On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See the guides [BootEFIExtraction extracting "boot.efi"] and  [PartitioningLinux partitioning Linux] for reference. 
 
@@ -56,7 +56,7 @@ The current version of atv-bootloader will enable telnetd and drop to a login pr
 
 You should see the atv-bootloader logo (tux on the AppleTV), then kernel boot console messages (tux in the upper left corner), then a "penbuntu" login prompt. It's easer to do everything from a telnet session so telnet in using the IP address that is reported by atv-bootloader. Username is "root", password is "root".
 
-Power-up the USB cdrom and insert your !LiveCD. Wait until the cdrom spins up, then via a telnet session;
+Power-up the USB cdrom and insert your LiveCD. Wait until the cdrom spins up, then via a telnet session;
 {{{
 mkdir /cdrom
 mount -o loop /dev/sr0 /cdrom
@@ -89,9 +89,9 @@ You should hear the cdrom spin up and start making disk access noises. With Guts
 
 It takes a little practice to get the cursor in the correct place, think a little horizontal offset and watch the control/button highlighting. The control/button will highlight when the cursor is over top.
 
-If you have pre-formatted the install disk, proceed to installing your distro. If not then you can build/install the required tools from the !LiveCD. [PartitioningLinux See this section for information].
+If you have pre-formatted the install disk, proceed to installing your distro. If not then you can build/install the required tools from the LiveCD. [PartitioningLinux See this section for information].
 
-Other !LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
+Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
 
 
 Here's another example for KnoppMyth, the default isolinux setting is
