@@ -13,7 +13,7 @@ The second thing to think about it where you want the Linux install to live. Ess
 
 These choices are sometimes determined by your Linux distribution and how flexible it is with regard to disk partitions. Some distribution expect that the first disk partition is going to be it's root file system (!KnoppMyth), others can have any partition order (Ubuntu/Mythbuntu). If the partition structure is rigid, then you cannot have both the AppleTV OS and Linux on the same disk. Other distributions cannot support USB install and boot. 
 
-The next issue that atv-bootloader requires a GPT formatted disk to boot. This done using be the internal PATA or external USB disk. You can install a Linux distribution using normal partitioning and the bootstrap it with a USB flash drive containing atv-bootloader. It can search both normal and GPT formatted disks for a boot configuration and boot Linux. So that adds a little complexity. For example, it you want to over-write the internal PATA disk, you have two additional choices. 
+The next issue is that atv-bootloader requires a GPT formatted disk to boot. This done using be the internal PATA or external USB disk. You can install a Linux distribution using normal partitioning and the bootstrap it with a GPT formatted USB flash drive containing atv-bootloader. It can search both normal and GPT formatted disks for a boot configuration and boot Linux. So that adds a little complexity. For example, it you want to over-write the internal PATA disk, you have two additional choices. 
  # Format GPT
  # Format normal and use a USB flash drive to bootstrap.
 
@@ -21,8 +21,8 @@ So think about your setup and where you want to place your Linux distribution in
 
 Once you have settled on a plan, you should do the following before starting any install process;
  # [ATVBackup backup your AppleTV if you plan on over-writing the internal disk].
- # BootEFIExtraction extract "boot.efi" from the downloadable AppleTV update].
- # LinuxUSBPenRescue build the atv-bootloader USB flash drive].
+ # [BootEFIExtraction extract "boot.efi" from the downloadable AppleTV update].
+ # [LinuxUSBPenRescue build the atv-bootloader USB flash drive].
 
 Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution.
  * [InstallMythBuntu Mythbuntu]
