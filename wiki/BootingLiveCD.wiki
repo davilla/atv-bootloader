@@ -92,6 +92,8 @@ You should hear the cdrom spin up and start making disk access noises. With Guts
 
 It takes a little practice to get the cursor in the correct place, think a little horizontal offset and watch the control/button highlighting. The control/button will highlight when the cursor is over top.
 
+The other way is to open a terminal "Applications -> Accessories -> Terminal". The type "sudo displayconfig-gtk" and this will open the GUI display settings window.
+
 If you have pre-formatted the install disk, proceed to installing your distro. If not then you can build/install the required tools from the LiveCD. [PartitioningLinux See this section for information].
 
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
