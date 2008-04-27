@@ -20,9 +20,9 @@ The next issue is that atv-bootloader requires a GPT formatted disk to boot. Thi
 So think about your setup and where you want to place your Linux distribution installation. If you have questions, ask on the [http://groups.google.com/group/atv-bootloader atv-bootloader discussion group] and either myself or someone else can assist.
 
 Once you have settled on a plan, you should do the following before starting any install process;
- # [ATVBackup backup your AppleTV if you plan on over-writing the internal disk].
  # [BootEFIExtraction extract "boot.efi" from the downloadable AppleTV update].
  # [LinuxUSBPenRescue build the atv-bootloader USB flash drive].
+ # [ATVBackup backup your AppleTV if you plan on over-writing the internal disk].
 
 Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution.
  * [InstallMythBuntu Mythbuntu]
