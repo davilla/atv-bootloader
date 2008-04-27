@@ -12,11 +12,12 @@ This guide describes how to boot a Linux LiveCD directly from the AppleTV. It re
  # An exiting LiveCD.
  # An existing USB flash drive with atv-bootloader installed.
 
+= Ubuntu 7.10 Gutsy =
 Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy LiveCD using atv-bootloader. 
 
 On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See the guides [BootEFIExtraction extracting "boot.efi"] and  [PartitioningLinux partitioning Linux] for reference. 
 
-*Remember to [ATVBackup backup the internal PATA "Recovery" partiton] if you are going to install there.* You can use the same USB flash drive for this guide and skip the next section.
+Remember to *[ATVBackup backup the internal PATA "Recovery" partiton]* if you are going to install there. You can use the same USB flash drive for this guide and skip the next section.
 
 Once these tools are installed then create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup.
 {{{
@@ -70,12 +71,14 @@ GFXBOOT-BACKGROUND 0xB6875A
 APPEND  file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz quiet splash --
 }}}
 
-Now we manually convert isolinux params into kexec params. See this link for more information about [Understandingkexec understanding kexec params].  An important note, the AppleTV does not have a PC BIOS so video console mode changes will not work. With atv-bootlaoder, a "vesafb" will work as a console framebuffer and you should see the kernel boot messages. However, Ubuntu does not include "vesafb" in their initramfs so we will not see kernel boot messages. In addition we need to add "vesa" and change "splash" to "nosplash" to get X11 to comeup, here are the resulting kexec params.
+Now we manually convert isolinux params into kexec params. See this link for more information about [Understandingkexec understanding kexec params].  An important note, the AppleTV does not have a PC BIOS so video console mode changes will not work. With atv-bootlaoder, a "vesafb" will work as a console framebuffer and you should see the kernel boot messages. However, Ubuntu does not include "vesafb" in their initramfs so we will not see kernel boot messages. In addition we need to add "vesa" and change "splash" to "nosplash" to get X11 to come up, here are the resulting kexec params.
 {{{
-kexec --load /cdrom/casper/vmlinuz --initrd=/cdrom/casper/initrd.gz --command-line="file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz nosplash vesa" 
+kexec --load /cdrom/casper/vmlinuz \
+--initrd=/cdrom/casper/initrd.gz \
+--command-line="file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz nosplash vesa" 
 }}}
 
-Doing the above, on the command-line results in this. This means, kexec has loaded the kernel/initrd and params into RAM and has set flags that a kexec jump is pending. "1280x720x32" is the video resolution as passed by the AppleTV EFI firmware, 10028000 is the video base address.
+Doing the above, on the command-line results in the kexec load printing the following information. This means, kexec has loaded the kernel/initrd and params into RAM and has set flags that a kexec jump is pending. "1280x720x32" is the video resolution as passed by the AppleTV EFI firmware, 10028000 is the video base address.
 {{{
 setup_linux_vesafb: 1280x720x32 @ 10028000 +708000
 }}}
@@ -94,7 +97,9 @@ If you have pre-formatted the install disk, proceed to installing your distro. I
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
 
 
-Here's another example for KnoppMyth, the default isolinux setting is
+= !KnoppMyth =
+
+Here's another example for !KnoppMyth, the default isolinux setting is
 {{{
 DEFAULT linux
 APPEND ramdisk_size=100000 init=/etc/init lang=us vga=791 initrd=minirt.gz nomce
@@ -102,12 +107,16 @@ APPEND ramdisk_size=100000 init=/etc/init lang=us vga=791 initrd=minirt.gz nomce
 
 The translated kexec params for cdrom boot are
 {{{
-kexec --load /cdrom/boot/isolinux/linux --initrd=/cdrom/boot/isolinux/minirt.gz --command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce" 
+kexec --load /cdrom/boot/isolinux/linux \
+--initrd=/cdrom/boot/isolinux/minirt.gz \
+--command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce" 
 }}}
 
-And the LILO translated kexec params for disk boot are
+And the LILO translated kexec params for disk boot are ("/dev/sda1" is mounted at "/root/tmp"
 {{{
-kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 --initrd=/root/tmp/boot/initrd.gz --command-line="root=/dev/hda1 lang=us nomce vga=normal initrd=initrd.gz"
+kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
+--initrd=/root/tmp/boot/initrd.gz \
+--command-line="root=/dev/hda1 lang=us nomce vga=normal initrd=initrd.gz"
 }}}
 
 
