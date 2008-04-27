@@ -1,5 +1,7 @@
 = Backup and Restore =
 
+Note: This requires "recovery-0.6.tar.gz" or greater. The previous versions do not contain all the required command-line tools.
+
 You have bought an AppleTV and want to alter the original internal PATA disk. To be able to restore the original contents, you need to make a backup. This is highly recommended and does not take much storage space. The AppleTV comes into two flavors, a 40GB version and a 160GB version. This method works with either and takes the same amount of storage space and time to perform.
 
 * Warning* You might use "dd" to copy the entire disk but that's a waste of time and storage space and "dd" is not the correct tool to copy GPT format disks. Usage of dd to copy the entire disk is fortuitous, it might work, but CAN fail under certain conditions and is therefore unreliable. Proper GPT format includes a secondary partition map in the ending sectors on the disk. If these sectors do not exist because your destination disk is smaller than your source disk, it will not be present after using "dd". Failure to include the secondary partition map or failure to place it in the proper location will lead to unreliable results. Using "dd" for USB pen drives further flawed by inconstancies in flash based disk geometry. Even for non-GPT format, the use of "dd" can lead to unreliable results when used to image a USB flash based pen drive. 
