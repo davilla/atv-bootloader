@@ -49,7 +49,7 @@ sudo /etc/init.d/gdm start
 
 Now that a 169.xx series nvidia driver is installed, we need to under-clock it to prevent hangs/video corruption when doing xvmc decode. The AppleTV uses a 7300 mobile chipset, normally mobile chipsets are not allowed to have clock changes so we have to do some nvidia voodoo commands to alter this behavior and we also want to have this fix automatically applied every X11 starts running.
 
-   Enabled gpu clock changes. The following forces the nvidia driver to treat the chipset as non-mobile and disabled "PowerMister" which provide dynamic clock changes depending on gpu load.
+   Enabled gpu clock changes. The following forces the nvidia driver to treat the chipset as non-mobile and disabled "!PowerMister" which provide dynamic clock changes depending on gpu load.
 {{{
 #------------------------------------------------
 # Allow a nivida mobile chipset to be under-clocked by adding
@@ -59,7 +59,7 @@ sudo nano /etc/modprobe.d/options
 options nvidia NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 }}}
 
-   Create an autostart entry for X11. This is used to automatically apply our clock changes when X11 starts running. Clock changes using "nvidia-settings" are not saved and restored on restart so we have to do this manually. Ubuntu and MythBuntu uses "/home/username/.config/autostart/" as the path to autostart apps. If you are running a different debian distribution then you will need to figure out where to place these additions.
+   Create an autostart entry for X11. This is used to automatically apply our clock changes when X11 starts running. Clock changes using "nvidia-settings" are not saved and restored on restart so we have to do this manually. Ubuntu and Mythbuntu uses "/home/username/.config/autostart/" as the path to autostart apps. If you are running a different debian distribution then you will need to figure out where to place these additions.
 {{{
 # nvidia-settings is used to actually change the gpu clock but,
 # we want it to always be applied after the startup of X11. Create an 

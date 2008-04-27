@@ -14,20 +14,20 @@ The pre-data is "0x87EE", the UID is "0x4A" and the key is "0x03". If I incremen
 0x87EE4B03
 }}}
 
-There are 256 possible UID codes. So 256 x 6 possible combinations that the AppleTV IR controller (actually all Apple IR receiver) will decode. This means that you can use a learning remote instead of the Apple IR remote to gain access to more than six buttons. To do this, use the learning remote to learn six buttons from the Apple IR remote. Then increment the UID by pressing "Menu" and "Play/Pause", then learn another set of six buttons. rinse, repeat until you have enough buttons defined. 
+There are 256 possible UID codes. So 256 x 6 possible combinations that the AppleTV IR controller (actually all Apple IR receivers) will decode. This means that you can use a learning remote instead of the Apple IR remote to gain access to more than six buttons. To do this, use the learning remote to learn six buttons from the Apple IR remote. Then increment the UID by pressing "Menu" and "Play/Pause", then learn another set of six buttons. rinse, repeat until you have enough buttons defined. 
 
 Now use irrecord to create your lirc.conf from the learning remote. Then you have the AppleTV IR controller responding to the learning remote which has more than six buttons.
 
 
 For a raw analysis of the [http://www.barchard.net/files/apple_ir_remote_analysis.html Apple IR remote protocol]. And [http://cweiske.de/tagebuch/Getting%20Apple%20Remote,%20Macbook%20and%20LIRC%20work%20together.htm web page] that mentions handling the repeat in a different method (I do not think this is relevant anymore due to the lirc repeat patch).
 
-Contributed by Ben Firshman, [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz here's an alternate] to using "~/.mythtv/lircrc". This is a python script that enables greater functionality using the Apple IR Remote. It completely replaces using lircrc for control of a MythFrontEnd so make sure "~/.mythtv/lircrc" is removed before installing. Thanks Ben.
+Contributed by Ben Firshman, [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz here's an alternate] to using "~/.mythtv/lircrc". This is a python script that enables greater functionality using the Apple IR Remote. It completely replaces using lircrc for control of a !MythFrontEnd so make sure "~/.mythtv/lircrc" is removed before installing. Thanks Ben.
 
 = Details =
 
 There are two methods for fixing this, an older method which involves patching appleir.c and the preferred method which involves patching usbhid.c. While patching appleir.c is easier, I choose the preferred method as it moves IR control out of the kernel and into userspace. This update is in two parts, first patch/rebuild "drivers/hid/usbhid/usbhid.c", then patch/rebuild lirc. Just to remind users of lirc, lircd.conf assigns symbols to the signals from the remote and ~/.lircrc associates those symbols to actions in programs.
 {{{
-Note: there seems to be a way to alter usbhid without rebuilding the module.
+Note: there is way to alter usbhid without rebuilding the module but it only works with 2.6.22 and above kernel versions.
 This has the form;
 
 modprobe usbhid quirks=0x<vendor_id>:0x<product_id>:<quirk value>
@@ -42,8 +42,6 @@ do a "modules-update".
 another method is to add this to the kernel boot params
 
 usbhid.quirks=0x05AC:0x8241:0x10
-
-This does not work for me and if anyone gets it working, please post the details.
 }}}
 
 Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.

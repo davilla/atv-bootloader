@@ -1,6 +1,6 @@
 = How kexec works=
 
-This is a guide for those wanting to better understand [http://www.ibm.com/developerworks/linux/library/l-kexec.html kexec] and it's use in atv-bootloader. kexec has been used in Linux for several years. Everyone is familiar with "exec" and it's use to launch a Linux executable, well kexec is similar but is used to launch a Linux kernel. This allows a quick boot into a new kernel without having to go through PC BIOS. Another use is to launch a crash-dump kernel in case the running kernel panics (kdump). 
+This is a guide for those wanting to better understand [http://www.ibm.com/developerworks/linux/library/l-kexec.html kexec] and it's use in atv-bootloader. kexec has been used in Linux for several years. Everyone is familiar with "exec" and it's use to launch a Linux executable, well kexec is similar but is used to launch a Linux kernel. This allows a quick boot into a new kernel without having to go through PC BIOS. Another use is to launch a crash-dump kernel in case the running kernel panics (kdump). The Sony PS3 also uses this method to boot Linux, in this case a custom kernel/initramfs is located into firmware. This kernel then boot the "real" Linux system using kexec.
 
 The previous two AppleTV bootloaders worked pretty well but had a single glaring omission. Nether could boot a Linux distro on a USB mass storage device (disk/flash/cdrom). The AppleTV EFI firmware has USB device support so it can load these bootloaders from a USB device, but USB device support was missing in the actual Linux bootloader. So while one could boot the actual bootloader on a USB disk/flash drive, because actual Linux bootloaders lacked USB device support, they could not see anything over the USB bus. 
 
@@ -36,7 +36,9 @@ initrd -> cdrom/boot/minirt.gz
 
 Now create a kexec load command. One thing to remember is that Linux on the AppleTV is sensitive to choice of console framebuffer. Pick the wrong one and you will not see any console output. With the above command-line params "vga=791" is bad so we replace it with "vga=normal". Since "splash" can also cause problems, if "splash" is present, do NOT include it. Sometimes you might need to include "video=vesafb". Here is the above "isolinux.cfg" default setting converted to kexec load command.
 {{{
-kexec --load cdrom/boot/linux --initrd=cdrom/boot/minirt.gz --command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce"
+kexec --load cdrom/boot/linux \
+--initrd=cdrom/boot/minirt.gz \
+--command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce"
 }}}
 
 Doing this command will result in kexec loading these items into RAM and setting kernel flags to inform the current kernel that a kexec jump is pending.
@@ -55,7 +57,9 @@ Now armed with this knowledge you can boot any Linux kernel even those that atv-
 mkdir tmp
 mount /dev/sda1 tmp
 
-kexec --load tmp/boot/vmlinuz-2.6.18-chw-13 --initrd=tmp/boot/initrd.gz --command-line="root=/dev/hda1 initrd=initrd.gz vga=normal lang=us nomce"
+kexec --load tmp/boot/vmlinuz-2.6.18-chw-13 \
+--initrd=tmp/boot/initrd.gz \
+--command-line="root=/dev/hda1 initrd=initrd.gz vga=normal lang=us nomce"
 
 umount tmp
 
