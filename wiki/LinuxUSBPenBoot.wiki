@@ -57,7 +57,7 @@ sudo umount penboot
 
 = Usage =
 
-Boot the AppleTV using the USB pen disk. You should see the kernel boot messages, the ifconfig dump and then a login prompt. Either login (user=root, password=root) using a USB keyboard or telnet in using the listed IP addresses. vi and nano are present as well as the parted and hfs tools for creating AppleTV GPT format partitions. You can also use this disk to [ATVBackup backup the AppleTV and [BootingLiveCD manually boot a LiveCD on a USB cdrom].
+Boot the AppleTV using the USB pen disk. You should see the kernel boot messages, the ifconfig dump and then a login prompt. Either login (user=root, password=root) using a USB keyboard or telnet in using the listed IP addresses. vi and nano are present as well as the parted and hfs tools for creating AppleTV GPT format partitions. You can also use this disk to [ATVBackup backup the AppleTV] and [BootingLiveCD manually boot a LiveCD on a USB cdrom].
 
 Enjoy.
 
