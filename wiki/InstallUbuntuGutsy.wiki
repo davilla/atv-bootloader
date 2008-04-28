@@ -2,7 +2,7 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/ubuntu.png
 
 = Install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] =
 
-== Introduction ==
+* April 27, 2008 - [BootingLiveCD now install direct from a USB cdrom] 
 
 Installation of [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD using a normal PC hardware platform. The idea is to use an normal PC and a external USB disk to install Gutsy onto the external USB disk. This consist of , a) you boot off the LiveCD, b) download and extract boot.efi, c) build disk partitioning tools for GPT format, d) build hfsplus formating tools, e) GPT format the external USB disk, f) install Gutsy, g) post install fixes and last h) post boot fixes.
 

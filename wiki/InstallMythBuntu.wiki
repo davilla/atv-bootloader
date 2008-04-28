@@ -2,7 +2,7 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/mythbuntu.png
 
 = Install [http://www.mythbuntu.org/ MythBuntu] 7.10 =
 
-== Introduction ==
+* April 27, 2008 - [BootingLiveCD now install direct from a USB cdrom] 
 
 These instructions are for the installation of  [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD using a normal PC hardware platform. The idea is to use an normal PC and a external USB disk to install Mythbuntu onto the external USB disk. This consist of , a) you boot off the LiveCD, b) download and extract boot.efi, c) build disk partitioning tools for GPT format, d) build hfsplus formating tools, e) GPT format the external USB disk, f) install Mythbuntu, g) post install fixes and last h) post boot fixes.
 
