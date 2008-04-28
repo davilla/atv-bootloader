@@ -1,3 +1,5 @@
+* April 27, 2008 - ATV-Bootloader has been updated*
+
 = Installing Linux =
 
 The installation of Linux on the AppleTV is pretty easy now but there are a few things to think about before you proceed. 
