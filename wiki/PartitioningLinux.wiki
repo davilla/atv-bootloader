@@ -1,102 +1,50 @@
+= Create and format proper AppleTV partitions =
+
 * April 27, 2008 - ATV-Bootloader has been updated*
 
-== Creating and formatting proper AppleTV partitions ==
+This guide details how to properly create and format the required GPT partitions on the internal PATA disk using a [LinuxUSBPenBoot USB flash drive with atv-bootloader installed]. The internal PATA disk is typically "/dev/sdaX" and you can target an external USB disk by change the device "/dev/sdcX", "/dev/sddX", etc). Remember that these instructions are a guide not a script to cut and paste. They will need to be altered (drive identifiers, sector counts, etc) to suite your particular setup. 
 
-Make sure you first [ATVBackup backup] if you intend on changing the original AppleTV internal PATA.
-
-All Intel Apple computers (including the AppleTV) use GPT as a partition format. The internal disk inside the AppleTV has four partitions. If you want to know more about GPT and GUIDs see [http://en.wikipedia.org/wiki/GUID_Partition_Table]
-
-The first partition is labeled "EFI" and is FAT32 but it has a special GUID. This partition is typically empty and only used for RAID drives on OS X desktop or server computers. The AppleTV disk does not really need this partition but I always include it on internal hard drives because you never know.
-
-The second partition is labeled "Recovery". It's a HFS-plus format but it also has a special GUID. The AppleTV keeps a disk image (dmg) of the OSBoot files. It's called Recovery because the AppleTV firmware can restore the next partition (OSBoot) in case it detects problems. When you select "restore" from the configure menu, this is where the AppleTV pulls an OS image.
-
-The third partition is labeled "OSBoot". It's also a HFS-plus format and has the normal GUID for HFS-plus. This holds the normally booted AppleTV OS (which is a derivative of OS X 10.4.x) and FrontRow.
-
-The fourth partition is labeled "Media". It's also HFS-plus and it only holds media content. This partition can be reduced in size if you want to create more partitions for linux usage.
-
-The AppleTV firmware boots by looking for a file called boot.efi on OSBoot. Boot.efi loads a darwin mach kernel (called mach_kernel) and drivers (kext). If it can't find boot.efi, it then looks for boot.efi on Recovery. We boot Linux by taking advantage of the recovery mode of the firmware. When the AppleTV OS boots, it resets an internal boot attempt count. If the boot attempt count goes to zero, the firmware will look over the USB bus for a Mass Storage Device with a Recovery partition and attempt boot. You can also force the USB probe by holding down the "menu" and "-" buttons on the IR remote at powerup.
-
-So to get Linux to boot, we create a proper Recovery partition with boot.efi and a mach kernel that is actually a secondary Linux boot loader. The firmware loads boot.efi which loads our "mach kernel" and a dummy kext, at that point we have control and own the box.
-
-Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formatted and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a [http://www.mythbuntu.org/ MythBuntu] LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
 
 *WARNING*
 If you are installing to the original AppleTV internal drive, you should [ATVBackup backup the original hard drive].
 
-*WARNING*
-It's very easy to get confused and partition the wrong drive. Yes, I've done it too. So if you are booted from the LiveCD and have an existing install on another hard drive, the safest method is to physically disconnect this hard drive until the partitioning and installation process is complete.
+= Details =
 
-== Details ==
-
-* boot the LiveCD and enable sshd
+You don't actually need to create the "EFI" and "OSBoot" partitions, the AppleTV will boot fine without them. I always include them just in case EFI firmware tries any tricks on me in the future.
 {{{
-# boot the LiveCD and open a terminal
-# start sshd for remote terminal access
-sudo /etc/init.d/ssh start
-
-# change the password for the ubuntu user so we can ssh in
-passwd
-current (just hit enter)
-new let5me6in
-again let5me6in
-}}}
-
-* from a terminal on a working linux system (or the above LiveCD terminal)
-{{{
-# now we can ssh in from another box (skip this is using the LiveCD terminal)
-# you will need to replace the below IP address with that of your system
-# I like to do it this way so I can copy/paste rather than type exact commands
-ssh ubuntu@192.168.2.67
-password -> let5me6in
-}}}
-
-* [InstallParted install parted]
-
-* [InstallHFSTools install hfs support tools]
-
-* create and format an AppleTV compatible disk
-
-You don't actually need to create the EFI and OSBoot partitions, the AppleTV will boot fine without them. I always include them just in case efi firmware tries any tricks on me in the future.
-{{{
-# ** warning
-# ** you must be careful of the target disk/partition
-# ** the below assumes LiveCD boot and USB disk at sda
-# ** warning
-# 
 # zero /dev/sda first or pre-existing guid will not change
-sudo dd if=/dev/zero of=/dev/sda bs=4096 count=1M
+dd if=/dev/zero of=/dev/sda bs=4096 count=1M
 
 # create initial gpt structures
-sudo parted -s /dev/sda mklabel gpt
+parted -s /dev/sda mklabel gpt
 
 # find max size of disk (see Disk  /dev/sda: XXXMB from listing)
-sudo parted /dev/sda
-print
-quit
+parted -s /dev/sda print
 
 # mine reports "Disk /dev/sda: 20.0GB" so that is our ending point
 
 # create a 25MB "EFI" partition (starting at sector 40 is important)
-sudo parted -s /dev/sda mkpart primary fat32 40s 25M
-sudo parted -s /dev/sda set 1 boot on
+parted -s /dev/sda mkpart primary fat32 40s 25M
+parted -s /dev/sda set 1 boot on
 
 # create a 25MB "Recovery" partition
-sudo parted -s /dev/sda mkpart primary HFS 25M 50M
-sudo parted -s /dev/sda set 2 atvrecv on
+parted -s /dev/sda mkpart primary HFS 25M 50M
+parted -s /dev/sda set 2 atvrecv on
 
 # create a 25MB "OSBoot" partition
-sudo parted -s /dev/sda mkpart primary HFS 50M 75M
+parted -s /dev/sda mkpart primary HFS 50M 75M
 
 #create the linux root partition
-sudo parted -s /dev/sda mkpart primary ext2 75M 18.9GB
+parted -s /dev/sda mkpart primary ext2 75M 18.9GB
 
 #create the linux swap partition
-sudo parted -s /dev/sda mkpart primary linux-swap 18.9GB 20.0GB
+parted -s /dev/sda mkpart primary linux-swap 18.9GB 20.0GB
 
+# sync the system partition tables
+partprobe /dev/sda
 
 # verify the partitions
-sudo parted /dev/sda
-print
+parted -s /dev/sda print
 
 # you should see something similar (note boot and atvrecv flags)
 Model: IC25N020 ATDA04-0 (scsi)
@@ -111,35 +59,40 @@ Number  Start   End     Size    File system  Name     Flags
  4      75.0MB  18.9GB  18.8GB               primary         
  5      18.9GB  20.0GB  1104MB               primary         
 
-
 # format the partitions
-sudo mkfs.msdos -F 32 -n EFI /dev/sda1
-sudo mkfs.hfsplus -v Recovery /dev/sda2
-sudo mkfs.hfsplus -v OSBoot /dev/sda3
-sudo mkfs.ext3  -b 4096 -L mythbuntu /dev/sda4
-we will let the LiveCD setup swap
+# we will let the LiveCD install setup swap
+mkfs.msdos -F 32 -n EFI /dev/sda1
+mkfs.hfsplus -v Recovery /dev/sda2
+mkfs.hfsplus -v OSBoot /dev/sda3
+mkfs.ext3  -b 4096 -L Linux /dev/sda4
 sync 
 }}}
 
 * install atv-bootloader
 {{{
-remove/reinsert USB plug, the LiveCD should auto-mount
-at /media/Recovery, /media/OSBoot and /media/mythbuntu
-}}}
-
-{{{
 # download recovery files
 wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
+tar -xzf recovery-0.6.tar.gz
 
-sudo tar -xzf recovery-0.6.tar.gz
-sudo cp -arp recovery/* /media/OSBoot/
-sudo cp -arp recovery/* /media/Recovery/
-# remember to copy boot.efi too
-sudo cp -ap boot.efi /media/OSBoot
-sudo cp -ap boot.efi /media/Recovery
+# make some mount points
+mkdir /mnt/osboot /mnt/recovery
+
+cp -arp recovery/* /mnt/osboot/
+cp -arp recovery/* /mnt/recovery/
+
+# remember to copy boot.efi, 
+# grab it from the atv-bootloader USB flash disk
+
+mkdir tmp
+mount /dev/sdb1 tmp
+
+cp -ap tmp/boot.efi /mnt/osboot
+cp -ap tmp/boot.efi /mnt/recovery
 }}}
 
-* now proceed to install your linux distro
+* Done, now proceed to install your linux distro
 {{{
 remember to install to /dev/sda4 with swap at /dev/sda5
 }}}
+
+

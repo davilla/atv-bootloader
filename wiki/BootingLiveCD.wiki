@@ -31,11 +31,11 @@ sudo parted -s /dev/sdb mklabel gpt
 sudo parted -s /dev/sdb mkpart primary HFS 40s 69671s
 sudo parted -s /dev/sdb set 1 atvrecv on
 
+# update the system partition tables
+sudo partprobe /dev/sdb
+
 # format it
 sudo mkfs.hfsplus -v Recovery /dev/sdb1
-
-# update the system partition tables
-sudo partprobe
 
 # mount it
 mkdir penboot

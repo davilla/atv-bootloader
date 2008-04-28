@@ -4,7 +4,7 @@ Make sure you first [ATVBackup backup] if you intend on changing the original Ap
 
 This take a little setup but might be worth it for some users. I do not recommend this procedure for first time installation of Linux. Installing Linux to a external USB disk is easer and does not require the AppleTV to be opened. Once you open it, Apple can and will void the warrantee. 
 
-With this procedure, we are going to put both the AppleTV OS and Linux on an internal ATA disk. To boot Linux, we use a small USB pen drive with just atv-bootloader installed. When atv-bootloader is loaded, it will search for GRUBs menu.lst and find it on the Linux partition on the internal ATA drive and boot it. Pull the USB pen drive and reboot -- presto back to the AppleTV OS.
+With this procedure, we are going to put both the AppleTV OS and Linux on an internal ATA disk. To boot Linux, we use a USB pen drive with just atv-bootloader installed. When atv-bootloader is loaded, it will search for GRUBs menu.lst and find it on the Linux partition on the internal ATA drive and boot it. Pull the USB pen drive and reboot -- presto back to the AppleTV OS.
 
 And just for kicks we are also going to move from the standard 40GB 4200 rpm drive to a 100GB 7200 rpm drive. This method requires a "Factory Restore" as the disk partition UUIDs will change and that confuses efi firmware. A "Factory Restore" is a recovery mode for the AppleTV where a disk image located on the recovery partition is reinstalled to OSBoot. *Any content on OSBoot and Media partition will be lost.* There might be other ways around this, feel free to investigate.
 
@@ -22,14 +22,7 @@ Follow the LiveCD instructions but stop before the partition section.
 
 Let's see how the original AppleTV drive is setup so we can copy the partitioning.
 {{{
-sudo parted /dev/sdb
-}}}
-
-Switch parted to sector display
-{{{
-(parted) unit s  
-(parted) print
-(parted) quit                                                         
+sudo parted -s /dev/sdb unit s print
 }}}
 
 You should see something similar but don't worry if the absolute sector numbers are slightly diffferent.
@@ -57,18 +50,11 @@ sudo parted -s /dev/sdc mklabel gpt
 
 Use parted on the new disk to find the exact number of sectors.
 {{{
-sudo parted /dev/sdc
-GNU Parted 1.8.8
-Using /dev/sdc
-Welcome to GNU Parted! Type 'help' to view a list of commands.
-(parted) unit s                                                           
-(parted) print                                                            
+sudo parted -s /dev/sdc unit s print
 Model: ST910021  3MH0Y3XW (scsi)
 Disk /dev/sdb: 195371568s
 Sector size (logical/physical): 512B/512B
 Partition Table: gpt
-
-(parted) quit
 }}}
 
 This 100GB disk has 195371568 sectors but we can't use them all as GPT has a second partition table at the end and we do not want to overwrite this secondary table. Subtract 97 from 195371568 gives 195371471 and that's our final end point. Create partitions on the new disk that match the AppleTV
@@ -99,6 +85,10 @@ sudo parted -s /dev/sdc mkpart primary linux-swap 193323472s 195371471s
 
 Format the partitions, note that we are using journaled hfsplus to match the original disk format. We let the Linux install deal with swap.
 {{{
+# sync the system partition tables
+partprobe /dev/sdc
+
+# format the partitions
 sudo mkfs.msdos -F 32 -n EFI /dev/sdb1
 sudo mkfs.hfsplus -J -v Recovery /dev/sdb2
 sudo mkfs.hfsplus -J -v OSBoot /dev/sdb3

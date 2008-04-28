@@ -23,7 +23,7 @@ So think about your setup and where you want to place your Linux distribution in
 
 Once you have settled on a plan, you should do the following before starting any install process;
  # [BootEFIExtraction extract "boot.efi" from the downloadable AppleTV update].
- # [LinuxUSBPenRescue build the atv-bootloader USB flash drive].
+ # [LinuxUSBPenBoot build the atv-bootloader USB flash disk].
  # [ATVBackup backup your AppleTV if you plan on over-writing the internal disk].
 
 Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution.
