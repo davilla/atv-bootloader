@@ -3,7 +3,7 @@
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
 = April 27, 2008 =
-!WooHoo, Ubuntu Gutsy boot from cdrom. Added new wiki page about cdrom booting. I really wish they would add vesafb to their initramfs.
+!WooHoo, Ubuntu/Mythbuntu Gutsy AND Hardy boot from cdrom. Added new wiki page about cdrom booting. I really wish they would add vesafb to their initramfs.
 
 = April 26, 2008 =
 Updates abound. 

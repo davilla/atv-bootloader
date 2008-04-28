@@ -39,9 +39,9 @@ Frustrated creating an AppleTV based linux system. Nervous about voiding the war
   * [Understandingkexec Understanding kexec]
 
   * software tools
-    * The AppleTV needs a specific version of "boot.efi" in order to boot properly. This version can be extracted from the downloadable AppleTV update and [http://atv-bootloader.googlecode.com/files/atv-dmg2img-1.0.tar.gz this version of dmg2img] is used to convert from "dmg" to "img" formats.
-    * The AppleTV requires GPT formatred partitions. "parted" can do this but is missing a required GUID format. So you need a patched parted. See the download section for [http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz parted-1.8.8-atv].
-    * The AppleTV uses two HFS formatted partitions, while the standard Linux distro can mount HFS disk, the ability to format HSF is missing. See the download section for [http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz HFS support tools].
+    * The AppleTV needs a specific version of "boot.efi" in order to boot properly. This version can be extracted from the downloadable AppleTV update and [http://atv-bootloader.googlecode.com/files/atv-dmg2img-1.0.tar.gz this version of dmg2img] is used to convert from "dmg" to "img" formats. See [BootEFIExtraction the guide on extracting "boot.efi" for information].
+    * The AppleTV requires GPT formatted partitions. "parted" can do this but is missing a required GUID format. So you need a patched parted. See the [InstallParted installing parted guide for information].
+    * The AppleTV uses two HFS formatted partitions, while the standard Linux distro can mount HFS disk, the ability to format HSF is missing. See the [InstallHFSTools installing HFS tools guide for information].
 
   * [ATVBackup backup and restore]
   If you are installing to the original AppleTV internal drive, you should backup the original hard drive. This section contains a guide for the backup and restore of the internal PATA disk.
