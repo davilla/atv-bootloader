@@ -1,5 +1,7 @@
 = Instructions for creating and formatting proper AppleTV partitions=
 
+* April 27, 2008 - ATV-Bootloader has been updated*
+
 == Introduction ==
 
 Make sure you first [ATVBackup backup] if you intend on changing the original AppleTV internal PATA.
