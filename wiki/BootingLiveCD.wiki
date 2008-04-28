@@ -98,6 +98,22 @@ If you have pre-formatted the install disk, proceed to installing your distro. I
 
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
 
+= Mythbuntu =
+Here's an example for Mythbuntu, the default isolinux setting is
+{{{
+DEFAULT /casper/vmlinuz
+GFXBOOT bootlogo
+APPEND  boot=casper initrd=/casper/initrd.gz quiet splash --
+}}}
+
+The translated kexec params for cdrom boot are
+{{{
+kexec --load /cdrom/casper/vmlinuz \
+--initrd=/cdrom/casper/initrd.gz \
+--command-line="boot=casper initrd=/casper/initrd.gz nosplash vesa" 
+}}}
+
+Mythbuntu uses GRUB so atv-bootloader will be able to automatically find and translate GRUB's menu.lst boot settings.
 
 = !KnoppMyth =
 
@@ -120,5 +136,6 @@ kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
 --initrd=/root/tmp/boot/initrd.gz \
 --command-line="root=/dev/hda1 lang=us nomce vga=normal initrd=initrd.gz"
 }}}
+
 
 
