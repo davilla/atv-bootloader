@@ -6,9 +6,9 @@ In this section, we will build an atv-bootloader based USB pen drive that can be
 
 = Details =
 
-We need our standard items for creating an AppleTV recovery partition. These are boot.efi, the patched parted and hfs tools. See [BootEFIExtraction extract boot.efi] for boot.efi and  [PartitioningLinux partition for Linux] for building parted and hfs tools.
+We need our standard items for creating an AppleTV recovery partition. These are boot.efi, the patched parted and hfs tools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
 
-Assuming you have these items extracted/built, let's start.
+Assuming you have these items extracted/built/installed, let's start.
 
 Create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup.
 {{{
@@ -68,7 +68,7 @@ sudo umount penboot
 
 = Usage =
 
-Boot the AppleTV using the USB rescue pen drive. You should see the kernel boot messages, the ifconfig dump and then a login prompt. Either login (user=root, password=root) using a USB keyboard or telnet in using the listed IP addresses. vi and nano are present as well as the patched parted and hfs tools in case you need to create AppleTV type partitions.
+Boot the AppleTV using the USB rescue pen drive. You should see the kernel boot messages, the ifconfig dump and then a login prompt. Either login (user=root, password=root) using a USB keyboard or telnet in using the listed IP addresses. vi and nano are present as well as the parted and hfs tools in case you need to create AppleTV type partitions.
 
 Enjoy.
 

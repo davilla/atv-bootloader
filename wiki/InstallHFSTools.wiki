@@ -1,0 +1,18 @@
+= Build/Install HFS Tools =
+
+HFS and HFSPlus are the names of Apple formatted partitions. These are similar to EXT2 and EXT3 in the Linux world, just different flavor. The original AppleTV disk has four GPT partitions, three of which are formatted hfsplus. Two of those are actually hfsplus journaled.
+
+In order to boot atv-bootloader, one need to be able to create a GPT partition with a "Recovery" GUID and format that partition hfsplus. Linux does not have proper disk tools for formatting hfsplus so one need to build and install them. These tools actually come from "darwin", the Apple open source project and they have an addition patch to compile and function under a Linux OS.
+
+* build and install hfs support tools
+{{{
+# fetch hfs_support
+wget http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz
+tar -xzf hfs_support-1.0.tar.gz
+
+# build and install
+cd hfs_support/
+sudo ./build_diskdev_cmds.sh
+}}}
+
+Done.

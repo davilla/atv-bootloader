@@ -1,4 +1,4 @@
-= Instructions for creating and formating proper AppleTV partitions=
+= Instructions for creating and formatting proper AppleTV partitions=
 
 == Introduction ==
 
@@ -18,7 +18,7 @@ The AppleTV firmware boots by looking for a file called boot.efi on OSBoot. Boot
 
 So to get Linux to boot, we create a proper Recovery partition with boot.efi and a mach kernel that is actually a secondary Linux boot loader. The firmware loads boot.efi which loads our "mach kernel" and a dummy kext, at that point we have control and own the box.
 
-Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formated and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a [http://www.mythbuntu.org/ MythBuntu] LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
+Creating the proper disk format and partitions is critical for booting Linux on the AppleTV. The disk is gpt formatted and must have the proper GUID associated with specific partitions or the AppleTV will refuse to boot. These instructions detail how to properly create and format the required gpt partitions using a [http://www.mythbuntu.org/ MythBuntu] LiveCD running on normal PC hardware. Booting the LiveCD on the AppleTV is not possible at the current time.
 
 *WARNING*
 If you are installing to the original AppleTV internal drive, you should [ATVBackup backup the original hard drive].
@@ -50,51 +50,9 @@ ssh ubuntu@192.168.2.67
 password -> let5me6in
 }}}
 
-* install build tools
-{{{
-# mythbuntu has a problem with PATH so we need to reference the full path for apt-get
-sudo /usr/bin/apt-get install build-essential patch
-}}}
+* [InstallParted install parted]
 
-* build and install the patched parted.
-{{{
-# remove the existing parted 
-sudo /usr/bin/apt-get remove parted
-
-# fetch the patched parted
-wget http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz
-tar -xzf parted-1.8.8-atv.tar.gz
-
-# build and install the patched parted
-cd parted
-sudo ./install_parted.sh
-sudo ln -s /usr/local/sbin/parted /sbin/parted
-
-# verify the install
-parted --version
-# you should see "parted (GNU parted) 1.8.8"
-}}}
-
-*UPDATE 4.26.2008* If you get a failed build on a warning about C99 inline functions not supported, then edit "install_parted.sh" and change
-{{{
-./configure --enable-static=yes
-}}} 
-to
-{{{
-./configure CFLAGS="-fgnu89-inline" --enable-static=yes
-}}}
-
-
-* build and install hfs support tools
-{{{
-# fetch hfs_support
-wget http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz
-tar -xzf hfs_support-1.0.tar.gz
-
-# build and install
-cd hfs_support/
-sudo ./build_diskdev_cmds.sh
-}}}
+* [InstallHFSTools install hfs support tools]
 
 * create and format an AppleTV compatible disk
 

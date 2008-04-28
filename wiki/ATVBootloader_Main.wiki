@@ -1,6 +1,14 @@
-= Introduction =
-Frustrated creating an AppleTV based linux system. Tired of following voodoo instructions just to build bootable USB pen patchstick to install sshd? Well, atv-bootloader is for you. 
+http://atv-bootloader.googlecode.com/svn/branches/web_items/web-icon-r1.png
 
+Frustrated creating an AppleTV based linux system. Nervous about voiding the warrantee by opening the AppleTV to get access to the internal hard drive. Tired of following voodoo instructions just to build bootable USB pen patchstick to install sshd? Well, atv-bootloader is for you. 
+
+= AppleTV =
+  * [atvhardware hardware]
+  * software performance
+    * [mplayer MPlayer]
+    * [mythtv MythTV]
+    * [xbmc XBMC]
+  * [atvdisplay video playback]
 
 = Details =
   * history
@@ -8,11 +16,11 @@ Frustrated creating an AppleTV based linux system. Tired of following voodoo ins
 
   * other bootloaders
     * First Linux boot was done by gimli at http://www.mactel-linux.org/wiki/AppleTV. This bootloader was called "mach_linux_boot" and required the linux kernel to be compiled into the resulting mach_kernel. This worked great but was a little limited in updating the Linux kernel was a pain.
-    * The second bootloader was "mb_boot_tv" done by James McKenzie at http://www.mythic-beasts.com/resources/appletv/ . This bootloader extended mach_linux_boot by enabling the bootloader to search over the internal ata bus and find a boot config that would be used to load the Linux kernel. Network boot was also enabled. This was better, now the kernel could be updated without recompiling the mach_kernel. However, one could netboot using a USB disk but not boot a USB based Linux system. In addition, because mb_boot_tv used it's own boot config format, changes made to grubs menu.lst file during updates required manually updating mb_boot_tv.conf.
+    * The second bootloader was "mb_boot_tv" done by James !McKenzie at http://www.mythic-beasts.com/resources/appletv/ . This bootloader extended mach_linux_boot by enabling the bootloader to search over the internal ata bus and find a boot config that would be used to load the Linux kernel. Network boot was also enabled. This was better, now the kernel could be updated without recompiling the mach_kernel. However, one could netboot using a USB disk but not boot a USB based Linux system. In addition, because mb_boot_tv used it's own boot config format, changes made to grubs menu.lst file during updates required manually updating mb_boot_tv.conf.
 
   * atv-bootloader
     * atv-bootloader which uses principals from mach_linux_boot to boot a compiled-in Linux kernel and then finds and boots another Linux kernel using [http://www.ibm.com/developerworks/linux/library/l-kexec.html kexec] (a user-land kernel bootloader). In addition, atv-bootloader translates several EFI structures into standard PC bios structures. This allows a standard Linux kernel to be booted without the numerous EFI patches required by both mach_linux_boot and mb_boot_tv.
-    * atv-bootloader can a) search and find an existing grub menu.lst and auto-boot from it, b) search for a "boot_linux.sh" file and auto-execute it, and c) search for "patchstick.sh" and auto-execute it. The initrd "boot_linux.sh" script currently search sdb then rest of the disk devices (this will be changed in the future once the real boot device can be recovered from the device tree passed by boot.efi).  This procedure allows atv-bootloader to auto-boot a linux install or be extended for other uses. This is controlled by a "Kernel Flag" in com.apple.Boot.plist and has the following definitions 
+    * atv-bootloader can a) search and find an existing grub menu.lst and auto-boot from it, b) search for a "boot_linux.sh" file and auto-execute it, and c) search for "patchstick.sh" and auto-execute it. The initrd "boot_linux.sh" script currently search sdb then rest of the disk devices (this will be changed in the future once the real boot device can be recovered from the device tree passed by boot.efi).  This procedure allows atv-bootloader to auto-boot a linux install or be extended for other uses. This is controlled by a "Kernel Flag" string param in com.apple.Boot.plist and has the following definitions 
 {{{
 #search for mb_boot_tv, grub and syslinux/ioslinux config --auto boot default
 "atv-boot=auto"
@@ -26,31 +34,38 @@ Frustrated creating an AppleTV based linux system. Tired of following voodoo ins
 #default is to drop to a login prompt (user=root, password=root)
 
 }}}
-    atv-bootloader is located [http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz here] and the source is in svn. This contains a prebuilt "fake" mach kernel with embedded Linux kernel/initrd along with the required support files. The only thing required is boot.efi which cannot be distributed.
+    atv-bootloader is located [http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz here] and the source is in [http://code.google.com/p/atv-bootloader/source/browse/trunk svn]. You will not find any files named atv-bootloader as atv-bootloader is the concepts contained within the downloaded package. This package contains a prebuilt "fake" mach kernel with embedded Linux kernel/initramfs along with the required support files. The only thing required is boot.efi which cannot be distributed.
+
+  * [Understandingkexec Understanding kexec]
 
   * software tools
-    * The AppleTV requires gpt formated partitions. "parted" can do this but is missing a required GUID format. So you need a patched parted. See the download section for [http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz parted-1.8.8-atv].
-    * The AppleTV uses two HFS formated partitions, while the standard Linux distro can mount HFS disk, the ability to format HSF is missing. See the download section for [http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz HFS support tools].
+    * The AppleTV needs a specific version of "boot.efi" in order to boot properly. This version can be extracted from the downloadable AppleTV update and [http://atv-bootloader.googlecode.com/files/atv-dmg2img-1.0.tar.gz this version of dmg2img] is used to convert from "dmg" to "img" formats.
+    * The AppleTV requires GPT formatred partitions. "parted" can do this but is missing a required GUID format. So you need a patched parted. See the download section for [http://atv-bootloader.googlecode.com/files/parted-1.8.8-atv.tar.gz parted-1.8.8-atv].
+    * The AppleTV uses two HFS formatted partitions, while the standard Linux distro can mount HFS disk, the ability to format HSF is missing. See the download section for [http://atv-bootloader.googlecode.com/files/hfs_support-1.0.tar.gz HFS support tools].
 
-  * linux install on a hard disk
-  You can install Linux to the internal hard disk or to a external USB hard drive and leave the original AppleTV hardware drive unaltered. Either method is acceptable and will result in a working Linux install. 
+  * [ATVBackup backup and restore]
+  If you are installing to the original AppleTV internal drive, you should backup the original hard drive. This section contains a guide for the backup and restore of the internal PATA disk.
 
-  If you are installing to the original AppleTV internal drive, you should backup the original hard drive. See the linux section of [http://wiki.awkwardtv.org/wiki/Backup_your_original_Hard_Drive Backup_your_original_Hard_Drive] and search for backup in [http://wiki.awkwardtv.org/wiki/Linux_on_Apple_TV Linux_on_Apple_TV] for details on backing up the original hard drive. It is possible to restore from the AppleTV 1.1 update but it's tricky. It's better to have the backup. A backup will take approximately 3GB to 40GB of space depending if the backup is compressed and you only really need to backup the original recovery partition.
-    * [BootEFIExtraction extract boot.efi]
-    * [PartitioningLinux partition for linux  ]
-    * [InstallMythBuntu install mythbuntu]
-    * [InstallUbuntuGutsy install ubuntu 7.10 gutsy] (under construction)
+  * [BootingLiveCD booting a Linux LiveCD]
+  You CAN boot a LiveCD on the AppleTV using a USB cdrom. This guide contains information on how to boot the Ubuntu 7.10 Gutsy LiveCD and can be adapted for other Linux LiveCDs.
 
-  * linux rescue USB pen disk
+  * [InstallingLinux installing Linux]
+  Install Linux to the internal hard disk or to a external USB hard drive and leave the original AppleTV hardware drive unaltered. Either method is acceptable and will result in a working Linux install. 
 
-  * basic patchstick (placeholders, no content yet)
-    * [BootEFIExtraction extract boot.efi]
-    * [PartitioningPatchstick partition for patchstick]
-    * [BuildingPatchstick build the patchstick]
+  * [LinuxUSBPenRescue linux rescue USB pen disk]
+
+  * [BuildingPatchstick build a basic patchstick]
 
   * extending patchstick
 
   * WinXP and friends
     * Trying to do anything involving the AppleTV under Windows is not recommended. Windows does lots of hidden things like touching partitions that is has no business touching. Boot a Linux LiveCD instead and do everything from that environment.
 
+= Help =
+Got a question or problem, post it to http://groups.google.com/group/atv-bootloader 
+
+= [atv_blog Development Blog] =
+
+
 [ATVBootloader_Main m]
+
