@@ -10,14 +10,14 @@ The solution is simple, extract it from the AppleTV update. The following instru
 
 *Update - April 29, 2008 - Apple seems to have purged their previous updates. The following are now missing from mesu.apple.com*.
 {{{
-r1.1 - at http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg 
-r2.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.dmg
-r2.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
+1.1 - at http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg 
+2.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.dmg
+2.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
 }}}
 
-Still present is the current !r2.2 update.
+Still present is the current 2.2 update.
 {{{
-r2.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
+2.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
 }}}
 
 = Details =
@@ -34,7 +34,7 @@ tar -xzf atv-dmg2img-1.0.tar.gz
 cd dmg2img
 sudo ./install_dmg2img.sh
 
-# download the AppleTV r2.2 update
+# download the AppleTV 2.2 update
 wget http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
 #
 # convert it to an img format
@@ -64,5 +64,5 @@ md5sum boot.efi
 sudo umount atv-update
 rmdir atv-update
 rm atv.img
-rm 2Z694-5248-45.dmg
+rm 2Z694-5428-3.dmg
 }}}
