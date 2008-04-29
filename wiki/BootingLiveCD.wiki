@@ -19,7 +19,7 @@ On a working Linux system, create a USB flash drive with atv-bootloader installe
 
 Remember to *[ATVBackup backup the internal PATA "Recovery" partiton]* if you are going to install there. You can use the same USB flash drive for this guide and skip the next section.
 
-Once these tools are installed then create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup.
+Once these tools are installed then create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup. If you have problems partitioning, you might have a [FixingUSBFlashDrives USB flash drive that needs fixing].
 {{{
 # zero the initial sectors
 sudo dd if=/dev/zero of=/dev/sdb bs=4096 count=1M
