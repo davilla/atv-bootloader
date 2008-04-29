@@ -1,3 +1,17 @@
 = MythTV =
 
 under construction
+
+
+|| *CPU --* || *Profile 1* || *Profile 2* ||
+|| Description || XvMC for higher resolutions || ffmpeg fallback ||
+|| Resolution || >= 1280 720 || > 0 0 ||
+|| Decoder || XvMC || ffmpeg ||
+|| Video Renderer || xvmc-blit || xv-blit ||
+|| OSD Renderer || ia44blend || chromakey ||
+|| OSD Fade || Off || Off ||
+|| Deinterlacer || one field || linear blend ||
+|| Secondary Deinterlacer || none || one field ||
+|| Filters || none || none ||
+
+
