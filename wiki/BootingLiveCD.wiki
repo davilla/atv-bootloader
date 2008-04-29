@@ -15,7 +15,8 @@ This guide describes how to boot a Linux LiveCD directly from the AppleTV. It re
 = Ubuntu 7.10 Gutsy =
 Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy LiveCD using atv-bootloader. 
 
-On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See the guides [BootEFIExtraction extracting "boot.efi"] and  [PartitioningLinux partitioning Linux] for reference. 
+On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
+ 
 
 Remember to *[ATVBackup backup the internal PATA "Recovery" partiton]* if you are going to install there. You can use the same USB flash drive for this guide and skip the next section.
 
