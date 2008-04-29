@@ -51,5 +51,59 @@ this is a patchstick stript
 
 If you have a USB keyboard attached, you can login (user=root password=root) and poke around. The USB pen drive will be at "/dev/sdb" and the internal ata drive is at "/dev/sda".
 
+= example patchstick.sh = 
 
-To be Continued...
+Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of installing "sshd". Nothing is auto mounted so you will nned to mount any disk partitions manually. This also assumes that you have created a directory "ssh" on the "Patchstick" partition of the USB flash drive and populate it with the required files.
+{{{
+
+#!/bin/bash
+# On Linux, bash is located at "/bin/bash" not "/sbin/bash"
+
+# make some mount points
+mkdir /stuff /OSBoot
+
+# mount the USB flash drive "Patchstick" partition 
+mount /dev/sdb2 /stuff
+
+# always "fsck.hfsplus -f" hfsplus journaled partitions first
+fsck.hfsplus -f /dev/sda3
+
+# mount "OSBoot" forcing it read/write
+mount -t hfsplus -o rw,force /dev/sda3 /OSBoot
+
+# patchstick scripts under Linux look the same as under OSX
+# it's just bash after all.
+
+# install ssh
+# (c) 2007 macTijn at awkwardtv dot org
+
+if [ -f /stuff/ssh/sshd ] && [ -f /stuff/ssh/ssh.plist ]; then
+  echo -n "        * Installing SSH daemon... "
+  cp /stuff/ssh/sshd /OSBoot/usr/sbin/sshd
+  cp /stuff/ssh/ssh /OSBoot/usr/bin/ssh
+  cp /stuff/ssh/ssh-add /OSBoot/usr/bin/ssh-add
+  cp /stuff/ssh/ssh-agent /OSBoot/usr/bin/ssh-agent
+  cp /stuff/ssh/ssh-keygen /OSBoot/usr/bin/ssh-keygen
+  cp /stuff/ssh/ssh-keyscan /OSBoot/usr/bin/ssh-keyscan
+  cp /stuff/ssh/scp /OSBoot/usr/bin/scp
+  cp /stuff/ssh/sftp-server /OSBoot/usr/libexec/sftp-server
+  cp /stuff/ssh/ssh-keysign /OSBoot/usr/libexec/ssh-keysign
+  cp /stuff/ssh/sshd-keygen-wrapper /OSBoot/usr/libexec/sshd-keygen-wrapper
+  cp /stuff/ssh/ssh.plist /OSBoot/System/Library/LaunchDaemons/ssh.plist
+  
+  chmod 755 /OSBoot/usr/sbin/sshd
+  chmod 755 /OSBoot/usr/bin/ssh
+  chmod 755 /OSBoot/usr/bin/ssh-add
+  chmod 755 /OSBoot/usr/bin/ssh-agent
+  chmod 755 /OSBoot/usr/bin/ssh-keygen
+  chmod 755 /OSBoot/usr/bin/ssh-keyscan
+  chmod 755 /OSBoot/usr/bin/scp
+  chmod 755 /OSBoot/usr/libexec/sftp-server
+  chmod 4755 /OSBoot/usr/libexec/ssh-keysign
+  chmod 755 /OSBoot/usr/libexec/sshd-keygen-wrapper
+  chmod 755 /OSBoot/System/Library/LaunchDaemons/ssh.plist
+
+  echo "        Done."
+fi
+
+}}}
