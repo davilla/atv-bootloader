@@ -8,7 +8,7 @@ We need our standard items for creating an AppleTV "Recovery" partition. These a
 
 Assuming you have these items extracted/built/installed, let's start.
 
-Create the recovery partition on a USB pen disk, this does not require very much space so 64MB or greater pen drive is fine. I recommend a USB flash disk of 512MB or greater, that way you can also use the same disk to backup the AppleTV. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your device setup.
+Create the recovery partition on a USB pen disk, this does not require very much space so 64MB or greater pen drive is fine. I recommend a USB flash disk of 512MB or greater, that way you can also use the same disk to backup the AppleTV. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your device setup. Also make sure the USB flash drive is unmounted, most Linux distros will auto-mount USB flash drives.
 {{{
 # zero the initial sectors
 sudo dd if=/dev/zero of=/dev/sdb bs=4096 count=1M
