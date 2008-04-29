@@ -3,9 +3,13 @@
 under construction
 
 
+
+The new playback settings are great but really confusing to understand. To top it off none of them are suitable for the AppleTV. Go to the playback settings and change "CPU--" to the following settings. This sets XvMC for decode resolutions greater than 1280 x 720 (1080i mpeg2) and ffmeg for everything else.
+
+
 || *CPU --* || *Profile 1* || *Profile 2* ||
 || Description || XvMC for higher resolutions || ffmpeg fallback ||
-|| Resolution || >= 1280 720 || > 0 0 ||
+|| Resolution || > 1280 720 || > 0 0 ||
 || Decoder || XvMC || ffmpeg ||
 || Video Renderer || xvmc-blit || xv-blit ||
 || OSD Renderer || ia44blend || chromakey ||
