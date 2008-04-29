@@ -1,3 +1,5 @@
+http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/mythtv-logo.jpg
+
 = MythTV =
 
 under construction
