@@ -2,7 +2,7 @@
 
 A basic patchstick serves one function and that is to enable remote ssh access into the AppleTV. To do this, a patchstick must be bootable and be able to mount and copy various sshd required files into the OSBoot file structure. 
 
-So first things first, let's make a bootable pen drive. This assumes that you have looked over the partition for Linux section to understand the basics. You will need to build the InstallParted patched parted] and the [InstallHFSTools hfs support tools].
+So first things first, let's make a bootable pen drive. This assumes that you have looked over the partition for Linux section to understand the basics. You will need to build the [InstallParted patched parted] and the [InstallHFSTools hfs support tools].
 
 This assumes the pen drive is at "/dev/sda". We are just going to make the recovery partition and a second to hold the patchstick script and sshd support files. The second partition could be ext2, ext3 or hfsplus. Fat is not supported at the current time as darwin/linux permissions do not translate correctly.
 
