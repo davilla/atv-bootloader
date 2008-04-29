@@ -182,9 +182,9 @@ cp -arp atv-update/System/Library/CoreServices/BootLogo.png staging/
 cp -arp atv-update/System/Library/CoreServices/com.apple.Boot.plist staging/
 }}}
 
-Copy 2Z694-5248-45.dmg into your staging directory as OS.dmg. That's correct, the update becomes the "OS.dmg" image that the AppleTV EFI firmware will use to create the contents of "OSBoot".
+Copy 2Z694-5428-3.dmg into your staging directory as OS.dmg. That's correct, the update becomes the "OS.dmg" image that the AppleTV EFI firmware will use to create the contents of "OSBoot".
 {{{
-cp -arp 2Z694-5248-45.dmg staging/OS.dmg
+cp -arp 2Z694-5428-3.dmg staging/OS.dmg
 }}}
 
 Edit "staging/com.apple.Boot.plist" and change it to look just like this. You will be changing "Boot Logo" and "Kernel Flags" strings.
@@ -214,7 +214,7 @@ Clean up
 sudo umount atv-update
 rmdir atv-update
 
-rm 2Z694-5248-45.dmg
+rm 2Z694-5428-3.dmg
 }}}
 
 Done, the contents of the directory "staging" can now be copied to the "backup" partition on your Linux USB pen rescue disk. Proceed to the Restore section above. 
