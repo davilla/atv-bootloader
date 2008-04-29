@@ -6,7 +6,7 @@ under construction
 
 
 
-The new playback settings are great but really confusing to understand. To top it off none of them are suitable for the AppleTV. Go to the playback settings and change "CPU--" to the following settings. This sets XvMC for decode resolutions greater than 1280 x 720 (1080i mpeg2) and ffmeg for everything else.
+The new playback settings are great but really confusing to understand. To top it off none of them are suitable for the AppleTV. Go to the playback settings and change "CPU--" to the following settings. This sets XvMC for decode resolutions greater than 1280 x 720 (1080i mpeg2) and ffmeg for everything else. I prefer "linearblend" over "kerneldeint". "kerneldeint" does "linearblend" for most frames and switches to something else for high motion. I can see the toggling between the two different algorithms and it annoys my viewing.
 
 
 || *CPU --* || *Profile 1* || *Profile 2* ||
@@ -16,7 +16,7 @@ The new playback settings are great but really confusing to understand. To top i
 || Video Renderer || xvmc-blit || xv-blit ||
 || OSD Renderer || ia44blend || chromakey ||
 || OSD Fade || Off || Off ||
-|| Deinterlacer || one field || linear blend ||
+|| Deinterlacer || one field || linearblend ||
 || Secondary Deinterlacer || none || one field ||
 || Filters || none || none ||
 
