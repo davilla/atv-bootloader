@@ -15,7 +15,7 @@ r2.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.d
 r2.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
 }}}
 
-Still present is current r2.2 update.
+Still present is the current !r2.2 update.
 {{{
 r2.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
 }}}
