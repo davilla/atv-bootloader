@@ -155,4 +155,4 @@ kexec --load /cdrom/isolinux/vmlinuz \
 --command-line="initrd=initrd.img noselinux selinux=off video=vesafb xdriver=vesa" 
 }}}
 
-MythDora uses GRUB so atv-bootloader will be able to automatically find and translate GRUB's menu.lst boot settings.
+!MythDora uses GRUB so atv-bootloader will be able to automatically find and translate GRUB's menu.lst boot settings.
