@@ -131,7 +131,7 @@ kexec --load /cdrom/boot/isolinux/linux \
 --command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce" 
 }}}
 
-And the LILO translated kexec params for disk boot are ("/dev/sda1" is mounted at "/root/tmp"
+And the LILO translated kexec params for disk boot are ("/dev/sda1" is mounted at "/root/tmp")
 {{{
 kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
 --initrd=/root/tmp/boot/initrd.gz \
