@@ -65,4 +65,4 @@ sudo umount atv-update
 rmdir atv-update
 rm atv.img
 rm 2Z694-5428-3.dmg
-}}}
+}}} 

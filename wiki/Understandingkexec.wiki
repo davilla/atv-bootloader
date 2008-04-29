@@ -12,7 +12,7 @@ It's pretty easy to use kexec once you understand what it needs as parameters an
 
  * The second step actually tells the current kernel to reboot but instead of rebooting it will take the system down, then kexec to new kernel.
 
-Let's take this in detail now. For this example, we will do a manual [http://mysettopbox.tv/ KnoppMyth] cdrom boot using a external USB cdrom. This assumes that you have created a USB flash drive with atv-bootloader installed and telnet enabled. It's much easer to do this using a telnet connection. Use the [LinuxUSBPenRescue Linux USB pen rescue guide] to create your USB boot disk and use it boot the AppleTV.
+Let's take this in detail now. For this example, we will do a manual [http://mysettopbox.tv/ KnoppMyth] cdrom boot using a external USB cdrom. This assumes that you have created a USB flash drive with atv-bootloader installed and telnet enabled. It's much easer to do this using a telnet connection. Use the [LinuxUSBPenBoot Linux USB flash boot guide] to create your USB boot disk and use it boot the AppleTV.
 
 Mount the cdrom and dump "isolinux.cfg" file to see the kernel, initrd/initramfs and kernel params. The kernel and initrd are going to be loaded into RAM so the disk/cdrom where they are located will need to be mounted. Neither atv-bootloader nor kexec will automatically mount any disks. 
 {{{
