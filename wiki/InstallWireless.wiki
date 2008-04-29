@@ -1,4 +1,4 @@
-http://atv-bootloader.googlecode.com/svn/branches/web_items/internals/BCM94321MC.png
+http://atv-bootloader.googlecode.com/svn/branches/web_items/internals/BCM94321MC.jpg
 
 = Enable 802.11 Wireless Networking =
 
