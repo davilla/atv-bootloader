@@ -137,5 +137,22 @@ kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
 --command-line="root=/dev/hda1 lang=us nomce vga=normal initrd=initrd.gz"
 }}}
 
+= !MythDora 5 =
+
+Here's an example for !MythDora 5, the default isolinux setting is
+{{{
+label linux
+  menu label ^Install or upgrade an existing system
+  menu default
+  kernel vmlinuz            
+  append initrd=initrd.img noselinux selinux=off
+}}}
+
+The translated kexec params for cdrom boot are
+{{{
+kexec --load /cdrom/isolinux/vmlinuz \
+--initrd=/cdrom/isolinux/initrd.img \
+--command-line="initrd=initrd.img noselinux selinux=off video=vesafb xdriver=vesa" 
+}}}
 
 
