@@ -1,6 +1,6 @@
 = USB Flash Drive Games =
 
-Sometimes a USB flash drive will be strange under Linux. The re-partitioning gives strange errors. It will not mount or there are "extra" partitions that you can't get rid of. Welcome to the wonderful world of Windows causing problems with basic devices. What you are seeing is either geometry differences or "special" partitions designed to aid Windows user. Once such mechinisum is [http://www.u3.com/smart/default.aspx U3 Smart Drive]. These "features" will get in the way and prevent using the USB flash drive in a normal manor under Linux. They must be removed and unfortunatly this normally needs to be performed under Windows.
+Sometimes a USB flash drive will be strange under Linux. The re-partitioning gives strange errors. It will not mount or there are "extra" partitions that you can't get rid of. Welcome to the wonderful world of Windows causing problems with basic devices. What you are seeing is either geometry differences or "special" partitions designed to aid Windows user. Once such mechanism is [http://www.u3.com/smart/default.aspx U3 Smart Drive]. These "features" will get in the way and prevent using the USB flash drive in a normal manor under Linux. They must be removed and unfortunatly this normally needs to be performed under Windows.
 
 Other times, the flash geometry is just wrong or very odd-ball. USB flash drives are mass produced and can have different flash components even if the drives are identical in outside appearance. 
 
