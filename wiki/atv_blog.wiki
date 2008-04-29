@@ -2,7 +2,8 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
-= April 28, 2008 =
+= April 29, 2008 =
+Oh, the horror, Apple has purges ALL previous updates from mesa.apple.com. Now more restore to 1.x unless you already have the update squirreled away.
 
 = April 27, 2008 =
 !WooHoo, Ubuntu/Mythbuntu Gutsy AND Hardy boot from cdrom. Added new wiki page about cdrom booting. I really wish they would add vesafb to their initramfs.
