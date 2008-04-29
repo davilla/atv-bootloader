@@ -139,7 +139,7 @@ kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
 
 = !MythDora 5 =
 
-under construction -- LiveCD boot works, installed boot is failing.
+*under construction* -- LiveCD boot works, installed boot using kexec is failing.
 
 Here's an example for !MythDora 5, the default isolinux setting is
 {{{
