@@ -19,7 +19,7 @@ The next issue is that atv-bootloader requires a GPT formatted disk to boot. Thi
  # Format GPT
  # Format normal and use a USB flash drive to bootstrap.
 
-So think about your setup and where you want to place your Linux distribution installation. If you have questions, ask on the [http://groups.google.com/group/atv-bootloader atv-bootloader discussion group] and either myself or someone else can assist.
+So think about your setup and where you want to place your Linux distribution installation. Your Linux distribution needs to be a 32-bit Intel as the AppleTV uses a Pentium-M processor. If you have questions, ask on the [http://groups.google.com/group/atv-bootloader atv-bootloader discussion group] and either myself or someone else can assist.
 
 Once you have settled on a plan, you should do the following before starting any install process;
  # [BootEFIExtraction extract "boot.efi" from the downloadable AppleTV update].
