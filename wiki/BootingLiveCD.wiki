@@ -128,19 +128,24 @@ The translated kexec params for cdrom boot are
 {{{
 kexec --load /cdrom/boot/isolinux/linux \
 --initrd=/cdrom/boot/isolinux/minirt.gz \
---command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce" 
+--command-line="ramdisk_size=100000 init=/etc/init lang=us vga=normal initrd=minirt.gz nomce"
+
+kexec -e
 }}}
 
-And the LILO translated kexec params for disk boot are ("/dev/sda1" is mounted at "/root/tmp")
+And the LILO translated kexec params for a manual "boot_linux.sh" using "atv-boot=manual" are
 {{{
+mkdir /root/tmp
+mount /dev/sda1 /root/tmp
+
 kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
 --initrd=/root/tmp/boot/initrd.gz \
 --command-line="root=/dev/hda1 lang=us nomce vga=normal initrd=initrd.gz"
+
+kexec -e
 }}}
 
 = !MythDora 5 =
-
-*under construction* -- LiveCD boot works, installed boot using kexec is failing.
 
 Here's an example for !MythDora 5, the default isolinux setting is
 {{{
@@ -155,7 +160,20 @@ The translated kexec params for cdrom boot are
 {{{
 kexec --load /cdrom/isolinux/vmlinuz \
 --initrd=/cdrom/isolinux/initrd.img \
---command-line="initrd=initrd.img noselinux selinux=off video=vesafb xdriver=vesa" 
+--command-line="initrd=initrd.img noselinux selinux=off video=vesafb xdriver=vesa"
+
+kexec -e
 }}}
 
-!MythDora uses GRUB so atv-bootloader will be able to automatically find and translate GRUB's menu.lst boot settings.
+And the GRUB translated kexec params for a manual "boot_linux.sh" using "atv-boot=manual" are
+{{{
+mkdir /root/tmp
+mount /dev/sda1 /root/tmp
+
+kexec --load /root/tmp/vmlinuz-2.6.24.4-64.fc8 \
+--initrd=/root/tmp/initrd-2.6.24.4-64.fc8.img \
+--command-line="ro root=/dev/VolGroup00/LogVol00 video=vesafb rhgb quiet"
+
+kexec -e
+}}}
+
