@@ -7,20 +7,20 @@ During power-on boot, AppleTV EFI firmware finds and executes the file "boot.efi
 scp frontrow@YOUR.IP.ADDRESS.HERE:/System/Library/CoreServices/boot.efi ./
 }}}
 
-If you don't have ssh enabled and don't want to open up the AppleTV, the solution is simple, extract it from the AppleTV update. The following instructions detail how to download the AppleTV 2.1 update and extract "boot.efi" using "dmg2img". "boot.efi" is the only file required to enable atv-bootloader to boot linux so unless you are interested in building a [BuildingPatchstick patchstick], you can delete the downloaded/converted files.
+If you don't have ssh enabled and don't want to open up the AppleTV, the solution is simple, extract it from the AppleTV update. The following instructions detail how to download the AppleTV 2.0.2 update and extract "boot.efi" using "dmg2img". "boot.efi" is the only file required to enable atv-bootloader to boot linux so unless you are interested in building a [BuildingPatchstick patchstick], you can delete the downloaded/converted files.
 
 *This needs to be done using an installed/working Linux distro and not a LiveCD. Some LiveCD distros use unionfs and loopfs does not work under a unionfs mount.*
 
 *Update - April 29, 2008 - Apple seems to have purged their previous updates. The following are now missing from mesu.apple.com*.
 {{{
-1.1 - at http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg 
-2.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.dmg
-2.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
+1.0.1 - at http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg 
+2.0.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.dmg
+2.0.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
 }}}
 
-Still present is the current 2.2 update.
+Still present is the current 2.0.2 update.
 {{{
-2.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
+2.0.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
 }}}
 
 = Details =

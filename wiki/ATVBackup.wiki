@@ -131,24 +131,24 @@ When it finally comes up, presto, a factory fresh AppleTV.
 
 = Opps I did not make a backup =
 
-*Update - April 29, 2008 - Apple seems to have purged their previous updates. The following are now missing from mesu.apple.com. This means that one will no longer be able to recover back to the 1.x series. Bummer.* I've not tested this procedure with the 2.2 dmg update but it seems like it should work. I'll test it when I get a chance. You might run into issues if your AppleTV was at the original EFI firmware as the 2.x series will expect the updated EFI firmware that occurred during the 1.x to 2.x updates. 
+*Update - April 29, 2008 - Apple seems to have purged their previous updates. The following are now missing from mesu.apple.com. This means that one will no longer be able to recover back to the 1.x series. Bummer.* I've not tested this procedure with the 2.0.2 dmg update but it seems like it should work. I'll test it when I get a chance. You might run into issues if your AppleTV was at the original EFI firmware as the 2.0.x series will expect the updated EFI firmware that occurred during the 1.0.x to 2.0.x updates. 
 {{{
-1.1 - at http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg
-2.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.dmg
-2.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
+1.0.1 - at http://mesu.apple.com/data/OS/061-2988.20070620.bHy75/2Z694-5248-45.dmg
+2.0.0 - at http://mesu.apple.com/data/OS/061-3561.20080212.ScoH6/2Z694-5274-109.dmg
+2.0.1 - at http://mesu.apple.com/data/OS/061-4375.20080328.gt5er/2Z694-5387-25.dmg
 }}}
 
-Still present is the current 2.2 update.
+Still present is the current 2.0.2 update.
 {{{
-2.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
+2.0.2 - at http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
 }}}
 
-So you messed up and did bad things to the internal PATA disk without making a backup. All is not lost. You can save the day by using the AppleTV 2.2 update to re-create the AppleTV disk. Do this step on a working Linux box, the proceed to the "Restore" section above. 
+So you messed up and did bad things to the internal PATA disk without making a backup. All is not lost. You can save the day by using the AppleTV 2.0.2 update to re-create the AppleTV disk. Do this step on a working Linux box, the proceed to the "Restore" section above. 
 
 Start by downloading the update, converting it and mouting. Do this on a working Linux system or LiveCD. We going to use same methods as in [BootEFIExtraction extract "boot.efi"] so see that section if you need to build dmg2img.
 
 {{{
-# download the AppleTV 2.2 update
+# download the AppleTV 2.0.2 update
 wget http://mesu.apple.com/data/OS/061-4632.2080414.gt5rW/2Z694-5428-3.dmg
 #
 # convert it to an img format
