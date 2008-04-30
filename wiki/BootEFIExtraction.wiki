@@ -6,7 +6,7 @@ During power-on boot, AppleTV EFI firmware finds and executes the file "boot.efi
 
 The solution is simple, extract it from the AppleTV update. The following instructions detail how to download the AppleTV 1.1 update and extract "boot.efi" using "dmg2img". "boot.efi" is the only file required to enable atv-bootloader to boot linux so unless you are interested in building a [BuildingPatchstick patchstick], you can delete the downloaded/converted files.
 
-*This needs to be done using an installed/working Linux distro and not a LiveCD. Some LiveCD distros use unionfs and loopfs does not work under a unionfs mount mount.*
+*This needs to be done using an installed/working Linux distro and not a LiveCD. Some LiveCD distros use unionfs and loopfs does not work under a unionfs mount.*
 
 *Update - April 29, 2008 - Apple seems to have purged their previous updates. The following are now missing from mesu.apple.com*.
 {{{
