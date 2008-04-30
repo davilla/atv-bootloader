@@ -3,7 +3,9 @@
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
 = April 30, 2008 =
-Grrr, seems to be a recent theme of users not getting boot when creating a USB flash drive with atv-bootloader. Don't panic, this method does work and numerous people have used it to boot Linux on the AppleTV. Something basic is incorrect and I've missed something in the massive editing of the wiki guides. This is quite annoying as web hits have really spiked in the last few days. I'll jump right on this once I get home from work tonight.
+Grrr, seems to be a recent theme of users not getting boot when creating a USB flash drive with atv-bootloader. Don't panic, this method does work and numerous people have used it to boot Linux on the AppleTV. Something basic is incorrect and I've missed something in the massive editing of the wiki guides. This is quite annoying as web hits have really spiked in the last few days. I'll jump right on this once I get home from work tonight with my new 8GB fast flash drive (Corsair Voyager, sustained read speed of 19MB/sec, sustained write speed of 13MB/sec). 
+
+On another note, Hardy has hfs tools via apt-get (http://packages.ubuntu.com/hardy/otherosfs/hfsprogs)
 
 = April 29, 2008 =
 Oh, the horror, Apple has purged ALL previous updates from mesa.apple.com. No more restore to 1.x unless you already have the updates squirreled away.
