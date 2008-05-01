@@ -1,6 +1,6 @@
 = Partition for Bootstrap Linux Install =
 
-This is the easiest partition method. There are no prep steps. You boot a [BootingLiveCD CD installer using atv-bootloader], then install to the internal PATA disk over-writing everything on it. 
+This is the easiest partition method. There are no prep steps. You boot a [BootingLiveCD CD installer using atv-bootloader], then install to the internal PATA disk over-writing everything on it. Make sure you [ATVBackup backup your AppleTV] so you can return to the factory AppleTV OS if desired.
 
 You will need to make sure "com.apple.Boot.plist" on the recovery partition of the USB flash disk has the the atv-boot parameter of "auto"
 {{{
