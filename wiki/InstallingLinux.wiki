@@ -24,7 +24,7 @@ Once you have settled on a plan, do the following before starting any install pr
  # [LinuxUSBPenBoot Build the atv-bootloader USB flash disk].
  # [ATVBackup Backup your AppleTV if you plan on over-writing the internal disk].
 
-Then choose your install method.
+Then choose your install method and prep the partitions.
  # Over-write the existing AppleTV internal disk
    # [PartitioningLinux Format GPT for self boot]
    # [BootStrapPATALinuxInstall Format normal and use a USB flash drive to bootstrap]
