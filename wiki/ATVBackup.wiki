@@ -37,7 +37,7 @@ Partition Table: gpt
 
 Number  Start   End      Size     File system  Name     Flags  
  1      40s     48828s   48789s   hfs+         primary  atvrecv
- 2      48829s  501725s  452897s  ext3         primary         
+ 2      48829s  501725s  452897s               primary         
 
 # sync the system disk partition tables
 sudo partprobe /dev/sdb
