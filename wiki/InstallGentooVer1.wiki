@@ -4,9 +4,9 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/gentoo.jpg
 
 Make sure you first [ATVBackup backup] if you intend on changing the original AppleTV internal PATA.
 
-This page describes the process to install Gentoo Linux on an Apple TV device and was contributed by Oscar Schnitzer folowing  [http://forum.awkwardtv.org/viewtopic.php?f=23&t=1491 a post on the awkwardtv forum]. Thanks Oscar. This installation uses the "atv bootloader", described at http://code.google.com/p/atv-bootloader however that page sets up a Ubuntu system, whereas our instructions (below) set up a Gentoo system.
+This page describes the process to install Gentoo Linux on an Apple TV device and was contributed by Oscar Schnitzer following  [http://forum.awkwardtv.org/viewtopic.php?f=23&t=1491 a post on the awkwardtv forum]. Thanks Oscar. 
 
-The aim of our installation was to produce a device that has a good USB support,and that uses as little RAM as possible.  Hence an emphasis has been placed on USB and a lean kernel, and very little on (for example) video and sound.
+The aim of this installation is to produce a device that has a good USB support,and that uses as little RAM as possible.  Hence an emphasis has been placed on USB and a lean kernel, and very little on (for example) video and sound.
 
 We use a vanilla kernel rather than a Gentoo-patched one, to make it easier to share configurations (and bugs!) with other distributions on this hardware.
 
