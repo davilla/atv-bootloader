@@ -27,7 +27,7 @@ Once you have settled on a plan, do the following before starting any install pr
 Then choose your install method.
  # Over-write the existing AppleTV internal disk
    # [PartitioningLinux Format GPT for self boot]
-   # Format normal and use a USB flash drive to bootstrap
+   # [BootStrapPATALinuxInstall Format normal and use a USB flash drive to bootstrap]
  # [BootableUSBLinuxInstall Use an external USB disk for Linux]
  # Coexist on the internal disk and use a USB flash drive to bootstrap
    # Use original internal disk and resize "Media" to make space for Linux.
