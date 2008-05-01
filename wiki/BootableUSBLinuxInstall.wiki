@@ -74,6 +74,20 @@ sudo mkfs.ext3  -b 4096 -L Linux /dev/sdb2
 # let the installer handle swap.
 }}}
 
+Verify your partitioning, "atvrecv" must be present.
+{{{
+# parted -s /dev/sdb unit s print
+Model: Corsair Flash Voyager (scsi)
+Disk /dev/sdb: 15728640s
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start      End        Size       File system  Name     Flags  
+ 1      40s        69671s     69632s     hfs+         primary  atvrecv
+ 2      69672s     14680029s  14610358s  ext3         primary         
+ 3      14680030s  15728606s  1048577s                primary         
+}}}
+
 Install atv-bootloader
 {{{
 # download recovery files
