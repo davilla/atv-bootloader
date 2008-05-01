@@ -10,6 +10,8 @@ What we do is take advantage of the self-restoring capability that is already bu
 
 = Backup =
 Let's get started, first build [LinuxUSBPenBoot atv-bootloader on a USB pen disk] with telnet support. You will need a USB flash drive of 512MB or greater. Flash drives of this size are dirt cheap and I recommend buying one specific for this purpose. In addition to the "Recovery" partition that atv-bootloader uses, make a second partition called "backup" that is equal to or greater than 256MB in size. Make this partition "ext3" so the AppleTV EFI firmware ignores it.
+
+This is the USB flash drive created in [LinuxUSBPenBoot atv-bootloader on a USB pen disk]
 {{{
 parted -s /dev/sdb unit s print
 
@@ -20,8 +22,12 @@ Partition Table: gpt
 
 Number  Start   End      Size     File system  Name     Flags  
  1      40s     48828s   48789s   hfs+         primary  atvrecv
+}}}
 
-# add the ext2 partition (501759s - 34s)
+{{{
+
+Add the ext2 partition (501759s - 34s = 501725s)
+{{{
 sudo parted -s /dev/sdb mkpart primary EXT 48829s 501725s
 
 # check it

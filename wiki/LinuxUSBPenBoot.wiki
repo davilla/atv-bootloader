@@ -65,6 +65,7 @@ sudo mount /dev/sdb1 penboot
 wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
 sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* penboot/
+
 # remember to copy boot.efi too
 sudo cp -ap boot.efi penboot/
 }}}
