@@ -99,7 +99,7 @@ If you have pre-formatted the install disk, proceed to installing your distro. I
 
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
 
-= Mythbuntu =
+= Mythbuntu (Gutsy or Hardy)=
 Here's an example for Mythbuntu, the default isolinux setting is
 {{{
 DEFAULT /casper/vmlinuz
