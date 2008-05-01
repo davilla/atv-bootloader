@@ -9,7 +9,38 @@ What we do is take advantage of the self-restoring capability that is already bu
 * Warning* You might use "dd" to copy the entire disk but that's a waste of time and storage space and "dd" is not the correct tool to copy GPT format disks. Usage of dd to copy the entire disk is fortuitous, it might work, but CAN fail under certain conditions and is therefore unreliable. Proper GPT format includes a secondary partition map in the ending sectors on the disk. If these sectors do not exist because your destination disk is smaller than your source disk, it will not be present after using "dd". Failure to include the secondary partition map or failure to place it in the proper location will lead to unreliable results. Using "dd" for USB pen drives further flawed by inconstancies in flash based disk geometry. Even for non-GPT format, the use of "dd" can lead to unreliable results when used to image a USB flash based pen drive. 
 
 = Backup =
-Let's get started, first build [LinuxUSBPenBoot atv-bootloader on a USB pen disk] with telnet support. You will need a USB flash drive of 512MB or greater. Flash drives of this size are dirt cheap and I recommend buying one specific for this purpose. In addition to the "Recovery" partition that atv-bootloader uses, make a second partition called "backup" that is equal to or greater than 256MB in size. Make this partition "ext2" so the AppleTV EFI firmware ignores it.
+Let's get started, first build [LinuxUSBPenBoot atv-bootloader on a USB pen disk] with telnet support. You will need a USB flash drive of 512MB or greater. Flash drives of this size are dirt cheap and I recommend buying one specific for this purpose. In addition to the "Recovery" partition that atv-bootloader uses, make a second partition called "backup" that is equal to or greater than 256MB in size. Make this partition "ext3" so the AppleTV EFI firmware ignores it.
+{{{
+parted -s /dev/sdb unit s print
+
+Model: SanDisk Cruzer Micro (scsi)
+Disk /dev/sdb: 501759s
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start   End      Size     File system  Name     Flags  
+ 1      40s     48828s   48789s   hfs+         primary  atvrecv
+
+# add the ext2 partition (501759s - 34s)
+sudo parted -s /dev/sdb mkpart primary EXT 48829s 501725s
+
+# check it
+parted -s /dev/sdb unit s print
+Model: SanDisk Cruzer Micro (scsi)
+Disk /dev/sdb: 501759s
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start   End      Size     File system  Name     Flags  
+ 1      40s     48828s   48789s   hfs+         primary  atvrecv
+ 2      48829s  501725s  452897s  ext3         primary         
+
+# sync the system disk partition tables
+sudo partprobe /dev/sdb
+
+# format this partition ext3
+sudo mkfs.ext3 /dev/sdb2
+}}}
 
 Boot the AppleTV using this USB flash drive and telnet in. Nothing is mounted so make two mount points and mount the second partition of the USB flash drive on one and the "Recovery" partition on the internal PATA disk on the other. Clone the contents of "Recovery" to our backup partition. You don't have to copy the contents of "EFI" as there is nothing to copy. That correct, "EFI" is empty. Note that we fsck.hfsplus the "Recovery" partition even though it will be mounted read only. 
 {{{

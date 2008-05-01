@@ -6,7 +6,7 @@ The first partition is labeled "EFI" and is FAT32 but it has a special GUID. Thi
 
 The second partition is labeled "Recovery". It's a HFS-plus format but it also has a special GUID. The AppleTV keeps a disk image (dmg) of the OSBoot files. It's called Recovery because the AppleTV firmware can restore the next partition (OSBoot) in case it detects problems. When you select "restore" from the configure menu, this is where the AppleTV pulls an OS image.
 
-The third partition is labeled "OSBoot". It's also a HFS-plus format and has the normal GUID for HFS-plus. This holds the normally booted AppleTV OS (which is a derivative of OS X 10.4.x) and FrontRow.
+The third partition is labeled "OSBoot". It's also a HFS-plus format and has the normal GUID for HFS-plus. This holds the normally booted AppleTV OS (which is a derivative of OS X 10.4.x) and !FrontRow.
 
 The fourth partition is labeled "Media". It's also HFS-plus and it only holds media content. This partition can be reduced in size if you want to create more partitions for linux usage.
 

@@ -8,7 +8,7 @@ Grrr, seems to be a recent theme of users not getting boot when creating a USB f
 On another note, Hardy has hfs tools via apt-get (http://packages.ubuntu.com/hardy/otherosfs/hfsprogs)
 
 = April 29, 2008 =
-Oh, the horror, Apple has purged ALL previous updates from mesa.apple.com. No more restore to 1.x unless you already have the updates squirreled away.
+Oh, the horror, Apple has purged ALL previous updates from mesa.apple.com. No more restore to 1.0.x unless you already have the updates squirreled away.
 
 Some !MythDora 5 action tonight. 1.2GB DVD download, ouch. "video=vesafb" works in kernel prams to get console framebuffer working. 169.12 nvidia driver version. Was not too hard to get X11 up with nvidia under-clocked. Of course, usbhid is a kernel built-in -- no module options tricks possible and ALSA need audio patch. !MythDora 5 will need a kernel/ALSA rebuild to get IR/analog audio support working. I'm punting to someone experienced with building kernels under fedora, I need to move on and get back to atv-bootloader dev. Any takers?
 
