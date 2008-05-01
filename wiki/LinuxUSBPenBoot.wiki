@@ -41,7 +41,7 @@ sudo partprobe /dev/sdb
 
 Verify that it looks fine and the atvrecv flag is set
 {{{
-parted -s /dev/sdb unit s print
+sudo parted -s /dev/sdb unit s print
 
 Model: SanDisk Cruzer Micro (scsi)
 Disk /dev/sdb: 501759s
@@ -52,7 +52,7 @@ Number  Start   End      Size     File system  Name     Flags
  1      40s     48828s   48789s   hfs+         primary  atvrecv
 }}}
 
-Format the partition hfsplus
+Format this partition hfsplus
 {{{
 # format it
 sudo mkfs.hfsplus -v Recovery /dev/sdb1
