@@ -24,7 +24,7 @@ Number  Start   End      Size     File system  Name     Flags
  1      40s     48828s   48789s   hfs+         primary  atvrecv
 }}}
 
-Add the ext2 partition The ending sector is the max sectors - 34 sectors(501759s - 34s = 501725s)
+Add the ext2 partition The ending sector is the max sectors - 34 sectors (501759s - 34s = 501725s)
 {{{
 sudo parted -s /dev/sdb mkpart primary EXT 48829s 501725s
 
