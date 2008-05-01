@@ -2,8 +2,8 @@
 
 In this guide, we will build an atv-bootloader based USB flash disk that can be used for standalone boot. We will also enable telnet so we don't need a USB keyboard attached and can do everything remotely using a telnet session using a wired network connection. Unfortunately, wireless is not supported at this time.
 
-Since atv-bootloader contains all the disk tools required for creating GPT formatted partitions, one can use it to boot, partition and install Linux with a USB cdrom using only the AppleTV. Of course you do need a working Linux system to create this USB flash disk. 
- 
+Since atv-bootloader contains all the disk tools required for creating GPT formatted partitions, one can use it to boot, partition and install Linux with a USB cdrom using only the AppleTV. Of course you do need a working Linux system to first create this USB flash disk. 
+
 We need our standard items for creating an AppleTV "Recovery" partition. These are boot.efi, the patched parted and hfs tools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support]. Test that you have to correct parted.
 {{{
 parted --version
