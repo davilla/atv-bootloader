@@ -11,4 +11,4 @@ When "auto" is selected, atv-bootloader will search for a GRUB menu.lst and kexe
 
 = Usage = 
 
-When the AppleTV is powered-on, Apple EFI firmware will look for a "Recovery" partition. It will find the one on the USB flash drive and boot atv-bootloader which then searches for valid GRUB menu.lst boot settings. Atv-bootloader will in turn use these boot settings to kexec boot that the default kernel.
+When the AppleTV is powered-on, Apple EFI firmware will look for a "Recovery" partition. It will find the one on the USB flash drive and boot atv-bootloader which then searches for valid GRUB menu.lst boot settings. Atv-bootloader will in turn use these boot settings to kexec boot that default kernel.
