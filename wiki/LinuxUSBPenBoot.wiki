@@ -49,7 +49,7 @@ Sector size (logical/physical): 512B/512B
 Partition Table: gpt
 
 Number  Start   End      Size     File system  Name     Flags  
- 1      40s     48828s   48789s   hfs+         primary  atvrecv
+ 1      40s     48828s   48789s                primary  atvrecv
 }}}
 
 Format this partition hfsplus
