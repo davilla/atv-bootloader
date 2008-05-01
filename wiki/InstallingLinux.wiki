@@ -34,10 +34,13 @@ Then choose your install method.
    # [AlternatePartitioning1 Use replacement internal disk]
 
 Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution.
- * [InstallMythBuntu Mythbuntu]
  * [InstallUbuntuGutsy Ubuntu 7.10 Gutsy]
  * [InstallGentooVer1 Gentoo]
- * [InstallKnoppMyth_R5F27 KnoppMyth R5F27]
+ * [InstallMythBuntu Mythbuntu]
+ * MythDora
+ * [InstallKnoppMyth_R5F27 KnoppMyth]
+ * miniMyth
+ * LiveXBMC
 
 
 
