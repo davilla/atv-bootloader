@@ -39,4 +39,6 @@ to
 ./configure CFLAGS="-fgnu89-inline" --enable-static=yes
 }}}
 
+*If you run the "install_parted.sh" script and get any errors building, stop and ask for help on the discussion group. Without successfully patching and building parted, you cannot create the proper GPT partitions and the AppleTV EFI firmware will not boot your USB disk.*
+
 Done.
