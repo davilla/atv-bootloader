@@ -37,7 +37,7 @@ Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and instal
  * [InstallUbuntuGutsy Ubuntu 7.10 Gutsy]
  * [InstallGentooVer1 Gentoo]
  * [InstallMythBuntu Mythbuntu]
- * MythDora
+ * !MythDora
  * [InstallKnoppMyth_R5F27 KnoppMyth]
  * miniMyth
  * LiveXBMC
