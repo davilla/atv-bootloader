@@ -2,8 +2,6 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/ubuntu.png
 
 = Install [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] =
 
-* April 27, 2008 - [BootingLiveCD now install direct from a USB cdrom] 
-
 These instructions are for the installation of [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from the LiveCD. This consist of a) install Gutsy, b) post install fixes and last c) post boot fixes.
 
 * Install Ubuntu Gutsy
