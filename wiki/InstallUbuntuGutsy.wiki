@@ -4,27 +4,20 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/ubuntu.png
 
 * April 27, 2008 - [BootingLiveCD now install direct from a USB cdrom] 
 
-Installation of [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from a LiveCD using a normal PC hardware platform. The idea is to use an normal PC and a external USB disk to install Gutsy onto the external USB disk. This consist of , a) you boot off the LiveCD, b) download and extract boot.efi, c) build disk partitioning tools for GPT format, d) build hfsplus formating tools, e) GPT format the external USB disk, f) install Gutsy, g) post install fixes and last h) post boot fixes.
-
-== Details ==
-* [BootEFIExtraction Extract boot.efi]
-
-* [PartitioningLinux Standard partition for Linux only]
-
-* [AlternatePartitioning1 Alternate partition for AppleTV/Linux]
+These instructions are for the installation of [http://www.ubuntu.com/getubuntu/download/ Ubuntu 7.10 Gutsy] from the LiveCD. This consist of a) install Gutsy, b) post install fixes and last c) post boot fixes.
 
 * Install Ubuntu Gutsy
 
-   This assumes /dev/sda4 is "/" and /dev/sda5 is "swap". It's ok to install grub, in fact we need the grub structure (menu.lst) to boot. We will replace the grub MBR with one that efi firmware likes so that the boot to the tux/atv logo drops form 30-60 seconds to 11. We do this later when the install is running on the AppleTV. *WARNING, if you have existing attached hard drives and are installing from the LiveCD, the safest method is to physically disconnect those drives. It's very easy to overlook a setting in "Prepare Partitions" that can alter your existing grub settings.*
+ This assumes /dev/sda4 is "/" and /dev/sda5 is "swap". If your disk partitioning is different you will need to adjust this guide to match.
 
-   Click on the "Install" desktop icon
+ Click on the "Install" desktop icon
 
-   Prepare disk space
+  Prepare disk space
 {{{
 select "Manual"
 }}}
 
-   Prepare Partitions
+  Prepare Partitions
 {{{
 select /dev/sda4 and "edit"
 change "use as" to ext3
@@ -37,13 +30,17 @@ change "use as" to swap
 if you see any other marked partitions
 select them and "edit"
 change "use as" to dontuse
+
+Install grub as we need the grub structure (menu.lst) to boot. We will run gptsync to fix up the MBR to one that efi firmware likes
+so that the boot to the tux/atv logo drops from 30-60 seconds to 11.
+This is done later when the install is running native on the AppleTV.
 }}}
 
 * Fix console framebuffer support
 
-   Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV. 
+ Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV. 
 
-   Unmount any USB drive partitions and then unplug/replug the USB drive to get the partitions mounted. The rest assumes the USB disk is mounted at /media/disk
+ If you are installing to a USB disk, unmount any USB drive partitions and then unplug/replug the USB drive to get the partitions re-mounted. The rest assumes the disk is mounted at /media/disk
 {{{
 sudo mount --bind /dev /media/disk/dev
 #
@@ -56,7 +53,7 @@ df to make sure you are in the correct root filesystem
 sudo apt-get install openssh-server
 }}}
 
-   You might see the following error but that's ok, sshd is installed but dpkg can not start it in chroot
+ You might see the following error but that's ok, sshd is installed but dpkg can not start it in chroot
 {{{
 invoke-rc.d: initscript ssh, action "restart" failed.
 dpkg: error processing openssh-server (--configure):
@@ -66,7 +63,7 @@ Errors were encountered while processing:
 E: Sub-process /usr/bin/dpkg returned an error code (1)
 }}}
 
-   Fix console framebuffer support by adding fncon and vesafb to the initramfs. Also add "8139too" to prevent "8139cp" from attempting to load.
+ Fix console framebuffer support by adding fncon and vesafb to the initramfs. Also add "8139too" to prevent "8139cp" from attempting to load.
 {{{
 #------------------------------------------------
 # enable vesafb console support
@@ -81,27 +78,27 @@ sudo nano /etc/initramfs-tools/modules and add
 sudo update-initramfs -u
 }}}
 
-   Done inside the chroot, exit and unmount /media/disk/dev
+ Done inside the chroot, exit and unmount /media/disk/dev
 {{{
 # exit chroot
 exit
 sudo umount /media/disk/dev
 }}}
 
-   Now you can a) reinstall the drive back into the AppleTV or b) install the drive into a 2.5 to USB drive adapter. Power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see the atv-bootloader kernel booting (tux in the upper left corner). After that your linux install should boot. If you are using a USB drive converter, you might have to use the IR remote and press "menu" and "-" buttons down during power on to force a USB recovery boot.
+ Now you can a) reinstall the drive back into the AppleTV or b) install the drive into a 2.5 to USB drive adapter. Power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see the atv-bootloader kernel booting (tux in the upper left corner). After that your linux install should boot. If you are using a USB drive converter, you might have to use the IR remote and press "menu" and "-" buttons down during power on to force a USB recovery boot.
 
-   You will have console framebuffer support but X11 will not startup when booting the AppleTV. X11 support requires the nvidia binary driver which installed later.
+ You will have console framebuffer support but X11 will not startup when booting the AppleTV. X11 support requires the nvidia binary driver which installed later.
 
 * Running Ubuntu Gutsy
 
-   There are a few things to complete the install once you have Ubuntu running. First update everthing then reboot.
+ There are a few things to complete the install once you have Ubuntu running. First update everthing then reboot.
 {{{
 sudo apt-get update
 sudo apt-get upgrade
 sudo reboot
 }}} 
    
-   Several additional items need to be updated/patched for supporting AppleTV hardware. The following are on separate pages as the procedures are similar for other debian based distributions.
+ Several additional items need to be updated/patched for supporting AppleTV hardware. The following are on separate pages as the procedures are similar for other debian based distributions.
     * [UpdateNvidiaDriver Update nvidia driver]
     * [UpdateAudioDriver Update audio driver]
     * [UpdateIRDriver Update IR driver]
@@ -117,4 +114,6 @@ sudo reboot
 
 * Updating Ubuntu Gutsy
 
-   A few things to watch out for. If you take an update that changes the kernel or kernel modules, then you will have to redo the nvidia binary driver install and patch/rebuild the audio driver and IR driver. Because of this, you should disable kernel updates. 
+ A few things to watch out for. If you take an update that changes the kernel or kernel modules, then you will have to redo the nvidia binary driver install and patch/rebuild the audio driver and IR driver. Because of this, you should disable kernel updates. 
+
+

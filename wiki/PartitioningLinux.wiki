@@ -10,7 +10,7 @@ If you are installing to the original AppleTV internal drive, you should [ATVBac
 
 = Details =
 
-You don't actually need to create the "EFI" and "OSBoot" partitions, the AppleTV will boot fine without them. I always include them just in case EFI firmware tries any tricks on me in the future.
+You don't actually need to create the "EFI" and "OSBoot" partitions, the AppleTV will boot fine without them. I always include them on the internal disk just in case the Apple EFI firmware tries any tricks on me in the future.
 {{{
 # zero /dev/sda first or pre-existing guid will not change
 dd if=/dev/zero of=/dev/sda bs=4096 count=1M

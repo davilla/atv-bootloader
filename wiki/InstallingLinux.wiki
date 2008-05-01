@@ -1,5 +1,3 @@
-* April 27, 2008 - ATV-Bootloader has been updated*
-
 = Installing Linux =
 
 The installation of Linux on the AppleTV is pretty easy now but there are a few things to think about before you proceed. 
@@ -21,10 +19,19 @@ The next issue is that atv-bootloader requires a GPT formatted disk to boot. Thi
 
 So think about your setup and where you want to place your Linux distribution installation. Your Linux distribution needs to be a 32-bit Intel as the AppleTV uses a Pentium-M processor. If you have questions, ask on the [http://groups.google.com/group/atv-bootloader atv-bootloader discussion group] and either myself or someone else can assist.
 
-Once you have settled on a plan, you should do the following before starting any install process;
- # [BootEFIExtraction extract "boot.efi" from the downloadable AppleTV update].
- # [LinuxUSBPenBoot build the atv-bootloader USB flash disk].
- # [ATVBackup backup your AppleTV if you plan on over-writing the internal disk].
+Once you have settled on a plan, do the following before starting any install process;
+ # [BootEFIExtraction Extract "boot.efi" from the downloadable AppleTV update].
+ # [LinuxUSBPenBoot Build the atv-bootloader USB flash disk].
+ # [ATVBackup Backup your AppleTV if you plan on over-writing the internal disk].
+
+Then choose your install method.
+ # Over-write the existing AppleTV internal disk
+   # [PartitioningLinux Format GPT for self boot]
+   # Format normal and use a USB flash drive to bootstrap
+ # [BootableUSBLinuxInstall Use an external USB disk for Linux]
+ # Coexist on the internal disk and use a USB flash drive to bootstrap
+   # Use original internal disk and resize "Media" to make space for Linux.
+   # [AlternatePartitioning1 Use replacement internal disk]
 
 Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution.
  * [InstallMythBuntu Mythbuntu]
