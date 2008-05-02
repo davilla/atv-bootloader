@@ -68,14 +68,18 @@ Frustrated creating an AppleTV based linux system. Nervous about voiding the war
     * Trying to do anything involving the AppleTV under Windows is not recommended. Windows does lots of hidden things like touching partitions that is has no business touching. Boot a Linux LiveCD instead and do everything from that environment.
 
 = Help =
-Got a question or problem, post it to http://groups.google.com/group/atv-bootloader 
+Got a question or problem, post it to http://groups.google.com/group/atv-bootloader . It helps to indicate the distro and kernel version if you are having run-time problems. Also if you are having problems building a bootable atv-bootloader, include the full output of "sudo parted -s /dev/sdX unit s print" where sdX is the disk device. Thanks.
 
-= How can I Contribute =
+= How can You Contribute =
 If you want to help, the most pressing item is a deb/rpm that contains dmg2img, patched parted, hfs tools, gptsync. This would eliminate the patch/build steps. Another deb/rpm with pre-compiled usbhid.ko and snd-hda-intel.ko  kernel modules for the various distros would be nice. I'm not experienced in proper deb/rpm creation so if someone could give me a good example, I can take it from there.
 
 Another task for the more experienced person would be to figure out how [http://wiki.awkwardtv.org/wiki/Osputil osputil] works and the USB protocol that it uses to talk to the IR USB controller. Once this is known, then I can create a similar Linux command-line app that does the same thing. Then we can control the internal fan and most important, control the white/amber LED on the front of the AppleTV and STOP it from blinking amber all the time.
 
 = [atv_blog Development Blog] =
+This is where you can see what I'm working on, sometimes in real-time as I use it for keeping notes as I develop.
+
+= [Comments Feedback]
+You can use this page to post feedback on your experences building and using atv-bootloader.
 
 [ATVBootloader_Main m]
 
