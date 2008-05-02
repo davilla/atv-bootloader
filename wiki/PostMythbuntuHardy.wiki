@@ -2,11 +2,11 @@
 
 Mythbuntu Hardy is pretty easy to fix up.
 
-
+-----------
 = NVIDIA =
  Mythbuntu Hardy uses the 169.12 nvidia binary kernel (selected during the install). This mean we don't have to update it, just add the under-clock. The nvidia gpu needs to be under-clocked to prevent nvidia xvmc related hangs/video corruption when doing xvmc assisted mpeg2 decode/display. 
 
- Note that it's "nvidia_new" not "nvidia" as we are running under the linux restricted modules install of the nvidia driver. This enables gpu clock changes. Edit "/etc/modprobe.d/options" and add following which forces the nvidia driver to treat the chipset as non-mobile and disabled "PowerMister" which provide dynamic clock changes depending on gpu load.
+ This enables gpu clock changes. Note that it's "nvidia_new" not "nvidia" as we are running under the linux restricted modules install of the nvidia driver. Edit "/etc/modprobe.d/options" and add following which forces the nvidia driver to treat the chipset as non-mobile and disabled "!PowerMister" which provide dynamic clock changes depending on gpu load.
 {{{
 options nvidia_new NVreg_RegistryDwords="PerfLevelSrc=0x2222" NVreg_Mobile=0
 }}}
@@ -42,6 +42,9 @@ sudo chmod 755 /usr/sbin/nvidia_hang_fix.sh
 
  Finally
 {{{
+# add nvidia-setting from apt-get
+sudo apt-get install nvidia-settings
+
 # run the nvidia xconfig tool to enable coolbits so we can actually change the nvidia gpu clock
 sudo nvidia-xconfig --cool-bits=1 --no-composite --no-logo
 }}}
@@ -67,12 +70,11 @@ insmod /lib/modules/2.6.24-16-generic/volatile/nvidia_new.ko NVreg_RegistryDword
 # start X11
 sudo /etc/init.d/gdm start
 
-sudo apt-get install nvidia-settings
-
 sudo nvidia-settings -q all
 }}}
 
 
+-----------
 = AUDIO =
  Dirt simple, edit "/etc/modprobe.d/options" and add
 {{{
@@ -81,6 +83,7 @@ options snd-hda-intel model=imac24
 
  That's it, remember to run "alsamixer" and un-mute for analog and digital audio output. The iMac with 24 inch LCD has very similar ALC885 ALSA configuration.
 
+-----------
 = IR Controller =
  Edit "/etc/modprobe.d/options" and add
 {{{
