@@ -26,7 +26,7 @@ Number  Start   End      Size     File system  Name     Flags
 
 Add the ext3 partition The ending sector is the max sectors - 34 sectors (501759s - 34s = 501725s)
 {{{
-sudo parted -s /dev/sdb mkpart primary EXT3 48829s 501725s
+sudo parted -s /dev/sdb mkpart primary ext2 48829s 501725s
 
 # check it
 parted -s /dev/sdb unit s print

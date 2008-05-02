@@ -77,7 +77,7 @@ sudo parted -s /dev/sdc mkpart primary HFS 2732016s 77878015s
 Add the Linux EXT3 and Swap. 
 {{{
 # 5-EXT3
-sudo parted -s /dev/sdc mkpart primary ext3 77878016s 193323471s
+sudo parted -s /dev/sdc mkpart primary ext2 77878016s 193323471s
 
 # 6-Swap
 sudo parted -s /dev/sdc mkpart primary linux-swap 193323472s 195371471s
