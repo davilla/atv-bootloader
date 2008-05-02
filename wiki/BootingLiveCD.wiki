@@ -1,23 +1,25 @@
 = Booting a LiveCD =
 
 This guide describes how to boot a Linux LiveCD directly from the AppleTV. It requires;
+ # AppleTV (of course).
+ # An existing USB flash drive with atv-bootloader installed.
+ # An existing LiveCD.
  # An working Linux computer capable of telnet
  # A network with a DHCP server (router, etc)
- # AppleTV (of course).
  # A wired network connection to the AppleTV.
  # A USB Hub (a powered USB hub is preferable but not required).
  # A USB cdrom drive.
+
+Once the LiveCD is booted then you will need
  # A USB mouse.
  # A USB keyboard.
- # An exiting LiveCD.
- # An existing USB flash drive with atv-bootloader installed.
 
+----
 = Ubuntu 7.10 Gutsy =
 Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy LiveCD using atv-bootloader. 
 
 On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
  
-
 Remember to *[ATVBackup backup the AppleTV]* if you are going to over-write the internal PATA disk. You can use the same USB flash drive for this guide and skip the next section.
 
 Once these tools are installed then create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. I recommend a USB flash disk of 512MB or greater, that way you can also use the same disk to backup the AppleTV. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup. If you have problems partitioning, you might have a [FixingUSBFlashDrives USB flash drive that needs fixing].
@@ -100,6 +102,7 @@ If you have pre-formatted the destination disk, proceed to installing your distr
 
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and add "video=vesafb". Then see what happens.
 
+----
 = Mythbuntu (Gutsy or Hardy)=
 Here's an example for Mythbuntu, the default isolinux setting is
 {{{
@@ -117,6 +120,7 @@ kexec --load /cdrom/casper/vmlinuz \
 
 Mythbuntu uses GRUB so atv-bootloader will be able to automatically find and translate GRUB's menu.lst boot settings.
 
+----
 = !KnoppMyth =
 
 Here's an example for !KnoppMyth, the default isolinux setting is
@@ -146,6 +150,7 @@ kexec --load /root/tmp/boot/vmlinuz-2.6.18-chw-13 \
 kexec -e
 }}}
 
+----
 = !MythDora 5 =
 
 Here's an example for !MythDora 5, the default isolinux setting is
