@@ -84,7 +84,7 @@ sudo umount /media/disk/dev
     # [UpdateNvidiaDriver Update nvidia driver]
     # [InstallWireless Install wireless driver]
 
-  * Mythbuntu Gutsy
+  * Mythbuntu Hardy
     # [UpdateMBR Update the boot disk MBR with gptsync]
     # [PostMythbuntuHardy, nvidia, audio and IR fixes]
     # [InstallWireless Install wireless driver]
