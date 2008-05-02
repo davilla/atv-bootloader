@@ -6,18 +6,19 @@ These instructions are for the installation of [http://www.mythbuntu.org/ Mythbu
 
 A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and select mythfrontend only, it will expect an existing [http://www.mythtv.org/ MythTV] backend and request connect info, if this info is not correct, the install will barf and not complete correctly.
 
+---------
 * Install Mythbuntu
 
- This guide assumes /dev/sda4 is "/" and /dev/sda5 is "swap". If your disk partitioning is different you will need to adjust this guide to match.
+This guide assumes /dev/sda4 is "/" and /dev/sda5 is "swap". If your disk partitioning is different you will need to adjust this guide to match.
 
  Click on install "Mythbuntu"
 
-  Prepare disk space
+ Prepare disk space
 {{{
 select "Manual"
 }}}
 
-  Prepare Partitions
+ Prepare Partitions
 {{{
 select /dev/sda4 and "edit"
 change "use as" to ext3
@@ -46,9 +47,9 @@ select and configure the display settings for your monitor
 ---------
 * Post Install Fixes
 
- Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV. Also add "8139too" to prevent "8139cp" from attempting to load.
+Ubuntu has a strange console framebuffer setup so we need to fix it for the AppleTV. Also add "8139too" to prevent "8139cp" from attempting to load.
 
-   If you are installing to a USB disk, unmount any USB disk partitions and then unplug/replug the USB drive to get the partitions re-mounted. The rest assumes the disk is mounted at /media/disk.
+If you are installing to a USB disk, unmount any USB disk partitions and then unplug/replug the USB drive to get the partitions re-mounted. The rest assumes the disk is mounted at /media/disk.
 {{{
 sudo mount --bind /dev /media/disk/dev
 sudo chroot /media/disk
@@ -69,14 +70,14 @@ exit
 sudo umount /media/disk/dev
 }}}
 
-  Reinstall the drive back into the AppleTV if it's an internal disk and power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper left corner). After that you linux install should boot. If you are using a USB disk you might have to use the IR remote and hold the "menu" and "-" buttons down during power on to force a USB recovery boot.
+Reinstall the drive back into the AppleTV if it's an internal disk and power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper left corner). After that you linux install should boot. If you are using a USB disk you might have to use the IR remote and hold the "menu" and "-" buttons down during power on to force a USB recovery boot.
 
 ---------
 * Post Boot Fixes
 
-  There are a few things to complete the install once you have Mythbuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document).
+There are a few things to complete the install once you have Mythbuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document).
 
-  Several additional items need to be updated/patched for supporting AppleTV hardware. The following are on separate pages as the procedures are similar for other debian based distributions.
+Several additional items need to be updated/patched for supporting AppleTV hardware. The following are on separate pages as the procedures are similar for other debian based distributions.
   * Mythbuntu Gutsy
     # [UpdateMBR Update the boot disk MBR with gptsync]
     # [UpdateIRDriver Update IR driver]
@@ -90,15 +91,16 @@ sudo umount /media/disk/dev
     # [InstallWireless Install wireless driver]
 
 
-  Ok, that was not too hard, reboot to pickup the changes.
+Ok, that was not too hard, reboot to pickup the changes.
 {{{
 # pickup all the changes
 sudo reboot
 }}}
 
+---------
 * Updating Mythbuntu
 
-  A few things to watch out for. If you take an update that changes the kernel or kernel modules, then you will have to redo the nvidia binary driver install and patch/rebuild the audio driver and IR driver. Because of this, you should disable kernel updates.
+A few things to watch out for. If you take an update that changes the kernel or kernel modules, then you will have to redo the nvidia binary driver install and patch/rebuild the audio driver and IR driver. Because of this, you should disable kernel updates.
 
 
 
