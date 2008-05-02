@@ -1,0 +1,45 @@
+= Installing LiveXBMC =
+
+This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware.
+
+the 7z compacted disk image
+mount -o loop
+extracted the contents and moved to an ext3 format flash drive
+
+This is the contents of isolinux.cfg
+{{{
+#    prompt 0
+#    display boot.msg
+#    timeout 1
+CONSOLE 0
+
+default linux
+label linux
+  kernel vmlinuz
+  append initrd=initrd0.img boot=usb quiet splash
+}}}
+
+The contents of "boot_linux.sh"
+{{{
+mkdir /cdrom
+mount -o loop /dev/sr0 /cdrom
+
+kexec --load /cdrom/vmlinuz \
+--initrd=/cdrom/initrd=initrd0.img \
+--command-line="initrd=initrd0.img boot=usb video=vesafb" 
+
+kexec -e
+}}}
+
+Edit "com.apple.Boot.plist" on the recovery partition of the USB flash disk and change the atv-boot parameter to "manual"
+{{{
+<string>atv-boot= manual video=vesafb</string>
+}}}
+
+
+apt-get install ssh-server
+
+
+startx
+
+Reset Appearance to 1280x720

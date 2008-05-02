@@ -75,11 +75,12 @@ sudo umount /media/disk/dev
   There are a few things to complete the install once you have Mythbuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document).
 
   Several additional items need to be updated/patched for supporting AppleTV hardware. The following are on separate pages as the procedures are similar for other debian based distributions.
-    * [UpdateNvidiaDriver Update nvidia driver]
-    * [UpdateAudioDriver Update audio driver]
-    * [UpdateIRDriver Update IR driver]
-    * [UpdateMBR Update the boot disk MBR with gptsync]
-    * [InstallWireless Install wireless driver]
+  * Mythbuntu Gutsy
+    # [UpdateMBR Update the boot disk MBR with gptsync]
+    # [UpdateIRDriver Update IR driver]
+    # [UpdateAudioDriver Update audio driver]
+    # [UpdateNvidiaDriver Update nvidia driver]
+    # [InstallWireless Install wireless driver]
   
   Ok, that was not too hard, reboot to pickup the changes.
 {{{
