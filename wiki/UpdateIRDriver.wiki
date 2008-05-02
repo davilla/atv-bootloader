@@ -1,7 +1,5 @@
 = Update the IR driver =
 
-= Introduction =
-
 The Apple IR controller is a USB device similar to that of the !MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR receiver on the AppleTV is physcially able to recognize and distingusih all 6x256 codes, and no others. 
 
 The sequences are all of the form 0x87EEXXYY, where XX is the ID code (UID) and YY is the key code. This info comes from the [http://www.hifi-remote.com/forums/viewtopic.php?p=59792#59792 JP1 remote project] The UID is used for paring IR remotes to IR controllers under OS X. When you pare a IR remote to the computer what you are doing is telling OS X to only listen to an Apple IR remote with this UID. A certain key press on the Apple IR remote will increment the UID. For example, the "menu" button on my remote has this for the IR code 
@@ -23,9 +21,10 @@ For a raw analysis of the [http://www.barchard.net/files/apple_ir_remote_analysi
 
 Contributed by Ben Firshman, [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz here's an alternate] to using "~/.mythtv/lircrc". This is a python script that enables greater functionality using the Apple IR Remote. It completely replaces using lircrc for control of a !MythFrontEnd so make sure "~/.mythtv/lircrc" is removed before installing. Thanks Ben.
 
-= Details =
+-----------
+= Enable usbhid =
 
-There are two methods for fixing this, an older method which involves patching appleir.c and the preferred method which involves patching usbhid.c. While patching appleir.c is easier, I choose the preferred method as it moves IR control out of the kernel and into userspace. This update is in two parts, first patch/rebuild "drivers/hid/usbhid/usbhid.c", then patch/rebuild lirc. Just to remind users of lirc, lircd.conf assigns symbols to the signals from the remote and ~/.lircrc associates those symbols to actions in programs.
+ There are two methods for fixing this, an older method which involves patching appleir.c and the preferred method which involves patching usbhid.c. While patching appleir.c is easier, I choose the preferred method as it moves IR control out of the kernel and into userspace. This update is in two parts, first patch/rebuild "drivers/hid/usbhid/usbhid.c", then patch/rebuild lirc. Just to remind users of lirc, lircd.conf assigns symbols to the signals from the remote and ~/.lircrc associates those symbols to actions in programs.
 {{{
 Note: there is way to alter usbhid without rebuilding the module but it only works with 2.6.22 and above kernel versions.
 This has the form;
@@ -44,7 +43,7 @@ another method is to add this to the kernel boot params
 usbhid.quirks=0x05AC:0x8241:0x10
 }}}
 
-Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.
+ Patch/rebuild usbhid.ko. The IR controller is a USB HID device but the usbhid kernel module does not know about the AppleTV IR device, so we need to add the device ID. We are also going to shortcut the normal dpkg build as it takes forever to build and just build what we need to make a new usbhid.ko. Then we copy this into "/lib/modules/2.6.22-14-generic/kernel/drivers/hid/usbhid/" and rebuild the initramfs.
 {{{
 sudo apt-get install  kernel-package libncurses-dev ncurses-dev  unzip
 sudo apt-get source linux-image-2.6.22-14-generic
@@ -79,7 +78,10 @@ reboot
 # /dev/usb/hiddev0 should now be present
 }}}
 
-Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for an apple hiddev device. This part will fix this and rebuild lirc.
+-----------
+= Setup LIRC =
+
+ Patch/rebuild lirc. lirc versions <= 0.8.2 do not flag repeat events for an apple hiddev device. This part will fix this and rebuild lirc.
 {{{
 # install lirc package and choose Apple Mac Mini if asked
 sudo apt-get install lirc
@@ -103,7 +105,7 @@ sudo dpkg-buildpackage
 sudo dpkg -i ../lirc*deb
 }}}
 
-Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch. Remember lircd.conf assigns symbols to the signals from the remote, and ~/.lircrc associates those symbols to actions in programs
+ Create the lirc files to support the Apple IR controller. This is going to be highly dependent on install distribution so you might have to do some google search to find the correct conf. This procedure outlines creating the lirc files from scratch. Remember lircd.conf assigns symbols to the signals from the remote, and ~/.lircrc associates those symbols to actions in programs
 {{{
 sudo /etc/init.d/lirc stop
 
@@ -119,7 +121,7 @@ You can generate an /etc/lirc/lircd.conf from scratch
 sudo irrecord -H macmini -d /dev/usb/hiddev0 /etc/lirc/lircd.conf
 }}}
 
-Or use this one, but watch out, the AppleIR "pre_data" is different when the remote is paired with the AppleTV so you might have to change "pre_data" to match your Apple IR remote.
+ Or use this one, but watch out, the AppleIR "pre_data" is different when the remote is paired with the AppleTV so you might have to change "pre_data" to match your Apple IR remote.
 {{{
 begin remote
   name  Apple_IR
@@ -144,7 +146,7 @@ begin remote
 end remote
 }}}
 
-Here's another variant
+ Here's another variant
 {{{
 begin remote
  name  Apple_IR
@@ -169,7 +171,7 @@ begin remote
 end remote
 }}}
 
-Append this to your ~/.mythtv/lircrc or use  [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz Ben's python script]
+ Append this to your ~/.mythtv/lircrc or use  [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz Ben's python script]
 {{{
 #nano ~/.mythtv/lircrc and append
 begin
@@ -227,7 +229,7 @@ begin
 end
 }}}
 
-Restart lirc and test
+ Restart lirc and test
 {{{
 # restart lirc
 sudo /etc/init.d/lirc restart

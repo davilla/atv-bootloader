@@ -81,7 +81,7 @@ sudo nvidia-settings -q all
 options snd-hda-intel model=imac24
 }}}
 
- That's it, remember to run "alsamixer" and un-mute for analog and digital audio output. The iMac with 24 inch LCD has very similar ALC885 ALSA configuration.
+ That's it, remember to run "alsamixer" and un-mute for analog and digital audio output. The iMac with 24 inch LCD has very similar ALC885 ALSA configuration and we can use it for the AppleTV.
 
 -----------
 = IR Controller =
