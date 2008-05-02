@@ -70,7 +70,8 @@ sudo umount /media/disk/dev
 
   Reinstall the drive back into the AppleTV if it's an internal disk and power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper left corner). After that you linux install should boot. If you are using a USB disk you might have to use the IR remote and hold the "menu" and "-" buttons down during power on to force a USB recovery boot.
 
-* Running Mythbuntu
+---------
+* Post Boot Fixes
 
   There are a few things to complete the install once you have Mythbuntu running. First open the Update Manager and take all the updates then reboot. If you are trying to match an existing MythTV backend, you might want to check the versions of MythTV and match them (outside the scope of this document).
 
