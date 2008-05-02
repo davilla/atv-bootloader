@@ -2,6 +2,14 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= May 2, 2008 =
+Ok, I've finally gotten tired of the Apple IR remote. Need more buttons and I have a love/hate relationship with my Harmony 880 (that's another story). My [http://www.intrex.com/ local Intex] has the Microsoft A9O-00007 IR Remote with IR receiver for $27.99 and I'm on the way out to get one.
+
+= May 1, 2008 =
+Nice results with Mythbuntu Hardy installed to a USB flash drive. Little slow during initial MythTV setup. Hardy does not need any kernel patches as we can enabled the audio and IR devices using a different method. And Hardy  has 169.xx series nvidia binary driver. 
+
+Even with swap on the flash drive (yes, I know about the issues), it's surprisingly responsive. I think this configuration will be a keeper as I tend to trash the internal drive testing distro installs and AppleTV dev work.
+
 = April 30, 2008 =
 Grrr, seems to be a recent theme of users not getting boot when creating a USB flash drive with atv-bootloader. Don't panic, this method does work and numerous people have used it to boot Linux on the AppleTV. Something basic is incorrect and I've missed something in the massive editing of the wiki guides. This is quite annoying as web hits have really spiked in the last few days. I'll jump right on this once I get home from work tonight with my new 8GB fast flash drive (Corsair Voyager, sustained read speed of 19MB/sec, sustained write speed of 13MB/sec). 
 
