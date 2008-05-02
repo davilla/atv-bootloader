@@ -67,8 +67,7 @@ sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* penboot/
 
 # remember to copy boot.efi to penboot/
-
-sudo cp -ap boot.efi penboot/
+`sudo cp -ap boot.efi penboot/`
 }}}
 
 We going to override the normal auto boot sequence as we need to get into a command-line enviroment and get telnetd started. Edit "penboot/com.apple.Boot.plist" on the recovery partition and change the atv-boot parameter from "auto"
