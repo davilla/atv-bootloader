@@ -18,9 +18,9 @@ Let's get started. For this example, we are going to manually boot Ubuntu 7.10 G
 On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
  
 
-Remember to *[ATVBackup backup the internal PATA "Recovery" partiton]* if you are going to over-write the internal PATA disk. You can use the same USB flash drive for this guide and skip the next section.
+Remember to *[ATVBackup backup the AppleTV]* if you are going to over-write the internal PATA disk. You can use the same USB flash drive for this guide and skip the next section.
 
-Once these tools are installed then create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup. If you have problems partitioning, you might have a [FixingUSBFlashDrives USB flash drive that needs fixing].
+Once these tools are installed then create just the recovery partition on a USB pen drive, this does not require very much space so 64MB or greater pen drive is fine. I recommend a USB flash disk of 512MB or greater, that way you can also use the same disk to backup the AppleTV. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your setup. If you have problems partitioning, you might have a [FixingUSBFlashDrives USB flash drive that needs fixing].
 {{{
 # zero the initial sectors
 sudo dd if=/dev/zero of=/dev/sdb bs=4096 count=1M
@@ -46,7 +46,8 @@ sudo mount /dev/sdb1 penboot
 wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
 sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* penboot/
-# remember to copy boot.efi too
+
+# remember to copy boot.efi to penboot/
 sudo cp -ap boot.efi penboot/
 
 # unmount and cleanup
@@ -79,7 +80,7 @@ kexec --load /cdrom/casper/vmlinuz \
 --command-line="file=/cdrom/preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz nosplash vesa" 
 }}}
 
-Doing the above, on the command-line results in the kexec load printing the following information. This means, kexec has loaded the kernel/initrd and params into RAM and has set flags that a kexec jump is pending. "1280x720x32" is the video resolution as passed by the AppleTV EFI firmware, 10028000 is the video base address.
+Doing the above, on the command-line results in the kexec load printing the following information. This means, kexec has loaded the kernel/initrd and params into RAM and has set flags that a kexec jump is pending. "1280x720x32" is the video resolution as passed by the AppleTV EFI firmware, 10028000 is the video base address in hexadecimal.
 {{{
 setup_linux_vesafb: 1280x720x32 @ 10028000 +708000
 }}}
@@ -95,9 +96,9 @@ It takes a little practice to get the cursor in the correct place, think a littl
 
 The other way is to open a terminal "Applications -> Accessories -> Terminal". The type "sudo displayconfig-gtk" and this will open the GUI display settings window.
 
-If you have pre-formatted the install disk, proceed to installing your distro. If not, then you can use the LiveCD to build and install parted and hfstools. See [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
+If you have pre-formatted the destination disk, proceed to installing your distro. If not, then you can use the LiveCD to build and install parted and hfstools. See [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
 
-Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and try adding "video=vesafb". Then see what happens.
+Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and add "video=vesafb". Then see what happens.
 
 = Mythbuntu (Gutsy or Hardy)=
 Here's an example for Mythbuntu, the default isolinux setting is
