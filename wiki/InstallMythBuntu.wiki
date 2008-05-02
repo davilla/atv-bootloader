@@ -1,6 +1,6 @@
 http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/mythbuntu.png
 
-= Install [http://www.mythbuntu.org/ MythBuntu] 7.10 =
+= Install [http://www.mythbuntu.org/ MythBuntu] Gutsy/Hardy =
 
 These instructions are for the installation of [http://www.mythbuntu.org/ Mythbuntu] from the LiveCD. This consist of a) install Mythbuntu, b) post install fixes and last c) post boot fixes.
 
@@ -81,7 +81,13 @@ sudo umount /media/disk/dev
     # [UpdateAudioDriver Update audio driver]
     # [UpdateNvidiaDriver Update nvidia driver]
     # [InstallWireless Install wireless driver]
-  
+
+  * Mythbuntu Gutsy
+    # [UpdateMBR Update the boot disk MBR with gptsync]
+    # [PostMythbuntuHardy, nvidia, audio and IR fixes]
+    # [InstallWireless Install wireless driver]
+
+
   Ok, that was not too hard, reboot to pickup the changes.
 {{{
 # pickup all the changes
