@@ -11,14 +11,14 @@ A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and selec
 
 This guide assumes /dev/sda4 is "/" and /dev/sda5 is "swap". If your disk partitioning is different you will need to adjust this guide to match.
 
- Click on install "Mythbuntu"
+Click on install "Mythbuntu"
 
- Prepare disk space
+Prepare disk space
 {{{
 select "Manual"
 }}}
 
- Prepare Partitions
+Prepare Partitions
 {{{
 select /dev/sda4 and "edit"
 change "use as" to ext3
@@ -37,7 +37,7 @@ so that the boot to the tux/atv logo drops from 30-60 seconds to 11.
 This is done later when the install is running native on the AppleTV.
 }}}
 
- Now follow the normal mythbuntu install but do not reboot yet and remember to 
+Now follow the normal mythbuntu install but do not reboot yet and remember to 
 {{{
 select mac mini IR driver
 select nvidia-new driver
