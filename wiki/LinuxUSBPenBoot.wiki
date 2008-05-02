@@ -67,7 +67,7 @@ sudo tar -xzf recovery-0.6.tar.gz
 sudo cp -arp recovery/* penboot/
 }}}
 
-*Remember to copy boot.efi to penboot/*
+Remember to copy boot.efi to penboot/
 {{{
 sudo cp -ap boot.efi penboot/
 }}}
