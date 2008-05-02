@@ -86,7 +86,7 @@ sudo umount /media/disk/dev
 
   * Mythbuntu Hardy
     # [UpdateMBR Update the boot disk MBR with gptsync]
-    # [PostMythbuntuHardy, nvidia, audio and IR fixes]
+    # [PostMythbuntuHardy nvidia, audio and IR fixes]
     # [InstallWireless Install wireless driver]
 
 
