@@ -150,13 +150,16 @@ Done.
 
 Boot the AppleTV using the USB flash disk. Remember you have to force a "Recovery Boot" by holding "menu" and "-" buttons down on the Apple IR remote either during power-up or when the AppleTV OS is running. 
 
-You should see the kernel boot messages, then LiveXBMC booting. There will be a long delay as the file system is read from the flash drive
+You should see the kernel boot messages, then LiveXBMC booting. There will be a liittle delay as the file system is read from the flash drive. LiveXBMC boots to a command prompt, start X11 using
+{{{
+startx
+}}}
 
 Enjoy.
 
 = Post Boot Fixes =
 
-apt-get install ssh-server
+apt-get install openssh-server
 
 
 startx
