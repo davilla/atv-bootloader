@@ -8,7 +8,7 @@ With this procedure, we are going to put both the AppleTV OS and Linux on an int
 
 This method requires a "Factory Restore" as the disk partition UUIDs will change and that confuses efi firmware. A "Factory Restore" is a recovery mode for the AppleTV where a disk image located on the recovery partition is reinstalled to OSBoot. *Any content on OSBoot and Media partition will be lost.* There might be other ways around this, feel free to investigate.
 
-So, a nutshell, we are going to create GPT partitions on the new disk that match the original disk. Add two more two partitions for Linux usage. Copy the contents of the original recovery partition to the new disk. Then install Linux. Boot to AppleTV OS and do the "Factory Restore" then update to the newer version. Boot to Linux and do the post install fixes. Remember that these instructions are a guide not a script to cut and paste. They will need to be altered (drive identifiers, sector counts, etc) to suite your particular setup. 
+So, a nutshell, we are going to use the existing GPT partition and shrink the "Media" partition. In the recovered space, add two more two partitions for Linux usage. Then install Linux. Boot to AppleTV OS and do the "Factory Restore" then update to the newer version. Boot to Linux and do the post install fixes. Remember that these instructions are a guide not a script to cut and paste. They will need to be altered (drive identifiers, sector counts, etc) to suite your particular setup. 
 
 = Combo with "Media" Shrink" =
 ----
@@ -40,19 +40,12 @@ Number  Start     End        Size       File system  Name      Flags
  4      2732016s  77878015s  75146000s  hfs+         Media            
 }}}
 
-Shrink the "Media" partition by deleting it, then create a new partition that is reduced in size. It's 75146000 * 512 = 38,474,752,000 bytes in size. Let's trim that down to 18,474,752,000 or 18,474,752,000 / 512 = 36083500 sectors. Round it down by one sector (36083499) so that the next sector aligns on an even sector count.
+Shrink the "Media" partition by deleting it, then create a new partition that is reduced in size. "Media" is 75146000 * 512 = 38,474,752,000 bytes in size. Let's trim that down to 18,474,752,000 or 18,474,752,000 / 512 = 36083500 sectors. Round it down by one sector (36083499) so that the next sector aligns on an even sector count.
 {{{
 parted -s /dev/sda rm 4
 
 parted -s /dev/sda mkpart primary HFS 2732016s 36083499s
 }}}
-
-
-58605120 - 34 = 58605086
-
-58605086 - 1048576 = 57556510
-parted -s /dev/sda mkpart primary ext3 36083500s 57556509s
-parted -s /dev/sda mkpart primary linux-swap 57556510s 58605086s
 
 
 Add the Linux EXT3 and Swap. Since we want swap to be 512MB, start by total sectors 78140160 - 34 = 78140126. 512MB = 536,870,912 bytes or 536,870,912 / 512 = 1048576 sectors. So 78140126 - 1048576 = 77091550. That the ending point for the ext3 partition. Round it down by one sector (77091549) so that swap aligns on an even sector count.
