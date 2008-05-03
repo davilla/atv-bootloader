@@ -2,7 +2,7 @@
 
 This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. This flash drive needs to be 512MB or larger. 
 
-LiveXBMC expects to boot off the first partition so we have run do a modified install of atv-bootloader. In this case, the first partition holds LiveXBMC and the second will be "Recovery" containing atv-bootloader.
+LiveXBMC expects to boot off the first partition so we have run do a modified install of atv-bootloader. In this case, the first partition holds LiveXBMC and the second will be "Recovery" containing atv-bootloader. This is reversed from normal but the AppleTV EFI firmware does not care.
 
 If your USB flash drive auto-mounts, umount it as we will explicitly mount it with this guide
 
@@ -19,7 +19,7 @@ There is NO WARRANTY, to the extent permitted by law.
 Written by <http://parted.alioth.debian.org/cgi-bin/trac.cgi/browser/AUTHORS>.
 }}}
 
-Assuming you have these items extracted/built/installed, let's start. Create the partitions
+Assuming you have these items extracted/built/installed, let's start. Create the partitions, this guide assumes the USB flash disk is located at "/dev/sdb", you will need to adjust this guide if your flash disk is located elsewhere.
 {{{
 # zero the initial sectors
 sudo dd if=/dev/zero of=/dev/sdb bs=4096 count=1M
@@ -86,7 +86,7 @@ sudo apt-get install p7zip-full
 }}}
 
 
-Make some mount points. Mount the USB flash drive partitions and the base xbmc disk image so we can get to the contents. Then copy the base xbmc contents to second partiton of the USB flash drive. Remember to replace "sdb" below with your device notation.
+Make some mount points. Mount the USB flash drive partitions and the base xbmc disk image so we can get to the contents. Then copy the base xbmc contents to first partiton of the USB flash drive. Remember to replace "sdb" below with your device notation.
 {{{
 mkdir penboot penflash xbmc
 
@@ -106,7 +106,7 @@ sync
 }}}
 
 
-Download "recovery.tar.gz", this is avt-bootloader. Copy it to the "recovery" partition.
+Download "recovery.tar.gz", this is avt-bootloader. Copy it to the second "recovery" partition.
 {{{
 # download atv-bootloader (recovery.tar.gz) and install it
 wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
@@ -155,13 +155,14 @@ You should see the kernel boot messages, then LiveXBMC booting. There will be a 
 startx
 }}}
 
+You can auto start X11 by adding "splash" to the kernel command line params. If you do this then edit "/etc/usplash.conf" to match your display resolution.
+
 Enjoy.
 
 = Post Boot Fixes =
 
-apt-get install openssh-server
+Install openssh-server. username is "xbmc", password is "password"
+{{{
+sudo apt-get install openssh-server
+}}}
 
-
-startx
-
-Reset Appearance to 1280x720
