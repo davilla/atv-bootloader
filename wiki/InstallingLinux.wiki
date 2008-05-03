@@ -40,7 +40,7 @@ Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and instal
  * !MythDora
  * [InstallKnoppMyth_R5F27 KnoppMyth]
  * miniMyth
- * LiveXBMC
+ * [InstallLiveXBMC LiveXBMC]
 
 
 
