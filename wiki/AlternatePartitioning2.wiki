@@ -40,7 +40,7 @@ Number  Start     End        Size       File system  Name      Flags
  4      2732016s  77878015s  75146000s  hfs+         Media            
 }}}
 
-Shrink the "Media" partition by deleting it, then create a new partition that is reduced in size. "Media" is 75146000 * 512 = 38,474,752,000 bytes in size. Let's trim that down to 18,474,752,000 or 18,474,752,000 / 512 = 36083500 sectors. Round it down by one sector (36083499) so that the next sector aligns on an even sector count.
+Shrink the "Media" partition by deleting it, then create a new partition that is reduced in size. "Media" is 75146000 \* 512 = 38,474,752,000 bytes in size. Let's trim that down to 18,474,752,000 or 18,474,752,000 / 512 = 36083500 sectors. Round it down by one sector (36083499) so that the next sector aligns on an even sector count.
 {{{
 parted -s /dev/sda rm 4
 
