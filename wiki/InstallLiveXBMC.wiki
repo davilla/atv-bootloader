@@ -17,7 +17,7 @@ sudo apt-get install p7zip-full
 }}}
 
 
-Make some mount points. Mount the USB flash drive and mount the base disk image so we can get to the contents. Then copy the contents to second partiton of the USB flash drive.
+Make some mount points. Mount the USB flash drive partitions and the base xbmc disk image so we can get to the contents. Then copy the base xbmc contents to second partiton of the USB flash drive. Remeber to replace "sdX" below with your device notation.
 {{{
 mkdir penboot penflash xbmc
 
@@ -67,10 +67,11 @@ Done.
 
 Boot the AppleTV using the USB flash disk. Remember you have to force a "Recovery Boot" by holding "menu" and "-" buttons down on the Apple IR remote either during power-up or when the AppleTV OS is running. 
 
-You should see the kernel boot messages, then !LiveXBMC booting.
+You should see the kernel boot messages, then LiveXBMC booting.
 
 Enjoy.
 
+= Post Boot Fixes =
 
 apt-get install ssh-server
 
