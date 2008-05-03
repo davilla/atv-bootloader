@@ -21,12 +21,12 @@ Sector size (logical/physical): 512B/512B
 Partition Table: gpt
 
 Number  Start   End      Size     File system  Name     Flags  
- 1      40s     48828s   48789s   hfs+         primary  atvrecv
+ 1      40s     69671s   69632s   hfs+         primary  atvrecv
 }}}
 
 Add the ext3 partition The ending sector is the max sectors - 34 sectors (501759s - 34s = 501725s)
 {{{
-sudo parted -s /dev/sdb mkpart primary ext2 48829s 501725s
+sudo parted -s /dev/sdb mkpart primary ext3 69672s 501725s
 
 # check it
 parted -s /dev/sdb unit s print
@@ -36,8 +36,8 @@ Sector size (logical/physical): 512B/512B
 Partition Table: gpt
 
 Number  Start   End      Size     File system  Name     Flags  
- 1      40s     48828s   48789s   hfs+         primary  atvrecv
- 2      48829s  501725s  452897s               primary         
+ 1      40s     69671s   69632s   hfs+         primary  atvrecv
+ 2      69672s  501725s  432053s               primary         
 
 # sync the system disk partition tables
 sudo partprobe /dev/sdb

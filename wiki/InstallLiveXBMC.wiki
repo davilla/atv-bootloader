@@ -1,12 +1,55 @@
 = Installing LiveXBMC =
 
-This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware.
+This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. Follow the guide to create a USB flash drive with atv-bootloader. This flash drive needs to be 512MB or larger. Add a second ext3 partition to hold LiveXBMC, see AppleTV backup guide for reference. Now let's add LiveXBMC to the flash drive.
 
-the 7z compacted disk image
-mount -o loop
-extracted the contents and moved to an ext3 format flash drive
+Download the compressed disk image and the update
+{{{
+wget http://superb-east.dl.sourceforge.net/sourceforge/xbmc/LiveXBMCV2.12835.7z
+wget http://superb-east.dl.sourceforge.net/sourceforge/xbmc/xbmc.12869.img.7z
+}}}
 
-This is the contents of isolinux.cfg
+Decompress both to extract the disk images
+{{{
+sudo apt-get install p7zip-full
+
+7z x LiveXBMCV2.12835.7z
+7z x xbmc.12869.img.7z
+}}}
+
+
+{{{
+mkdir xbmc flash
+
+}}}
+
+Make some mount points. Mount the USB flash drive and mount the base disk image so we can get to the contents. Then copy the contents to second partiton of the USB flash drive.
+{{{
+mkdir xbmc flash
+
+sudo mount /dev/sdX2 flash
+
+sudo mount -o loop LiveXBMCV2.12835.img xbmc
+
+cp -arp xbmc/* flash/
+sync
+}}}
+
+Update the base image.
+{{{
+cp -arp xbmc.12869.img xbmc/xbmc.img
+sync
+}}}
+
+Clean up
+{{{
+sudo umount flash xbmc
+rmdir flash xbmc
+
+sudo umount /dev/sdX
+}}}
+
+
+This is the contents of isolinux.cfg used by LiveXBMC
 {{{
 #    prompt 0
 #    display boot.msg
@@ -19,19 +62,21 @@ label linux
   append initrd=initrd0.img boot=usb quiet splash
 }}}
 
-The contents of "boot_linux.sh"
+Create a custom "boot_linux.sh" that will be used to boot LiveXBMC. Edit "boot_linux.sh" on the first partition of the USB flash drive and change it to the following
 {{{
-mkdir /cdrom
-mount -o loop /dev/sr0 /cdrom
+#!/bin/bash
 
-kexec --load /cdrom/vmlinuz \
---initrd=/cdrom/initrd=initrd0.img \
+mkdir /xbmc
+mount -o loop /dev/sr0 /xbmc
+
+kexec --load /xbmc/vmlinuz \
+--initrd=/xbmc/initrd=initrd0.img \
 --command-line="initrd=initrd0.img boot=usb video=vesafb" 
 
 kexec -e
 }}}
 
-Edit "com.apple.Boot.plist" on the recovery partition of the USB flash disk and change the atv-boot parameter to "manual"
+Edit "com.apple.Boot.plist" on the first partition of the USB flash disk and change the atv-boot parameter to "manual"
 {{{
 <string>atv-boot= manual video=vesafb</string>
 }}}
