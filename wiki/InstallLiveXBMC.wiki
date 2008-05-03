@@ -172,3 +172,9 @@ options snd-hda-intel model=imac24
 options usbhid quirks=0x05ac:0x8241:0x10
 }}}
 
+Add the following to the Section "Screen" in "/etc/X11/xorg.conf"
+{{{
+    Option         "Coolbits" "1"
+    Option         "UseEvents" "1"
+}}}
+
