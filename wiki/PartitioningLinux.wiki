@@ -35,7 +35,7 @@ parted -s /dev/sda set 2 atvrecv on
 parted -s /dev/sda mkpart primary HFS 50M 75M
 
 #create the linux root partition
-parted -s /dev/sda mkpart primary ext2 75M 18.9GB
+parted -s /dev/sda mkpart primary ext3 75M 18.9GB
 
 #create the linux swap partition
 parted -s /dev/sda mkpart primary linux-swap 18.9GB 20.0GB

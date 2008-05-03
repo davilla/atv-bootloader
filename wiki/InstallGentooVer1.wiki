@@ -139,7 +139,7 @@ sudo /usr/local/sbin/parted -s /dev/sdb set 1 boot on
 sudo /usr/local/sbin/parted -s /dev/sdb mkpart primary HFS 25M 50M
 sudo /usr/local/sbin/parted -s /dev/sdb set 2 atvrecv on
 sudo /usr/local/sbin/parted -s /dev/sdb mkpart primary HFS 50M 75M
-sudo /usr/local/sbin/parted -s /dev/sdb mkpart primary ext2 75M 158.9GB
+sudo /usr/local/sbin/parted -s /dev/sdb mkpart primary ext3 75M 158.9GB
 sudo /usr/local/sbin/parted -s /dev/sdb mkpart primary linux-swap 158.9GB 160.0GB
 }}}
 

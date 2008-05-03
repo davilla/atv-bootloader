@@ -58,7 +58,7 @@ Figure out the partition sizes. We want a 512MB swap. The ext3 takes the rest. S
 # create just a recovery partition
 sudo parted -s /dev/sdb mkpart primary HFS 40s 69671s
 sudo parted -s /dev/sdb set 1 atvrecv on
-sudo parted -s /dev/sdb mkpart primary ext2 69672s 14680029s
+sudo parted -s /dev/sdb mkpart primary ext3 69672s 14680029s
 sudo parted -s /dev/sdb mkpart primary linux-swap 14680030s 15728606s
 }}}
 
