@@ -15,7 +15,6 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 
 Written by <http://parted.alioth.debian.org/cgi-bin/trac.cgi/browser/AUTHORS>.
-
 }}}
 
 Assuming you have these items extracted/built/installed, let's start.

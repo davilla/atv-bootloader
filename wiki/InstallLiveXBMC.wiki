@@ -1,6 +1,75 @@
 = Installing LiveXBMC =
 
-This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. Follow the guide to create a [LinuxUSBPenBoot USB flash drive with atv-bootloader]. This flash drive needs to be 512MB or larger. Add a second ext3 partition to hold LiveXBMC, see [ATVBackup AppleTV backup guide] for reference. Now let's add LiveXBMC to the flash drive. If the USB flash drive auto-mounts, umount it as we will explicitly mount it with this guide
+This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. This flash drive needs to be 512MB or larger. 
+
+LiveXBMC expects to boot off the first partition so we have run do a modified install of atv-bootloader. In this case, the first partition holds LiveXBMC and the second will be "Recovery" containing atv-bootloader.
+
+If your USB flash drive auto-mounts, umount it as we will explicitly mount it with this guide
+
+We need our standard items for creating an AppleTV "Recovery" partition. These are boot.efi, the patched parted and hfs tools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support. Test that you have to correct parted.
+{{{
+parted --version
+
+parted (GNU parted) 1.8.8
+Copyright (C) 2007 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by <http://parted.alioth.debian.org/cgi-bin/trac.cgi/browser/AUTHORS>.
+}}}
+
+Assuming you have these items extracted/built/installed, let's start. Create the partitions
+{{{
+# zero the initial sectors
+sudo dd if=/dev/zero of=/dev/sdb bs=4096 count=1M
+
+# sync the system disk partition tables
+sudo partprobe /dev/sdb
+
+# create the GPT format
+sudo parted -s /dev/sdb mklabel gpt
+}}}
+
+Print the disk info with "sudo parted -s /dev/sdb unit s print" so we can figure out the partitioning
+{{{
+Model: Flash Drive SM_USB20 (scsi)
+Disk /dev/sdb: 2030592s
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start  End  Size  File system  Name  Flags
+}}}
+
+Total sectors = 2030592. So ending sector is 2030592 - 34 = 2030558. We will use 50MB for "Recovery", 50MB = 52,428,800 bytes or 52,428,800 / 512 = 102400 sectors. 2030558 - 102400 = 1928158, round down to keep the starting sector even and 1928149 is the ending sector of the first partition. Rock and roll.
+{{{
+# create the LiveXBMC partition
+sudo parted -s /dev/sdb mkpart primary ext2 40s 1928149s
+
+# create the recovery partition
+sudo parted -s /dev/sdb mkpart primary HFS 1928150s 2030558s
+sudo parted -s /dev/sdb set 2 atvrecv on
+
+# sync the system disk partition tables
+sudo partprobe /dev/sdb
+
+sudo mkfs.ext2 -L LiveXBMC /dev/sdb1
+sudo mkfs.hfsplus -v Recovery /dev/sdb2
+}}}
+
+Verify that it looks fine and the atvrecv flag is set
+{{{
+sudo parted -s /dev/sdb unit s print
+
+Model: Flash Drive SM_USB20 (scsi)
+Disk /dev/sdb: 2030592s
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+
+Number  Start     End       Size      File system  Name     Flags  
+ 1      40s       1928149s  1928110s  ext2         primary         
+ 2      1928150s  2030558s  102409s   hfs+         primary  atvrecv
+}}}
 
 Download the compressed disk image and the update
 {{{
@@ -17,12 +86,12 @@ sudo apt-get install p7zip-full
 }}}
 
 
-Make some mount points. Mount the USB flash drive partitions and the base xbmc disk image so we can get to the contents. Then copy the base xbmc contents to second partiton of the USB flash drive. Remeber to replace "sdX" below with your device notation.
+Make some mount points. Mount the USB flash drive partitions and the base xbmc disk image so we can get to the contents. Then copy the base xbmc contents to second partiton of the USB flash drive. Remember to replace "sdb" below with your device notation.
 {{{
 mkdir penboot penflash xbmc
 
-sudo mount /dev/sdX1 penboot
-sudo mount /dev/sdX2 penflash
+sudo mount /dev/sdb1 penflash
+sudo mount /dev/sdb2 penboot
 
 sudo mount -o loop LiveXBMCV2.12835.img xbmc
 
@@ -34,6 +103,20 @@ Update the base image.
 {{{
 sudo cp -arp xbmc.12869.img penflash/xbmc.img
 sync
+}}}
+
+
+Download "recovery.tar.gz", this is avt-bootloader. Copy it to the "recovery" partition.
+{{{
+# download atv-bootloader (recovery.tar.gz) and install it
+wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
+sudo tar -xzf recovery-0.6.tar.gz
+sudo cp -arp recovery/* penboot/
+}}}
+
+Remember to copy boot.efi to penboot/. See [BootEFIExtraction.wiki "boot.efi" extraction] for details.
+{{{
+sudo cp -ap boot.efi penboot/
 }}}
 
 Create a custom "boot_linux.sh" that will be used to boot LiveXBMC. Edit "penboot/boot_linux.sh" and change it to the following
@@ -67,7 +150,7 @@ Done.
 
 Boot the AppleTV using the USB flash disk. Remember you have to force a "Recovery Boot" by holding "menu" and "-" buttons down on the Apple IR remote either during power-up or when the AppleTV OS is running. 
 
-You should see the kernel boot messages, then LiveXBMC booting.
+You should see the kernel boot messages, then LiveXBMC booting. There will be a long delay as the file system is read from the flash drive
 
 Enjoy.
 
