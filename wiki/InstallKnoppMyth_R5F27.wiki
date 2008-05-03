@@ -4,7 +4,7 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/knoppmyth.gif
 
 *Warning -- Under Development -- Do not attempt until this notice is removed*
 
-There are two ways to install ! KnoppMyth. The easiest is to use normal formatting and over-write the internal disk. The other method of installing to GPT formatted disks is still being developed and will be updated at a later time.
+There are two ways to install !KnoppMyth. The easiest is to use normal formatting and over-write the internal disk. The other method of installing to GPT formatted disks is still being developed and will be updated at a later time.
 
 ----
 = !KnoppMyth !R5F27 =
