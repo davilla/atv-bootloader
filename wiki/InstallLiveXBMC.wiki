@@ -161,7 +161,7 @@ Enjoy.
 
 = Post Boot Fixes =
 
-Install openssh-server. username is "xbmc", password is "password"
+Install openssh-server for remote ssh sessions. username is "xbmc", password is "password".
 {{{
 sudo apt-get install openssh-server
 }}}
@@ -172,7 +172,7 @@ options snd-hda-intel model=imac24
 options usbhid quirks=0x05ac:0x8241:0x10
 }}}
 
-Add the following to the Section "Screen" in "/etc/X11/xorg.conf"
+Add the following to the Section "Screen" in "/etc/X11/xorg.conf".
 {{{
     Option         "Coolbits" "1"
     Option         "UseEvents" "1"
