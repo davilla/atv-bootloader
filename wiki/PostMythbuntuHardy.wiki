@@ -90,8 +90,7 @@ Edit "/etc/modprobe.d/options" and add
 options usbhid quirks=0x05ac:0x8241:0x10
 }}}
 
-Now follow the LIRC setup [UpdateIRDriver in the old IR Update wiki].
-
+Now follow the "LIRC setup" section [UpdateIRDriver in the old IR Update wiki page].
 
 
 

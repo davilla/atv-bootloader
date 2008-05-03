@@ -90,5 +90,36 @@ make install
 chown mythtv:mythtv /dev/lircd
 }}}
 
+----
+= !KnoopMyth remove !MythBackEnd =
+ Stop and remove mythtv-backend
+{{{
+/etc/init.d/mythtv-backend stop
+update-rc.d -f mythtv-backend remove
+}}}
+
+ Stop and remove mysql server
+{{{
+/etc/init.d/mysql stop
+update-rc.d -f mysql remove
+apt-get remove mysql-server xmltv
+rm -rf /var/lib/mysql/*
+rmdir /var/lib/mysql
+rm -rf /var/log/mysql/*
+rmdir /var/log/mysql
+}}}
+
+ Stop and remove apache
+{{{
+/etc/init.d/apache2 stop
+update-rc.d -f apache2 remove
+}}}
+
+ Now change the MythTV settings to point at your existing backend database. Edit the file
+{{{
+nano /etc/mythtv/mysql.txt
+}}}
+
+ Done
 
 
