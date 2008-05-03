@@ -1,6 +1,6 @@
 = Installing LiveXBMC =
 
-This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. Follow the guide to create a USB flash drive with atv-bootloader. This flash drive needs to be 512MB or larger. Add a second ext3 partition to hold LiveXBMC, see AppleTV backup guide for reference. Now let's add LiveXBMC to the flash drive. If the USB flash drive auto-mounts, umount it as we will explicitly mount it with this guide
+This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. Follow the guide to create a [LinuxUSBPenBoot USB flash drive with atv-bootloader]. This flash drive needs to be 512MB or larger. Add a second ext3 partition to hold LiveXBMC, see [ATVBackup AppleTV backup guide] for reference. Now let's add LiveXBMC to the flash drive. If the USB flash drive auto-mounts, umount it as we will explicitly mount it with this guide
 
 Download the compressed disk image and the update
 {{{
@@ -32,7 +32,7 @@ sync
 
 Update the base image.
 {{{
-cp -arp xbmc.12869.img penflash/xbmc.img
+sudo cp -arp xbmc.12869.img penflash/xbmc.img
 sync
 }}}
 
@@ -62,6 +62,14 @@ rmdir penboot penflash xbmc
 }}}
 
 Done.
+
+= Usage =
+
+Boot the AppleTV using the USB flash disk. Remember you have to force a "Recovery Boot" by holding "menu" and "-" buttons down on the Apple IR remote either during power-up or when the AppleTV OS is running. 
+
+You should see the kernel boot messages, then !LiveXBMC booting.
+
+Enjoy.
 
 
 apt-get install ssh-server
