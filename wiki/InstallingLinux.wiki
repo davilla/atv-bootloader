@@ -27,12 +27,14 @@ Once you have settled on a plan, do the following before starting any install pr
 Then choose your install method and prep the partitions. It can be helpful to review the Linux distribution install method below as some have restrictions that will require a specific disk partitioning.
  1. Over-write the existing AppleTV internal disk
    a. [PartitioningLinux Format GPT for self boot]
+
    b. [BootStrapPATALinuxInstall Format normal and use a USB flash drive to bootstrap]
 
  2. [BootableUSBLinuxInstall Use an external USB disk for Linux]
 
  3. Coexist on the internal disk and use a USB flash drive to bootstrap
    a. [AlternatePartitioning1 Use replacement internal disk]
+
    b. [AlternatePartitioning2 Use original internal disk and resize "Media" to make space for Linux].
 
 Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution.
