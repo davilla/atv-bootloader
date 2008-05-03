@@ -41,10 +41,10 @@ Create a custom "boot_linux.sh" that will be used to boot LiveXBMC. Edit "penboo
 #!/bin/bash
 
 mkdir /xbmc
-mount -o loop /dev/sr0 /xbmc
+mount /dev/sdb2 /xbmc
 
 kexec --load /xbmc/vmlinuz \
---initrd=/xbmc/initrd=initrd0.img \
+--initrd=/xbmc/initrd0.img \
 --command-line="initrd=initrd0.img boot=usb video=vesafb" 
 
 kexec -e
