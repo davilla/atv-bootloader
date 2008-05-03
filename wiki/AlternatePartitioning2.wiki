@@ -17,8 +17,6 @@ For reference
 "sda" is the original AppleTV
 }}}
 
-= Details =
-
 Follow the LiveCD instructions but stop before the partition section.
 
 Let's see how the original AppleTV drive is setup so we can copy the partitioning.
@@ -57,12 +55,12 @@ parted -s /dev/sda mkpart primary ext3 36083500s 77091549s
 parted -s /dev/sda mkpart primary linux-swap 77091550s 78140126s
 }}}
 
-Format the partitions, note that we are using journaled hfsplus to match the original disk format. We let the Linux install deal with swap.
+Re-sync the system partition tables.
 {{{
-# sync the system partition tables
 partprobe /dev/sda
 }}}
 
+Verify the disk partitioning.
 {{{
 Model: IC25N040 ATCS04-0 (scsi)
 Disk /dev/sda: 78140160s
@@ -78,7 +76,7 @@ Number  Start     End        Size       File system  Name      Flags
  6      77091550s 78140126s  1048576s                   
 }}}
 
-Format the new partitions, and we let the CD installer handle swap
+Format the new partitions, note that we are using journaled hfsplus to match the original "Media" format. We let the Linux install deal with swap.
 {{{
 mkfs.hfsplus -J -v Media /dev/sda4
 mkfs.ext3  -b 4096 -L Linux /dev/sda5

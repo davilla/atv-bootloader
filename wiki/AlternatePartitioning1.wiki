@@ -10,15 +10,13 @@ And just for kicks we are also going to move from the standard 40GB 4200 rpm dri
 
 So, a nutshell, we are going to create GPT partitions on the new disk that match the original disk. Add two more two partitions for Linux usage. Copy the contents of the original recovery partition to the new disk. Then install Linux. Boot to AppleTV OS and do the "Factory Restore" then update to the newer version. Boot to Linux and do the post install fixes. Remember that these instructions are a guide not a script to cut and paste. They will need to be altered (drive identifiers, sector counts, etc) to suite your particular setup. 
 
-= Combo with on New Internal Disk"
+= Combo with on New Internal Disk" =
 ----
 For reference
 {{{
 "sdb" is the original AppleTV in a external USB enclosure
 "sdc" is the new 100GB in a external USB enclosure
 }}}
-
-= Details =
 
 Follow the LiveCD instructions but stop before the partition section.
 
