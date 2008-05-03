@@ -1,6 +1,6 @@
 = Installing LiveXBMC =
 
-This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. Follow the guide to create a USB flash drive with atv-bootloader. This flash drive needs to be 512MB or larger. Add a second ext3 partition to hold LiveXBMC, see AppleTV backup guide for reference. Now let's add LiveXBMC to the flash drive.
+This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. Follow the guide to create a USB flash drive with atv-bootloader. This flash drive needs to be 512MB or larger. Add a second ext3 partition to hold LiveXBMC, see AppleTV backup guide for reference. Now let's add LiveXBMC to the flash drive. If the USB flash drive auto-mounts, umount it as we will explicitly mount it with this guide
 
 Download the compressed disk image and the update
 {{{
@@ -17,52 +17,26 @@ sudo apt-get install p7zip-full
 }}}
 
 
-{{{
-mkdir xbmc flash
-
-}}}
-
 Make some mount points. Mount the USB flash drive and mount the base disk image so we can get to the contents. Then copy the contents to second partiton of the USB flash drive.
 {{{
-mkdir xbmc flash
+mkdir penboot penflash xbmc
 
-sudo mount /dev/sdX2 flash
+sudo mount /dev/sdX1 penboot
+sudo mount /dev/sdX2 penflash
 
 sudo mount -o loop LiveXBMCV2.12835.img xbmc
 
-cp -arp xbmc/* flash/
+sudo cp -arp xbmc/* penflash/
 sync
 }}}
 
 Update the base image.
 {{{
-cp -arp xbmc.12869.img xbmc/xbmc.img
+cp -arp xbmc.12869.img penflash/xbmc.img
 sync
 }}}
 
-Clean up
-{{{
-sudo umount flash xbmc
-rmdir flash xbmc
-
-sudo umount /dev/sdX
-}}}
-
-
-This is the contents of isolinux.cfg used by LiveXBMC
-{{{
-#    prompt 0
-#    display boot.msg
-#    timeout 1
-CONSOLE 0
-
-default linux
-label linux
-  kernel vmlinuz
-  append initrd=initrd0.img boot=usb quiet splash
-}}}
-
-Create a custom "boot_linux.sh" that will be used to boot LiveXBMC. Edit "boot_linux.sh" on the first partition of the USB flash drive and change it to the following
+Create a custom "boot_linux.sh" that will be used to boot LiveXBMC. Edit "penboot/boot_linux.sh" and change it to the following
 {{{
 #!/bin/bash
 
@@ -76,10 +50,18 @@ kexec --load /xbmc/vmlinuz \
 kexec -e
 }}}
 
-Edit "com.apple.Boot.plist" on the first partition of the USB flash disk and change the atv-boot parameter to "manual"
+Edit "penboot/com.apple.Boot.plist" on the first partition of the USB flash disk and change the atv-boot parameter to "manual"
 {{{
 <string>atv-boot= manual video=vesafb</string>
 }}}
+
+Clean up
+{{{
+sudo umount penboot penflash xbmc
+rmdir penboot penflash xbmc
+}}}
+
+Done.
 
 
 apt-get install ssh-server
