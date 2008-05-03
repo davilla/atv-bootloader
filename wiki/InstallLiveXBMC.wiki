@@ -166,3 +166,9 @@ Install openssh-server. username is "xbmc", password is "password"
 sudo apt-get install openssh-server
 }}}
 
+Add the following to "/etc/modprobe.d/options" to enable analog audio and Apple IR support.
+{{{
+options snd-hda-intel model=imac24
+options usbhid quirks=0x05ac:0x8241:0x10
+}}}
+
