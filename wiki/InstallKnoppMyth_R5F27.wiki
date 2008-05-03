@@ -16,10 +16,12 @@ There are two ways to install !KnoppMyth. The easiest is to use normal formattin
 
  == NVIDIA ==
 {{{
-su
+su root
+
+# stop X11
 mv /usr/bin/startx /usr/bin/startx.save
 cp /etc/X11/xorg.conf /etc/X11/xorg.original
-reboot
+pkill xinit
 
 cd /usr/src/linux-headers-2.6.18-chw-13/include/linux/ 
 mv i2c-id.h i2c-id-org.h
@@ -29,13 +31,9 @@ install-nvidia-debian.sh 169.12 -force
 
 mv /usr/bin/startx.save /usr/bin/startx
 
-
 Disable the current driver's startup activities: 
 update-rc.d -f install-nvidia-debian remove 
 update-rc.d -f nvidia-glx remove 
-update-rc.d -f nvidia-kernel remove
-
-wget http://http.download.nvidia.com/XFree86/Linux-x86/169.12/NVIDIA-Linux-x86-169.12-pkg1.run
 }}}
 
  == Audio/IR ==
@@ -46,12 +44,24 @@ cd /usr/src
 tar xjvf linux-source-2.6.18-chw-13.tar.bz2
 cp /boot/config-2.6.18-chw-13 linux-source-2.6.18-chw-13/.config 
 
-patch -it
-sound/pci/hda/patch_realtek.c
+# get audio and IR patches
+sudo wget http://atv-bootloader.googlecode.com/files/atv-realtek-rca-audio-r1-2.6.18.patch
+sudo wget http://atv-bootloader.googlecode.com/files/atv-hid-quirks-enable-ir-r1-2.6.18.patch
 
-patch -it
-drivers/usb/input/hid-core.c
+cd /usr/src/linux-source-2.6.18-chw-13
 
+# test the audio patch (this should complete without errors)
+sudo patch --dry-run < ../atv-realtek-rca-audio-r1-2.6.18.patch
+# apply the audio patch
+sudo patch  < ../atv-realtek-rca-audio-r1-2.6.18.patch
+
+# test the IR patch (this should complete without errors)
+sudo patch --dry-run < ../atv-hid-quirks-enable-ir-r1-2.6.18.patch
+# apply the IR patch
+sudo patch  < ../atv-hid-quirks-enable-ir-r1-2.6.18.patch
+
+
+# build the kernel package
 make-kpkg kernel_image 
 
 
