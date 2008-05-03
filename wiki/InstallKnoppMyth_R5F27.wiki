@@ -7,8 +7,8 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/knoppmyth.gif
 There are two ways to install !KnoopMyth. The easiest is to use normal formatting and over-write the internal disk. The other method of installing to GPT formatted disks is still being developed and will be updated at a later time.
 
 ----
-= R5F27 =
-* Over-write the internal disk
+= !KnoopMyth !R5F27 =
+* Over-write the internal disk *
  
  This method is pretty simple, make a USB flash drive with atv-bootloader, boot the AppleTV, backup the AppleTV, then boot the !KnoppMyth CD installer, and install !KnoppMyth to the internal PATA disk. Then create a custom "boot_linux.sh" that atv-bootloader uses to boot the installed !KnoppMyth.
 
@@ -53,9 +53,8 @@ patch -it
 drivers/usb/input/hid-core.c
 
 make-kpkg kernel_image 
-}}}
 
-{{{
+
 # change the main source symlink to point at the sources 
 rm /usr/src/linux 
 ln -s /usr/src/linux-source-2.6.18-chw-13 /usr/src/linux
