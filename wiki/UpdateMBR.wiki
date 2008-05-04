@@ -9,6 +9,9 @@ The installation of GRUB will also install a grub MBR (master boot record). The 
 In order to sync the MBR with the gpt partitions we need to use "gptsync". Of course, there current apt-get version does not understand recovery partitions so we need to build the updated version.
 
 {{{
+# get some building tools
+sudo apt-get install build-essential
+
 # get the current source for "gptsync" which is in "refit" source
 wget http://superb-west.dl.sourceforge.net/sourceforge/refit/refit-src-0.11.tar.gz
 tar -xzf refit-src-0.11.tar.gz 
