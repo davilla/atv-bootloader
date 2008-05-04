@@ -77,6 +77,12 @@ tar -xzf recovery-0.6.tar.gz
 # make some mount points
 mkdir /mnt/osboot /mnt/recovery
 
+# mount the partitions
+fsck.hfsplus /dev/sda2
+mount /dev/sda2 /mnt/recoveryfsck.hfsplus /dev/sda3
+mount /dev/sda3 /mnt/osboot
+
+# copy atv-bootloader over
 cp -arp recovery/* /mnt/osboot/
 cp -arp recovery/* /mnt/recovery/
 
