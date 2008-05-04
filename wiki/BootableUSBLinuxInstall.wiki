@@ -97,6 +97,9 @@ tar -xzf recovery-0.6.tar.gz
 # make some mount points
 mkdir /mnt/recovery
 
+# mount the USB flash drive
+mount /dev/sdb1 /mnt/recovery
+
 sudo cp -arp recovery/* /mnt/recovery/
 
 # remember to copy boot.efi 
