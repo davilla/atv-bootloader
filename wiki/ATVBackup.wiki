@@ -46,11 +46,15 @@ sudo partprobe /dev/sdb
 sudo mkfs.ext3 /dev/sdb2
 }}}
 
-Boot the AppleTV using this USB flash drive and telnet in. Nothing is mounted so make two mount points and mount the second partition of the USB flash drive on one and the "Recovery" partition on the internal PATA disk on the other. Clone the contents of "Recovery" to our backup partition. You don't have to copy the contents of "EFI" as there is nothing to copy. That correct, "EFI" is empty. Note that we fsck.hfsplus the "Recovery" partition even though it will be mounted read only. 
+Boot the AppleTV using this USB flash drive and telnet in. Username is "root", password is "root". Nothing is mounted so make two mount points and mount the second partition of the USB flash drive on one and the "Recovery" partition on the internal PATA disk on the other. Clone the contents of "Recovery" to our backup partition. You don't have to copy the contents of "EFI" as there is nothing to copy. That correct, "EFI" is empty. Note that we fsck.hfsplus the "Recovery" partition even though it will be mounted read only. 
 {{{
 mkdir src dst
+
+# mount the destination
+fsck.hfsplus /dev/sdb2
 mount /dev/sdb2 dst
 
+# mount the source
 fsck.hfsplus /dev/sda2
 mount -t hfsplus  /dev/sda2 src
 
@@ -66,6 +70,9 @@ rmdir src dst
 Run "parted" and make a copy of the original partitioning for the internal PATA disk. If we alter the original partitioning, the internal PATA disk can be re-partitioned back to the original later using this copy as a guide. Copy this to the first partition of the USB flash drive for safe keeping.
 {{{
 mkdir tmp
+
+# mount 
+fsck.hfsplus /dev/sdb1
 mount /dev/sdb1 tmp
 
 parted -s /dev/sda unit s print > tmp/org_gtp.txt
@@ -91,13 +98,16 @@ umount tmp
 rmdir tmp
 }}}
 
-Remove the USB flash drive and store it in a safe place. If you want, you can also tar and gzip the contents of the "backup" partition on the USB flash dirve to another location. That was quick and painless.
+Remove the USB flash drive and store it in a safe place. If you want, you can also tar and gzip the contents of the "backup" partition on the USB flash drive to another location. That was quick and painless.
 
 = Restore =
 
 Boot the AppleTV using the same USB flash drive and telnet in. Again nothing is mounted. Mount the first partition of the USB flash drive and copy over the dump of the original partitioning.
 {{{
 mkdir tmp
+
+# mount
+fsck.hfsplus /dev/sdb1
 mount /dev/sdb1 tmp
 
 cp tmp/org_gtp.txt ./
@@ -144,6 +154,8 @@ partprobe /dev/sda
 Mount and copy the original contents of "Recovery" from your "backup" partition into the newly created "Recovery" partition.
 {{{
 mkdir src dst
+
+# mount the backup
 mount /dev/sdb2 src
 
 fsck.hfsplus -f /dev/sda2
