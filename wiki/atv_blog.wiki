@@ -2,8 +2,13 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= May 4, 2008 =
+Ubuntu/Mythbuntu LiveCD booted directed from iso is being cranky. A USB cdrom based boot/install works fine but trying to boot from the iso or contents of the iso on a USB flash drive does not. It boots, but cannot seem to find it's root file system and drops to the initramfs prompt. Time to dig into the source code as Ubuntu specific kernel command-line params are not documented very well.
+
+Someone posted info about using a JP1 IR remote with the AppleTV, has 30 functions (buttons) defined and *get this* works using the Apple IR receiver. Now that's neat, have to look around for an IR remote with a JP1 interface that suits my needs. remote rant on -- why do they always put the number keys low -- I use the number keys and they should be higher where you don't have to contort your fingers to use them -- remote rant off.
+
 = May 3, 2008 =
-Well that did not take long. I'm sold on the Microsoft MCE IR Remote. It's a pretty inexpensive solution and most all Linux apps already have support. A no-brainer if you ask me. Too bad one can't get raw codes from the Apple IR Controller but that's life, sometimes you win, sometimes not. I'll keep the Apple IR Controller in mind when I dip into osputil. You never know, there might be possibility. Until then, just get the Microsoft MCE IR Remote and move on.
+Well that did not take long. I'm sold on the Microsoft MCE IR Remote. It's a pretty inexpensive solution and most all Linux apps already have support. A no-brainer if you ask me. Too bad one can't get raw codes from the Apple IR Controller but that's life, sometimes you win, sometimes not. I'll keep the Apple IR Controller in mind when I dip into "osputil". You never know, there might be possibility. Until then, just get the Microsoft MCE IR Remote and move on.
 
 = May 2, 2008 =
 Ok, I've finally gotten tired of the Apple IR remote. Need more buttons and I have a love/hate relationship with my Harmony 880 (that's another story). My [http://www.intrex.com/ local Intex] has the Microsoft A9O-00007 IR Remote with IR receiver for $27.99 and I'm on the way out to get one.

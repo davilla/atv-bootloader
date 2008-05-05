@@ -53,7 +53,7 @@ If you have a USB keyboard attached, you can login (user=root password=root) and
 
 = example patchstick.sh = 
 
-Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of installing "sshd". Nothing is auto mounted so you will nned to mount any disk partitions manually. This also assumes that you have created a directory "ssh" on the "Patchstick" partition of the USB flash drive and populate it with the required files.
+Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of installing "sshd". Nothing is auto mounted so you will need to mount any disk partitions manually. This also assumes that you have created a directory "ssh" on the "Patchstick" partition of the USB flash drive and populate it with the required files.
 {{{
 
 #!/bin/bash
