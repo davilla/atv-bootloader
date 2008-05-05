@@ -9,7 +9,7 @@ A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and selec
 ---------
 * Install Mythbuntu
 
-*This guide assumes a Mythbuntu only install with /dev/sda4 is "/" and /dev/sda5 is "swap". A coexist install will use "dev/sda5" as "/" and "/dev/sda6" as swap. If your disk partitioning is different you will need to adjust this guide to match. *
+*This guide assumes a Mythbuntu only install with /dev/sda4 is "/" and /dev/sda5 is "swap". A coexist install to the internal PATA disk will use "dev/sda5" as "/" and "/dev/sda6" as swap. If your disk partitioning is different you will need to adjust this guide to match. *
 
 Click on install "Mythbuntu"
 
@@ -70,7 +70,9 @@ exit
 sudo umount /media/disk/dev
 }}}
 
-Reinstall the drive back into the AppleTV if it's an internal disk and power on the AppleTV and you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper left corner). After that you linux install should boot. If you are using a USB disk you might have to use the IR remote and hold the "menu" and "-" buttons down during power on to force a USB recovery boot.
+If this is an over-write install with atv-bootloader installed on the internal PATA disk, just reboot. If this is a coexist install, remember to keep the USB flash drive with atv-bootloader attached in order for atv-bootloader to bootstrap Mythbuntu. 
+
+After reboot or AppleTV power-on, you should see the tux/atv logo in 30-60 seconds. Then you will see atv-bootloader booting (tux in the upper left corner). After that your Mythbuntu install should boot. If you are using a USB flash drive (coexist install) you might have to use the IR remote and hold the "menu" and "-" buttons down during power on to force a USB recovery boot.
 
 ---------
 * Post Boot Fixes
