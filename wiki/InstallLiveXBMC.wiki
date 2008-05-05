@@ -1,4 +1,8 @@
-= Installing LiveXBMC =
+http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/xbmc.png
+
+= Installing [http://xbmc.org/ LiveXBMC] =
+
+LiveXBMC is a development release of XBMC on a small USB flash drive. It's still under development and as such unsupported by the main developers, see this [http://xbmc.org/forum/showthread.php?t=32853 link to the forum thread].
 
 This one is dirt simple. LiveXBMC is installed by extracting the contents of the disk image that would be created for tradition PC hardware. This flash drive needs to be 512MB or larger. 
 
