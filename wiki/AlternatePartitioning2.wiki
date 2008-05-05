@@ -1,6 +1,6 @@
 = AppleTV/Linux combo =
 
-Make sure you first [ATVBackup backup] as you will be altering the original AppleTV internal PATA partition structure.
+Make sure you first [ATVBackup backup] as you will be altering the original AppleTV internal PATA partition structure. 
 
 This take a little setup but might be worth it for some users. I do not recommend this procedure for first time installation of Linux. Installing Linux to a external USB disk is easer. 
 
