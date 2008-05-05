@@ -103,40 +103,6 @@ If you have pre-formatted the destination disk, proceed to installing your distr
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and add "video=vesafb". Then see what happens.
 
 ----
-= Ubuntu Hardy Netboot =
-Here's an example of the Ubuntu Hardy Netboot. This requires a network connection as Hardy will be installed from network sources. First download and extract the Hardy Netboot files. This also works with Gutsy, just change the name below.
-{{{
-http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-i386/current/images/netboot/netboot.tar.gz
-
-tar -xzf newboot.tar.gz
-}}}
-
-Now copy just "linux" and "initrd.gz" to the atv-bootloader USB flash drive
-{{{
-mkdir penboot
-
-mount /dev/sdb1 penboot
-
-cp ubuntu-installer/i386/linux penboot/
-cp ubuntu-installer/i386/initrd.gz penboot/
-
-umount penboot
-}}}
-
-Boot the AppleTV using atv-bootloader and connect using telnet. Then
-{{{
-mkdir tmp
-
-mount /dev/sdb1 tmp
-
-kexec --load tmp/linux --initrd=tmp/initrd.gz --command-line="vga=normal vesa video=vesafb"
-
-kexec -e
-}}}
-
-The netboot installer will startup, follow the directions. Remember to pre-partition in atv-bootloader if you want to use GPT partitions with atv-bootloader installed on one of the partitions for selfboot.
-
-----
 = Mythbuntu (Gutsy or Hardy)=
 Here's an example for Mythbuntu, the default isolinux setting is
 {{{
@@ -216,4 +182,39 @@ kexec --load /root/tmp/vmlinuz-2.6.24.4-64.fc8 \
 
 kexec -e
 }}}
+
+----
+= Ubuntu Hardy Netboot =
+Here's an example of the Ubuntu Hardy Netboot. This requires a network connection as Hardy will be installed from network sources. First download and extract the Hardy Netboot files. This also works with Gutsy, just change the name below.
+{{{
+http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-i386/current/images/netboot/netboot.tar.gz
+
+tar -xzf newboot.tar.gz
+}}}
+
+Now copy just "linux" and "initrd.gz" to the atv-bootloader USB flash drive
+{{{
+mkdir penboot
+
+mount /dev/sdb1 penboot
+
+cp ubuntu-installer/i386/linux penboot/
+cp ubuntu-installer/i386/initrd.gz penboot/
+
+umount penboot
+}}}
+
+Boot the AppleTV using atv-bootloader and connect using telnet. Then
+{{{
+mkdir tmp
+
+mount /dev/sdb1 tmp
+
+kexec --load tmp/linux --initrd=tmp/initrd.gz --command-line="vga=normal vesa video=vesafb"
+
+kexec -e
+}}}
+
+The netboot installer will startup, follow the directions. Remember to pre-partition in atv-bootloader if you want to use GPT partitions with atv-bootloader installed on one of the partitions for selfboot.
+
 
