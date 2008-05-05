@@ -9,7 +9,7 @@ A *warning* here, if you install [http://www.mythbuntu.org/ Mythbuntu] and selec
 ---------
 * Install Mythbuntu
 
-This guide assumes /dev/sda4 is "/" and /dev/sda5 is "swap". If your disk partitioning is different you will need to adjust this guide to match.
+*This guide assumes a Mythbuntu only install with /dev/sda4 is "/" and /dev/sda5 is "swap". A coexist install will use "dev/sda5" as "/" and "/dev/sda6" as swap. If your disk partitioning is different you will need to adjust this guide to match. *
 
 Click on install "Mythbuntu"
 
