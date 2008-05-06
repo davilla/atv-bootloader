@@ -8,15 +8,15 @@ This guide describes how to boot a Linux LiveCD directly from the AppleTV. It re
  # A network with a DHCP server (router, etc)
  # A wired network connection to the AppleTV.
  # A USB Hub (a powered USB hub is preferable but not required).
- # A USB cdrom drive.
-
-Once the LiveCD is booted then you will need
  # A USB mouse.
  # A USB keyboard.
 
+Optional
+ # A USB cdrom drive (you can install from the contents of an iso)
+
 ----
 = Ubuntu 7.10 Gutsy =
-Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy LiveCD using atv-bootloader. 
+Let's get started. For this example, we are going to manually boot Ubuntu 7.10 Gutsy LiveCD using atv-bootloader. This guide uses a USB CD/DVD drive but you can boot using the extracted contents of a LiveCD onto a USB flash drive.
 
 On a working Linux system, create a USB flash drive with atv-bootloader installed. You will need to first extract "boot.efi" and build and install parted and hfstools. See [BootEFIExtraction extract boot.efi] for boot.efi, [InstallParted install parted] for parted and [InstallHFSTools install hfs tools] for hfs support].
  
