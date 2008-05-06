@@ -127,7 +127,8 @@ cd isocp -rf casper dists install pics pool preseed .disk ../usbcp isolinux/is
 
 Now after atv-bootloader boots, telnet in and
 {{{
-mkdir tmpmount /dev/sdb2 tmpkexec --load tmp/casper/vmlinuz --initrd=tmp/casper/initrd.gz --command-line="preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz nosplash vesa video=vesafb"kexec -eAnd bingo into the Ubuntu LiveCD.}}}
+mkdir tmpmount /dev/sdb2 tmpkexec --load tmp/casper/vmlinuz --initrd=tmp/casper/initrd.gz --command-line="preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz nosplash vesa video=vesafb"kexec -e}}}
+And bingo into the Ubuntu LiveCD.
 
 ----
 = Mythbuntu (Gutsy or Hardy)=
