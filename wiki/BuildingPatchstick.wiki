@@ -63,10 +63,6 @@ exec 1>/dev/console
 
 echo
 echo "        --- aTV Flash 2.0.1 Upgrade ---"
-#echo '        (please ignore the "invalid destination port\" errors)'
-
-# echo "        * remounting / r/w"
-# mount -uw /
 
 echo "        * mounting OSBoot partition"
 mkdir /mnt/OSBoot
@@ -75,6 +71,7 @@ mount -t hfsplus -o rw,force /dev/sda3 /mnt/OSBoot
 
 #echo "        * mounting stuff partition r/o"
 mkdir /mnt/stuff
+fsck.hfsplus /dev/sdb2
 mount -t hfsplus -r /dev/sdb2 /mnt/stuff
 
 echo "        * keeping the OSBoot partition r/w for plugins"
