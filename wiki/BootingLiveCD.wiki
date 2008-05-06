@@ -103,6 +103,33 @@ If you have pre-formatted the destination disk, proceed to installing your distr
 Other LiveCD distributions will be similar steps. Extract the default ioslinux settings. Translate to kexec params. Turn off "splash", set "vga=normal" and add "video=vesafb". Then see what happens.
 
 ----
+= Do I really need a USB CD/DVD drive =
+No, you can extract the contents of the LiveCD iso to a USB flash drive and install from that. Here's how using Ubuntu. On an existing Linux system
+{{{
+# Download the iso.
+http://mirrors.us.kernel.org/ubuntu-releases/hardy/ubuntu-8.04-desktop-i386.iso
+
+# mount the iso
+mkdir isomount -o loop ubuntu-8.04-desktop-i386.iso iso
+
+# mount your USB flash drive with
+#   atv-bootloader on 1st partition, 
+#   empty ext3 on 2nd partition.mkdir usbmount /dev/sdb2 usb
+
+# copy selected contents of the iso into the flash
+# ".disk" is important as this is what "casper" the 
+# Ubuntu initrd used to find valid iso contents
+#
+cd isocp -rf casper dists install pics pool preseed .disk ../usbcp isolinux/isolinux.cfg md5sum.txt README.diskdefines ../usbcp casper/vmlinuz casper/initrd.gz install/mt86plus ../usb
+
+# cd into the usb and make some changescd ../usbmv isolinux.cfg syslinux.cfgsed -i -e 's:/casper/::g' -e 's:/cdrom/::g' -e 's:/install/::g' syslinux.cfg
+}}}
+
+Now after atv-bootloader boots, telnet in and
+{{{
+mkdir tmpmount /dev/sdb2 tmpkexec --load tmp/casper/vmlinuz --initrd=tmp/casper/initrd.gz --command-line="preseed/ubuntu.seed boot=casper initrd=/casper/initrd.gz nosplash vesa video=vesafb"kexec -eAnd bingo into the Ubuntu LiveCD.}}}
+
+----
 = Mythbuntu (Gutsy or Hardy)=
 Here's an example for Mythbuntu, the default isolinux setting is
 {{{
