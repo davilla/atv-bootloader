@@ -54,7 +54,7 @@ If you have a USB keyboard attached, you can login (user=root password=root) and
 ----
 = example patchstick.sh = 
 
-Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of an sshd install contributed by James Abeler of [http://www.applecorellc.com/ Apple Core, LLC]. Thanks James, for being helping to prove this method.
+Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of a sshd install contributed by James Abeler of [http://www.applecorellc.com/ Apple Core, LLC]. Thanks James, for being the first prove this method of patching the AppleTV OS. This script assumes that you have created a directory "ssh" on the "Patchstick" partition of the USB flash drive and populate it with the required files.
 {{{
 #!/bin/bash
 
@@ -73,12 +73,9 @@ mkdir /mnt/OSBoot
 fsck.hfsplus /dev/sda3
 mount -t hfsplus -o rw,force /dev/sda3 /mnt/OSBoot
 
-#echo "        * re-mounting OSBoot partition r/w"
-#remount -o rw /mnt/OSBoot
-
 #echo "        * mounting stuff partition r/o"
-#mkdir /mnt/stuff
-#mount -t hfsplus -r /dev/sdb2 /mnt/stuff
+mkdir /mnt/stuff
+mount -t hfsplus -r /dev/sdb2 /mnt/stuff
 
 echo "        * keeping the OSBoot partition r/w for plugins"
 touch /mnt/OSBoot/.readwrite
