@@ -106,9 +106,9 @@ if [ -f /mnt/rootfs/stuff/ssh/sshd ] && [ -f /mnt/rootfs/stuff/ssh/ssh.plist ]; 
   chmod 755 /mnt/OSBoot/usr/libexec/sshd-keygen-wrapper
   chmod 755 /mnt/OSBoot/System/Library/LaunchDaemons/ssh.plist
 
-#  echo "        Adding Kerberos..."
- # cp -p -R /System/Library/Frameworks/OSXFrames/Kerberos.framework /OSBoot/System/Library/Frameworks/OSXFrames/
- # sed -i"" -e 's;^exec;DYLD_FRAMEWORK_PATH="/System/Library/Frameworks/OSXFrames" exec;' /OSBoot/usr/libexec/sshd-keygen-wrapper
+  # echo "        Adding Kerberos..."
+  # cp -p -R /System/Library/Frameworks/OSXFrames/Kerberos.framework /OSBoot/System/Library/Frameworks/OSXFrames/
+  # sed -i"" -e 's;^exec;DYLD_FRAMEWORK_PATH="/System/Library/Frameworks/OSXFrames" exec;' /OSBoot/usr/libexec/sshd-keygen-wrapper
   echo "        done."
 else
   echo "        SSH files not found."
