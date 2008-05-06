@@ -51,9 +51,87 @@ this is a patchstick stript
 
 If you have a USB keyboard attached, you can login (user=root password=root) and poke around. The USB pen drive will be at "/dev/sdb" and the internal ata drive is at "/dev/sda".
 
+----
 = example patchstick.sh = 
 
-Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of installing "sshd". Nothing is auto mounted so you will need to mount any disk partitions manually. This also assumes that you have created a directory "ssh" on the "Patchstick" partition of the USB flash drive and populate it with the required files.
+Fill in "patchstick.sh" with the patchstick function you want to perform. Here's an example of an sshd install contributed by James Abeler of [http://www.applecorellc.com/ Apple Core, LLC]. Thanks James, for being helping to prove this method.
+{{{
+#!/bin/bash
+
+exec 2>/dev/console
+exec 1>/dev/console
+
+echo
+echo "        --- aTV Flash 2.0.1 Upgrade ---"
+#echo '        (please ignore the "invalid destination port\" errors)'
+
+# echo "        * remounting / r/w"
+# mount -uw /
+
+echo "        * mounting OSBoot partition"
+mkdir /mnt/OSBoot
+fsck.hfsplus /dev/sda3
+mount -t hfsplus -o rw,force /dev/sda3 /mnt/OSBoot
+
+#echo "        * re-mounting OSBoot partition r/w"
+#remount -o rw /mnt/OSBoot
+
+#echo "        * mounting stuff partition r/o"
+#mkdir /mnt/stuff
+#mount -t hfsplus -r /dev/sdb2 /mnt/stuff
+
+echo "        * keeping the OSBoot partition r/w for plugins"
+touch /mnt/OSBoot/.readwrite
+
+if [ -f /mnt/rootfs/stuff/ssh/sshd ] && [ -f /mnt/rootfs/stuff/ssh/ssh.plist ]; then
+  echo -n "        * Installing SSH daemon... "
+  cp /mnt/rootfs/stuff/ssh/sshd /mnt/OSBoot/usr/sbin/sshd
+  cp /mnt/rootfs/stuff/ssh/ssh /mnt/OSBoot/usr/bin/ssh
+  cp /mnt/rootfs/stuff/ssh/ssh-add /mnt/OSBoot/usr/bin/ssh-add
+  cp /mnt/rootfs/stuff/ssh/ssh-agent /mnt/OSBoot/usr/bin/ssh-agent
+  cp /mnt/rootfs/stuff/ssh/ssh-keygen /mnt/OSBoot/usr/bin/ssh-keygen
+  cp /mnt/rootfs/stuff/ssh/ssh-keyscan /mnt/OSBoot/usr/bin/ssh-keyscan
+  cp /mnt/rootfs/stuff/ssh/scp /mnt/OSBoot/usr/bin/scp
+  cp /mnt/rootfs/stuff/ssh/sftp-server /mnt/OSBoot/usr/libexec/sftp-server
+  cp /mnt/rootfs/stuff/ssh/ssh-keysign /mnt/OSBoot/usr/libexec/ssh-keysign
+  cp /mnt/rootfs/stuff/ssh/sshd-keygen-wrapper /mnt/OSBoot/usr/libexec/sshd-keygen-wrapper
+  cp /mnt/rootfs/stuff/ssh/ssh.plist /mnt/OSBoot/System/Library/LaunchDaemons/ssh.plist
+  
+  chmod 755 /mnt/OSBoot/usr/sbin/sshd
+  chmod 755 /mnt/OSBoot/usr/bin/ssh
+  chmod 755 /mnt/OSBoot/usr/bin/ssh-add
+  chmod 755 /mnt/OSBoot/usr/bin/ssh-agent
+  chmod 755 /mnt/OSBoot/usr/bin/ssh-keygen
+  chmod 755 /mnt/OSBoot/usr/bin/ssh-keyscan
+  chmod 755 /mnt/OSBoot/usr/bin/scp
+  chmod 755 /mnt/OSBoot/usr/libexec/sftp-server
+  chmod 4755 /mnt/OSBoot/usr/libexec/ssh-keysign
+  chmod 755 /mnt/OSBoot/usr/libexec/sshd-keygen-wrapper
+  chmod 755 /mnt/OSBoot/System/Library/LaunchDaemons/ssh.plist
+
+#  echo "        Adding Kerberos..."
+ # cp -p -R /System/Library/Frameworks/OSXFrames/Kerberos.framework /OSBoot/System/Library/Frameworks/OSXFrames/
+ # sed -i"" -e 's;^exec;DYLD_FRAMEWORK_PATH="/System/Library/Frameworks/OSXFrames" exec;' /OSBoot/usr/libexec/sshd-keygen-wrapper
+  echo "        done."
+else
+  echo "        SSH files not found."
+fi
+
+#--------------------------------------------------------------------------
+
+  sync &>/dev/null
+  umount /mnt/OSBoot
+  echo "        all done!"
+  
+echo
+echo "        The aTV Flash software has been successfully installed.  You may now remove the flash drive and restart your Apple TV."
+echo "        Thanks from AppleCoreLLC.com"
+echo "        :-)"
+sleep 100000
+}}}
+
+----
+Here's an another example of installing "sshd". Nothing is auto mounted so you will need to mount any disk partitions manually. This also assumes that you have created a directory "ssh" on the "Patchstick" partition of the USB flash drive and populate it with the required files.
 {{{
 
 #!/bin/bash
