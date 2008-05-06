@@ -212,8 +212,8 @@ kexec -e
 }}}
 
 ----
-= Ubuntu Hardy Netboot =
-Here's an example of the Ubuntu Hardy Netboot. This requires a network connection as Hardy will be installed from network sources. The !NetBoot installer allows the installation of all the Ubuntu derivatives (Hardy desktop, Mythbuntu Frontend, etc) First download and extract the Hardy
+= Netboot Install =
+Here's an example of installing using Ubuntu Hardy Netboot. This requires a network connection as Hardy will be installed from network sources. The !NetBoot installer allows the installation of all the Ubuntu derivatives (Hardy desktop, Mythbuntu Frontend, etc) First download and extract the Hardy
 Netboot files. This also works with Gutsy, just change the name below.
 {{{
 http://us.archive.ubuntu.com/ubuntu/dists/hardy/main/installer-i386/current/images/netboot/netboot.tar.gz
