@@ -2,8 +2,15 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= May 5, 2008 =
+Ubuntu/Muthbuntu LiveCD boot from extracted iso fixed. Don't forget to copy the hidden ".disk" directory. Very important. Duh.
+
+LiveXBMC working with mceusb IR remote. And speaking of IR, bikedude880 of the OSx86/awkwardtv fame suggested looking at bhollands "irkeyboardemu" for information on the IR controller. Thanks bikedude880, busy decoding the "Report Descriptor" as I speak. There seems to be more than what's required to describe a six button remote control. We will see where this goes.
+
+DNS failing is solved, Grrr -- missing libs. That means a new release is pending to fix that and the missing fat/vfat support. And just when the download count has almost cleared 300 or 560 total for all versions.
+
 = May 4, 2008 =
-Ubuntu/Mythbuntu LiveCD booted directed from iso is being cranky. A USB cdrom based boot/install works fine but trying to boot from the iso or contents of the iso on a USB flash drive does not. It boots, but cannot seem to find it's root file system and drops to the initramfs prompt. Time to dig into the source code as Ubuntu specific kernel command-line params are not documented very well.
+Ubuntu/Mythbuntu LiveCD booted direct from iso is being cranky. A USB cdrom based boot/install works fine but trying to boot from the iso or contents of the iso on a USB flash drive does not. It boots, but cannot seem to find it's root file system and drops to the initramfs prompt. Time to dig into the source code as Ubuntu specific kernel command-line params are not documented very well.
 
 Someone posted info about using a JP1 IR remote with the AppleTV, has 30 functions (buttons) defined and *get this* works using the Apple IR receiver. Now that's neat, have to look around for an IR remote with a JP1 interface that suits my needs. remote rant on -- why do they always put the number keys low -- I use the number keys and they should be higher where you don't have to contort your fingers to use them -- remote rant off.
 
