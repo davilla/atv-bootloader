@@ -1,4 +1,4 @@
-http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/knoppmyth.gif
+http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/knoppmyth.png
 
 = Installing [http://mysettopbox.tv/ KnoppMyth] =
 
