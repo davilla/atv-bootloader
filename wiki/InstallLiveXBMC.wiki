@@ -165,24 +165,24 @@ Enjoy.
 
 = Post Boot Fixes =
 
-Install openssh-server for remote ssh sessions. username is "xbmc", password is "password".
+* Install openssh-server for remote ssh sessions. username is "xbmc", password is "password".
 {{{
 sudo apt-get install openssh-server
 }}}
 
-Add the following to "/etc/modprobe.d/options" to enable analog audio and Apple IR device support.
+* Add the following to "/etc/modprobe.d/options" to enable analog audio and Apple IR device support.
 {{{
 options snd-hda-intel model=imac24
 options usbhid quirks=0x05ac:0x8241:0x10
 }}}
 
-Add the following to the Section "Screen" in "/etc/X11/xorg.conf".
+* Add the following to the Section "Screen" in "/etc/X11/xorg.conf".
 {{{
     Option         "Coolbits" "1"
     Option         "UseEvents" "1"
 }}}
 
-Using the Microsoft MCE IR remote control (mceusb). Go to this thread (http://xbmc.org/forum/showpost.php?p=182712&postcount=34) and use either link to a "lircd.conf" for the mceusb IR remote. The edit "/etc/lirc/hardware.conf" and change the following entries
+ * Using the Microsoft MCE IR remote control (mceusb). Go to this thread (http://xbmc.org/forum/showpost.php?p=182712&postcount=34) and use either link to a "lircd.conf" for the mceusb IR remote. The edit "/etc/lirc/hardware.conf" and change the following entries
 {{{
 REMOTE_MODULES=""
 
@@ -191,7 +191,7 @@ REMOTE_DEVICE=""
 START_LIRCD="false"
 }}}
 
-To
+ To
 {{{
 REMOTE_MODULES="lirc_dev lirc_mceusb2"
 
@@ -200,12 +200,12 @@ REMOTE_DEVICE="/dev/lirc0"
 START_LIRCD="true"
 }}}
 
-Then 
+ Then 
 {{{
 sudo /etc/init.d/lirc restart
 }}}
 
-Test using "irw", when you press a button on the remote control, you should see a response and LiveXBMC should see it now.
+ Test using "irw", when you press a button on the remote control, you should see a response and LiveXBMC should see it now.
 {{{
 username# irw
 000000037ff07be1 00 Up mceusb 
