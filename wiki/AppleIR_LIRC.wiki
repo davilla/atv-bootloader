@@ -1,6 +1,8 @@
 = Apple IR Remote with LIRC =
 
-The Apple IR controller is a USB device similar to that of the !MacMini but the device ID is different. So to enable IR device support we have to patch and rebuild a kernel module. Apple IR remote can actually generate any of 256 6 button sets. The IR receiver on the AppleTV is physcially able to recognize and distingusih all 6x256 codes, and no others. 
+The Apple IR controller is a USB device similar to that of the !MacMini but the USB device ID is different. So to enable IR device support we have to either force the usbhid kernel module to ignore this device or patch and rebuild the usbhid kernel module. A kernel version 2.6.22 or greater and use a kernel module option to ignore the AppleTV IR device. Kernel versions less than 2.6.22 will need to patch and rebuild the usbhid module.
+
+Apple IR remote can actually generate any of 256 6 button sets. The IR receiver on the AppleTV is physcially able to recognize and distingusih all 6x256 codes, and no others. 
 
 The sequences are all of the form 0x87EEXXYY, where XX is the ID code (UID) and YY is the key code. This info comes from the [http://www.hifi-remote.com/forums/viewtopic.php?p=59792#59792 JP1 remote project] The UID is used for paring IR remotes to IR controllers under OS X. When you pare a IR remote to the computer what you are doing is telling OS X to only listen to an Apple IR remote with this UID. A certain key press on the Apple IR remote will increment the UID. For example, the "menu" button on my remote has this for the IR code 
 {{{
@@ -16,14 +18,13 @@ There are 256 possible UID codes. So 256 x 6 possible combinations that the Appl
 
 Now use irrecord to create your lirc.conf from the learning remote. Then you have the AppleTV IR controller responding to the learning remote which has more than six buttons.
 
-
 For a raw analysis of the [http://www.barchard.net/files/apple_ir_remote_analysis.html Apple IR remote protocol]. And [http://cweiske.de/tagebuch/Getting%20Apple%20Remote,%20Macbook%20and%20LIRC%20work%20together.htm web page] that mentions handling the repeat in a different method (I do not think this is relevant anymore due to the lirc repeat patch).
 
 Contributed by Ben Firshman, [http://atv-bootloader.googlecode.com/files/appleremote.py-0.1.tar.gz here's an alternate] to using "~/.mythtv/lircrc". This is a python script that enables greater functionality using the Apple IR Remote. It completely replaces using lircrc for control of a !MythFrontEnd so make sure "~/.mythtv/lircrc" is removed before installing. Thanks Ben.
 
 -----------
 = Enable usbhid =
-The Apple IR controller is a USB device that depends on the kernel module "usbhid.ko". This kernel module must be patched or have options added during load, see the specific Linux distribuntion install guide for information about enabling "usbhid".  
+The Apple IR controller is a USB device that depends on the kernel module "usbhid.ko". This kernel module must be patched or have options added during load, see the specific Linux distribuntion install guides in this wiki for information about enabling "usbhid".  
 
 -----------
 = Patch LIRC =
