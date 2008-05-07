@@ -1,0 +1,180 @@
+= AppleTV IR Device Info=
+
+The AppleTV IR receiver appears as a USB-based human interface device (HID). Similar to a USB mouse or keyboard it uses an interrupt IN endpoint to send information to the host computer when some action occurs such as pressing a button on the Apple IR remote.
+
+USB HID devices have the following requirements
+ * A HID must have an interrupt IN endpoint for sending periodic data to the host. An interrupt OUT endpoint for receiving periodic data from the host is optional
+ * A HID must contain a class descriptor and one or more report descriptors
+ * A HID must support the HID-specific control request Get_Report and may support the optional request Set_Report
+
+For interrupt IN transfers, the device must place the report data in the interrupt endpoint's buffer and enable the endpoint.
+
+The AppleTV IR HID device is defined by this report descriptior.
+{{{
+unsigned char atv_hid_report_descriptor[] = {
+
+0x05, 0x0c,	/* USAGE PAGE (Consumer)         	*/
+0x09, 0x01,	/* USAGE (Pointer)                      */
+0xa1, 0x01, 	/* COLLECTION (Application)             */
+
+0x75, 0x08, 	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x01, 	/*  LOGICAL MINIMUM (1) 		*/
+0x25, 0x02, 	/*  LOGIXAL MAXIMUM (2) 		*/
+0x85, 0x01, 	/*  ReportID (1)			*/
+0x09, 0xff, 	/*  Reserved				*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+ 
+0x75, 0x08, 	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x02, 	/*  ReportID (2)			*/
+0x09, 0xb4, 	/*  Rewind				*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x03, 	/*  ReportID (3)			*/
+0x09, 0xb3, 	/*  Fast Forward			*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+
+0x75, 0x08, 	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x04, 	/*  ReportID (4)			*/
+0x09, 0x40, 	/*  Menu				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x05, 0x01, 	/* USAGE PAGE (Generic Desktop)         */
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x01, 	/*  LOGICAL MINIMUM (1) 		*/
+0x25, 0x04, 	/*  LOGIXAL MAXIMUM (4) 		*/
+0x85, 0x05, 	/*  ReportID (5)			*/
+0x09, 0xff, 	/*  Reserved				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x06, 	/*  ReportID (6)			*/
+0x09, 0x86, 	/*  System App Menu			*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x07, 	/*  ReportID (7)			*/
+0x09, 0x89, 	/*  System Menu Select			*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x08, 	/*  ReportID (8)			*/
+0x09, 0x8a, 	/*  System Menu Right			*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x09, 	/*  ReportID (9)			*/
+0x09, 0x8b, 	/*  System Menu Left			*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x01, 	/*  LOGICAL MINIMUM (1) 		*/
+0x25, 0x02, 	/*  LOGIXAL MAXIMUM (2) 		*/
+0x85, 0x0a, 	/*  ReportID (10)			*/
+0x09, 0xff, 	/*  Reserved				*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x0b, 	/*  ReportID (11)			*/
+0x09, 0x8c, 	/*  System Menu Up			*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x0c, 	/*  ReportID (12)			*/
+0x09, 0x8d, 	/*  System Menu Down			*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+
+0x05, 0xff, 	/* USAGE PAGE (Vender)			*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x01, 	/*  LOGICAL MINIMUM (1) 		*/
+0x25, 0x04, 	/*  LOGIXAL MAXIMUM (4) 		*/
+0x85, 0x0d, 	/*  ReportID (13)			*/
+0x09, 0xff,	/*  Reserved				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x0e, 	/*  ReportID (14)			*/
+0x09, 0x20, 	/*  Vender 0x20				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x0f, 	/*  ReportID (15)			*/
+0x09, 0x21, 	/*  Vender 0x21				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x10, 	/*  ReportID (16)			*/
+0x09, 0x22, 	/*  Vender 0x22				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0x01, 	/*  LOGIXAL MAXIMUM (1) 		*/
+0x85, 0x11, 	/*  ReportID (17)			*/
+0x09, 0x23, 	/*  Vender 0x23				*/
+0x81, 0x06, 	/*  INPUT (Data, Variable, Relative)	*/
+
+0x05, 0x06, 	/* USAGE PAGE (Generic Device Controls)	*/
+
+0x75, 0x08,  	/*  REPORT SIZE (8) 			*/
+0x95, 0x01, 	/*  REPORT COUNT (1)			*/
+0x15, 0x00, 	/*  LOGICAL MINIMUM (0) 		*/
+0x25, 0xff, 	/*  LOGIXAL MAXIMUM (255) 		*/
+0x85, 0x12, 	/*  ReportID (18)			*/
+0x09, 0x22, 	/*  Wireless ID				*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+
+0xc0		/* END					*/
+
+};
+}}}
+
+The usage table information for this device includes usages in the Generic Desktop Page (page ID 0x01), the Generic Device Controls Page (page ID 0x06), the Consumer Page (page ID 0x0C), and a vendor-defined page (page ID 0xff). In detail, there are;
+ * Consumer Ñ includes on/off (up/down in this case) controls with the usage IDs 0x40 (Menu), 0xb3 (Fast Forward), and 0xb4 (Rewind).
+ * Vendor Ñ includes usage IDs 0x20, 0x21, 0x22, and 0x23.
+ * Generic Desktop Ñ includes one-shot controls (OSC) with usage IDs 0x86 (System App Menu), 0x89 (System Menu Select), 0x8a (System Menu Right), 0x8b (System Menu Left), 0x8c (System Menu Up), and 0x8d (System Menu Down).
+ * Generic Device Controls Ñ includes a dynamic value with the usage ID ID 0x22 (Wireless ID), which identifies a wireless device in a wireless subsystem.
+
