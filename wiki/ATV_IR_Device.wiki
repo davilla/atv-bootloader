@@ -173,7 +173,7 @@ unsigned char atv_hid_report_descriptor[] = {
 }}}
 
 The usage table information for this device includes usages in the Generic Desktop Page (page ID 0x01), the Generic Device Controls Page (page ID 0x06), the Consumer Page (page ID 0x0C), and a vendor-defined page (page ID 0xff). In detail, there are;
- * Consumer - includes on/off (up/down in this case) controls with the usage IDs 0x40 (Menu), 0xb3 (Fast Forward), and 0xb4 (Rewind).
+ * Consumer -- includes on/off (up/down in this case) controls with the usage IDs 0x40 (Menu), 0xb3 (Fast Forward), and 0xb4 (Rewind).
  * Vendor - includes usage IDs 0x20, 0x21, 0x22, and 0x23.
  * Generic Desktop - includes one-shot controls (OSC) with usage IDs 0x86 (System App Menu), 0x89 (System Menu Select), 0x8a (System Menu Right), 0x8b (System Menu Left), 0x8c (System Menu Up), and 0x8d (System Menu Down).
  * Generic Device Controls - includes a dynamic value with the usage ID ID 0x22 (Wireless ID), which identifies a wireless device in a wireless subsystem.
