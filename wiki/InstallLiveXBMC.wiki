@@ -182,3 +182,37 @@ Add the following to the Section "Screen" in "/etc/X11/xorg.conf".
     Option         "UseEvents" "1"
 }}}
 
+Using the Microsoft MCE IR remote control (mceusb). Go to this thread (http://xbmc.org/forum/showpost.php?p=182712&postcount=34) and use either link to a "lircd.conf" for the mceusb IR remote. The edit "/etc/lirc/hardware.conf" and change the following entries
+{{{
+REMOTE_MODULES=""
+
+REMOTE_DEVICE=""
+
+START_LIRCD="false"
+}}}
+
+To
+{{{
+REMOTE_MODULES="lirc_dev lirc_mceusb2"
+
+REMOTE_DEVICE="/dev/lirc0"
+
+START_LIRCD="true"
+}}}
+
+Then 
+{{{
+sudo /etc/init.d/lirc restart
+}}}
+
+Test using "irw", when you press a button on the remote control, you should see a response and LiveXBMC should see it now.
+{{{
+username# irw
+000000037ff07be1 00 Up mceusb 
+000000037ff07be1 01 Up mceusb 
+000000037ff07be0 00 Down mceusb 
+000000037ff07be0 01 Down mceusb 
+000000037ff07bde 00 Right mceusb 
+000000037ff07bde 01 Right mceusb 
+000000037ff07bdf 00 Left mceusb 
+}}}
