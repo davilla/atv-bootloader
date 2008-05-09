@@ -301,13 +301,16 @@ The interesting thing is the second Interrupt IN endpoint, what could this be. W
 {{{
 +-o USB1@1D  <class IOPCIDevice, registered, matched, active, busy 0, retain count 10>
 | +-o AppleUSBUHCI  <class AppleUSBUHCI, !registered, !matched, active, busy 0, retain count 10>
+|   |
 |   +-o UHCI Root Hub Simulation@1D  <class IOUSBRootHubDevice, registered, matched, active, busy 0, retain count 13>
 |   | +-o AppleUSBHub  <class AppleUSBHub, !registered, !matched, active, busy 0, retain count 4>
 |   | +-o IOUSBInterface@0  <class IOUSBInterface, !registered, !matched, active, busy 0, retain count 6>
 |   | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
 |   +-o Hub in Apple Extended USB Keyboard@1d100000  <class IOUSBDevice, !registered, !matched, active, busy 0, retain count 6>
+|   |
 |   +-o IR Receiver@1d200000  <class IOUSBDevice, registered, matched, active, busy 0, retain count 10>
 |     +-o IOUSBCompositeDriver  <class IOUSBCompositeDriver, !registered, !matched, active, busy 0, retain count 4>
+|     |
 |     +-o IOUSBInterface@0  <class IOUSBInterface, registered, matched, active, busy 0, retain count 7>
 |     | +-o AppleIRController  <class AppleIRController, registered, matched, active, busy 0, retain count 9>
 |     | | +-o IOHIDInterface  <class IOHIDInterface, registered, matched, active, busy 0, retain count 6>
@@ -323,9 +326,11 @@ The interesting thing is the second Interrupt IN endpoint, what could this be. W
 |     | | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
 |     | | +-o IOHIDLibUserClient  <class IOHIDLibUserClient, !registered, !matched, active, busy 0, retain count 6>
 |     | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|     |
 |     +-o IOUSBInterface@1  <class IOUSBInterface, registered, matched, active, busy 0, retain count 7>
 |     | +-o AppleSMC  <class AppleSMC, registered, matched, active, busy 0, retain count 4>
 |     | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|     |
 |     +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
 }}}
 
