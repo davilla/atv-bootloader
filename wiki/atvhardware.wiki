@@ -16,3 +16,6 @@ Realtek ALC885 7.1+2 Channel High Definition Audio Codec
 Realtek RTL8100C Single-Chip PCI Fast Ethernet Controller with Power Management
 
 Broadcom BCM43xx ExpressCard/34 module (BCM94321MC)
+
+----
+[ATV_IR_Device Apple IR Controller Info] -- details on the Apple USB IR Controller.
