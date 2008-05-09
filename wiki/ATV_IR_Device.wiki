@@ -297,7 +297,7 @@ Device Status:     0x0000
 
 
 ----
-The interesting thing is the second Interrupt IN endpoint, what could this be. Well, examining the ioref dump gives us a good hint. 
+The interesting thing is there are two interfaces, the first is the HID which includes the IR receiver, the second interface also has an interrupt IN endpoint. What could this be? Well, examining the ioref dump gives us a good hint. 
 {{{
 +-o USB1@1D  <class IOPCIDevice, registered, matched, active, busy 0, retain count 10>
 | +-o AppleUSBUHCI  <class AppleUSBUHCI, !registered, !matched, active, busy 0, retain count 10>
@@ -334,7 +334,7 @@ The interesting thing is the second Interrupt IN endpoint, what could this be. W
 |     +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
 }}}
 
-"IOUSBInterface@0" is the endpoint 2 IN, and "IOUSBInterface@1" is endpoint 1 IN. Well what do you know, that's where AppleSMC is hiding.
+"IOUSBInterface@0" uses endpoint 2 IN, and "IOUSBInterface@1" uses endpoint 1 IN. Well what do you know, that's where AppleSMC is hiding.
 {{{
 +-o IOUSBInterface@1  <class IOUSBInterface, registered, matched, active, busy 0, retain count 7>
 | | {
