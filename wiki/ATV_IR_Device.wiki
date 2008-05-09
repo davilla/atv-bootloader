@@ -1,4 +1,4 @@
-= AppleTV IR Device Info=
+= AppleTV Internal USB Controller Info=
 
 The AppleTV IR receiver appears as a USB-based human interface device (HID). Similar to a USB mouse or keyboard it uses an interrupt IN endpoint to send information to the host computer when some action occurs such as pressing a button on the Apple IR remote.
 
@@ -9,7 +9,7 @@ USB HID devices have the following requirements
 
 For interrupt IN transfers, the device must place the report data in the interrupt endpoint's buffer and enable the endpoint.
 ----
-The AppleTV IR HID device is defined by this report descriptior.
+The AppleTV IR HID device is defined by this report descriptor. This is taken from "irkeyboardemu" (bholland/bikedude880) and corrected. The descriptor in "irkeyboardemu" is garbled near the end and does not decode correctly but this will not effect IR functions. Here is the full and corrected and decoded HID report descriptor. 
 {{{
 unsigned char atv_hid_report_descriptor[] = {
 
@@ -172,7 +172,7 @@ unsigned char atv_hid_report_descriptor[] = {
 };
 }}}
 
-The usage table information for this device includes usages in the Generic Desktop Page (page ID 0x01), the Generic Device Controls Page (page ID 0x06), the Consumer Page (page ID 0x0C), and a vendor-defined page (page ID 0xff). In detail, there are;
+[http://www.osxbook.com/software/iremoted/ Pulled from www.osxbook.com] The usage table information for this device includes usages in the Generic Desktop Page (page ID 0x01), the Generic Device Controls Page (page ID 0x06), the Consumer Page (page ID 0x0C), and a vendor-defined page (page ID 0xff). In detail, there are;
  * Consumer -- includes on/off (up/down in this case) controls with the usage IDs 0x40 (Menu), 0xb3 (Fast Forward), and 0xb4 (Rewind).
  * Vendor -- includes usage IDs 0x20, 0x21, 0x22, and 0x23.
  * Generic Desktop -- includes one-shot controls (OSC) with usage IDs 0x86 (System App Menu), 0x89 (System Menu Select), 0x8a (System Menu Right), 0x8b (System Menu Left), 0x8c (System Menu Up), and 0x8d (System Menu Down).

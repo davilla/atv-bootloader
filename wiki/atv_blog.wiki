@@ -2,6 +2,12 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= May 8, 2008 =
+It's always bothered me that I could not find AppleSMC. There is a Linux kernel module for it but when I tried, applesmc reported no device nodes. I even found some code that could run under the AppleTV OS and dump device nodes -- nothing. WTF, how can that be. Apple hardware always uses AppleSMC. 
+
+Well, found it. It's actually easy to see from an ioreg dump once you know what to look for. I found it looking into front panel LED control. The AppleTV has a Cypress USB controller than handles the IR receiver. This is similar to other Apple hardware such as the !MacMini. What was strange about the AppleTV USB controller is that there are more HID descriptors than required for just IR operation and there's a second interface with an interrupt endpoint. All other Apple hardware with internal USB IR receivers only have one interrupt endpoint. 
+
+That got the wheels turning and I took another look at an ioreg dump taken under the AppleTV OS. Well duh, there is is, using a USB interface and attached to the second interface. Typically, Apple uses AppleSMC to control led, fans and other accessory hardware device and this information shows that the internal USB controller IS handling these functions. Now to figure out how to talk to it without bricking my AppleTV. [http://code.google.com/p/atv-bootloader/wiki/ATV_IR_Device Click this link to see information about the AppleTV internal USB controller].
 = May 5, 2008 =
 Ubuntu/Muthbuntu LiveCD boot from extracted iso fixed. Don't forget to copy the hidden ".disk" directory. Very important. Duh.
 
