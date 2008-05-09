@@ -165,9 +165,9 @@ unsigned char atv_hid_report_descriptor[] = {
 0x25, 0xff, 	/*  LOGIXAL MAXIMUM (255) 		*/
 0x85, 0x12, 	/*  ReportID (18)			*/
 0x09, 0x22, 	/*  Wireless ID				*/
-0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/
+0x81, 0x02, 	/*  INPUT (Data, Variable, Absolute)	*/ 14
 
-0xc0		/* END					*/
+0xc0		/* END					*/ 1
 
 };
 }}}
@@ -178,3 +178,119 @@ The usage table information for this device includes usages in the Generic Deskt
  * Generic Desktop -- includes one-shot controls (OSC) with usage IDs 0x86 (System App Menu), 0x89 (System Menu Select), 0x8a (System Menu Right), 0x8b (System Menu Left), 0x8c (System Menu Up), and 0x8d (System Menu Down).
  * Generic Device Controls -- includes a dynamic value with the usage ID ID 0x22 (Wireless ID), which identifies a wireless device in a wireless subsystem.
 
+
+Info from Linux, "lsusb -v", if "Report Descriptor" shows as "** UNAVAILABLE **", then "sudo modprobe -r usbhid" to expose it. Note that Linux only reports the "consumer" page. 
+{{{
+Bus 001 Device 002: ID 05ac:8241 Apple Computer, Inc. 
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.00
+  bDeviceClass            0 (Defined at Interface level)
+  bDeviceSubClass         0 
+  bDeviceProtocol         0 
+  bMaxPacketSize0         8
+  idVendor           0x05ac Apple Computer, Inc.
+  idProduct          0x8241 
+  bcdDevice            2.42
+  iManufacturer           1 Apple Computer, Inc.
+  iProduct                2 IR Receiver
+  iSerial                 0 
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength           59
+    bNumInterfaces          2
+    bConfigurationValue     1
+    iConfiguration          1 Apple Computer, Inc.
+    bmAttributes         0xa0
+      (Bus Powered)
+      Remote Wakeup
+    MaxPower              100mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           1
+      bInterfaceClass         3 Human Interface Device
+      bInterfaceSubClass      0 No Subclass
+      bInterfaceProtocol      0 None
+      iInterface              0 
+        HID Device Descriptor:
+          bLength                 9
+          bDescriptorType        33
+          bcdHID               1.11
+          bCountryCode            0 Not supported
+          bNumDescriptors         1
+          bDescriptorType        34 Report
+          wDescriptorLength      42
+          Report Descriptor: (length is 42)
+            Item(Global): Usage Page, data= [ 0x0c ] 12
+                            Consumer
+            Item(Local ): Usage, data= [ 0x01 ] 1
+                            Consumer Control
+            Item(Main  ): Collection, data= [ 0x01 ] 1
+                            Application
+            Item(Global): Logical Minimum, data= [ 0x00 ] 0
+            Item(Global): Logical Maximum, data= [ 0xff 0x00 ] 255
+            Item(Global): Report Size, data= [ 0x08 ] 8
+            Item(Global): Report Count, data= [ 0x04 ] 4
+            Item(Global): Report ID, data= [ 0x24 ] 36
+            Item(Local ): Usage, data= [ 0x00 ] 0
+                            Unassigned
+            Item(Main  ): Input, data= [ 0x22 ] 34
+                            Data Variable Absolute No_Wrap Linear
+                            No_Preferred_State No_Null_Position Non_Volatile Bitfield
+            Item(Global): Report Size, data= [ 0x08 ] 8
+            Item(Global): Report Count, data= [ 0x04 ] 4
+            Item(Global): Report ID, data= [ 0x25 ] 37
+            Item(Local ): Usage, data= [ 0x00 ] 0
+                            Unassigned
+            Item(Main  ): Input, data= [ 0x22 ] 34
+                            Data Variable Absolute No_Wrap Linear
+                            No_Preferred_State No_Null_Position Non_Volatile Bitfield
+            Item(Global): Report Size, data= [ 0x08 ] 8
+            Item(Global): Report Count, data= [ 0x04 ] 4
+            Item(Global): Report ID, data= [ 0x26 ] 38
+            Item(Local ): Usage, data= [ 0x00 ] 0
+                            Unassigned
+            Item(Main  ): Input, data= [ 0x22 ] 34
+                            Data Variable Absolute No_Wrap Linear
+                            No_Preferred_State No_Null_Position Non_Volatile Bitfield
+            Item(Main  ): End Collection, data=none
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x82  EP 2 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0008  1x 8 bytes
+        bInterval              10
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       0
+      bNumEndpoints           1
+      bInterfaceClass       255 Vendor Specific Class
+      bInterfaceSubClass      0 
+      bInterfaceProtocol      0 
+      iInterface              0 
+      ** UNRECOGNIZED:  09 21 11 01 00 01 22 2a 00
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x81  EP 1 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0008  1x 8 bytes
+        bInterval              10
+Device Status:     0x0000
+  (Bus Powered)
+}}}
