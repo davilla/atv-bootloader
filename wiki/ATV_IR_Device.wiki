@@ -8,7 +8,7 @@ USB HID devices have the following requirements
  * A HID must support the HID-specific control request !Get_Report and may support the optional request !Set_Report
 
 For interrupt IN transfers, the device must place the report data in the interrupt endpoint's buffer and enable the endpoint.
-
+----
 The AppleTV IR HID device is defined by this report descriptior.
 {{{
 unsigned char atv_hid_report_descriptor[] = {
@@ -178,7 +178,7 @@ The usage table information for this device includes usages in the Generic Deskt
  * Generic Desktop -- includes one-shot controls (OSC) with usage IDs 0x86 (System App Menu), 0x89 (System Menu Select), 0x8a (System Menu Right), 0x8b (System Menu Left), 0x8c (System Menu Up), and 0x8d (System Menu Down).
  * Generic Device Controls -- includes a dynamic value with the usage ID ID 0x22 (Wireless ID), which identifies a wireless device in a wireless subsystem.
 
-
+----
 Info from Linux, "lsusb -v", if "Report Descriptor" shows as "** UNAVAILABLE **", then "sudo modprobe -r usbhid" to expose it. Note that Linux only reports the "consumer" page. 
 {{{
 Bus 001 Device 002: ID 05ac:8241 Apple Computer, Inc. 
