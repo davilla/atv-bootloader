@@ -5,7 +5,7 @@ The AppleTV IR receiver appears as a USB-based human interface device (HID). Sim
 USB HID devices have the following requirements
  * A HID must have an interrupt IN endpoint for sending periodic data to the host. An interrupt OUT endpoint for receiving periodic data from the host is optional
  * A HID must contain a class descriptor and one or more report descriptors
- * A HID must support the HID-specific control request Get_Report and may support the optional request Set_Report
+ * A HID must support the HID-specific control request !Get_Report and may support the optional request !Set_Report
 
 For interrupt IN transfers, the device must place the report data in the interrupt endpoint's buffer and enable the endpoint.
 
@@ -293,4 +293,83 @@ Device Descriptor:
         bInterval              10
 Device Status:     0x0000
   (Bus Powered)
+}}}
+
+
+----
+The interesting thing is the second Interrupt IN endpoint, what could this be. Well, examining the ioref dump gives us a good hint. 
+{{{
++-o USB1@1D  <class IOPCIDevice, registered, matched, active, busy 0, retain count 10>
+| +-o AppleUSBUHCI  <class AppleUSBUHCI, !registered, !matched, active, busy 0, retain count 10>
+|   +-o UHCI Root Hub Simulation@1D  <class IOUSBRootHubDevice, registered, matched, active, busy 0, retain count 13>
+|   | +-o AppleUSBHub  <class AppleUSBHub, !registered, !matched, active, busy 0, retain count 4>
+|   | +-o IOUSBInterface@0  <class IOUSBInterface, !registered, !matched, active, busy 0, retain count 6>
+|   | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|   +-o Hub in Apple Extended USB Keyboard@1d100000  <class IOUSBDevice, !registered, !matched, active, busy 0, retain count 6>
+|   +-o IR Receiver@1d200000  <class IOUSBDevice, registered, matched, active, busy 0, retain count 10>
+|     +-o IOUSBCompositeDriver  <class IOUSBCompositeDriver, !registered, !matched, active, busy 0, retain count 4>
+|     +-o IOUSBInterface@0  <class IOUSBInterface, registered, matched, active, busy 0, retain count 7>
+|     | +-o AppleIRController  <class AppleIRController, registered, matched, active, busy 0, retain count 9>
+|     | | +-o IOHIDInterface  <class IOHIDInterface, registered, matched, active, busy 0, retain count 6>
+|     | | | +-o IOHIDEventDriver  <class IOHIDEventDriver, registered, matched, active, busy 0, retain count 8>
+|     | | |   +-o IOHIDConsumer  <class IOHIDConsumer, registered, matched, active, busy 0, retain count 8>
+|     | | |   | +-o IOHIDSystem  <class IOHIDSystem, registered, matched, active, busy 0, retain count 11>
+|     | | |   | | +-o IOHIDUserClient  <class IOHIDUserClient, !registered, !matched, active, busy 0, retain count 5>
+|     | | |   | | +-o IOHIDParamUserClient  <class IOHIDParamUserClient, !registered, !matched, active, busy 0, retain count 5>
+|     | | |   | +-o IOBSDConsole  <class IOBSDConsole, !registered, !matched, active, busy 0, retain count 5>
+|     | | |   +-o IOHIDSystem  <class IOHIDSystem, registered, matched, active, busy 0, retain count 10>
+|     | | |     +-o IOHIDUserClient  <class IOHIDUserClient, !registered, !matched, active, busy 0, retain count 5>
+|     | | |     +-o IOHIDParamUserClient  <class IOHIDParamUserClient, !registered, !matched, active, busy 0, retain count 5>
+|     | | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|     | | +-o IOHIDLibUserClient  <class IOHIDLibUserClient, !registered, !matched, active, busy 0, retain count 6>
+|     | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|     +-o IOUSBInterface@1  <class IOUSBInterface, registered, matched, active, busy 0, retain count 7>
+|     | +-o AppleSMC  <class AppleSMC, registered, matched, active, busy 0, retain count 4>
+|     | +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|     +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+}}}
+
+"IOUSBInterface@0" is the endpoint 2 IN, and "IOUSBInterface@1" is endpoint 1 IN. Well what do you know, that's where AppleSMC is hiding.
+{{{
++-o IOUSBInterface@1  <class IOUSBInterface, registered, matched, active, busy 0, retain count 7>
+| | {
+| |   "IOUserClientClass" = "IOUSBInterfaceUserClient"
+| |   "idProduct" = 33345
+| |   "IOCFPlugInTypes" = {"2d9786c6-9ef3-11d4-ad51-000a27052861"="IOUSBFamily.kext/Contents/PlugIns/IOUSBLib.bundle"}
+| |   "iInterface" = 0
+| |   "bAlternateSetting" = 0
+| |   "bConfigurationValue" = 1
+| |   "bInterfaceProtocol" = 0
+| |   "bInterfaceNumber" = 1
+| |   "bInterfaceSubClass" = 0
+| |   "idVendor" = 1452
+| |   "bInterfaceClass" = 255
+| |   "locationID" = 488636416
+| |   "bNumEndpoints" = 1
+| |   "bcdDevice" = 578
+| | }
+| | 
+| +-o AppleSMC  <class AppleSMC, registered, matched, active, busy 0, retain count 4>
+| |   {
+| |     "idProduct" = 33345
+| |     "bConfigurationValue" = 1
+| |     "CFBundleIdentifier" = "com.apple.driver.AppleSMC"
+| |     "IOClass" = "AppleSMC"
+| |     "IOProbeScore" = 20000
+| |     "IOMatchCategory" = "IODefaultMatchCategory"
+| |     "bInterfaceNumber" = 1
+| |     "IOUserClientClass" = "AppleSMCClient"
+| |     "idVendor" = 1452
+| |     "IOProviderClass" = "IOUSBInterface"
+| |   }
+| |   
+| +-o IOUSBUserClientInit  <class IOUSBUserClientInit, !registered, !matched, active, busy 0, retain count 4>
+|     {
+|       "IOMatchCategory" = "IOUSBUserClientInit"
+|       "IOProbeScore" = 9000
+|       "IOClass" = "IOUSBUserClientInit"
+|       "IOProviderClass" = "IOUSBInterface"
+|       "CFBundleIdentifier" = "com.apple.iokit.IOUSBUserClient"
+|       "IOProviderMergeProperties" = {"IOUserClientClass"="IOUSBInterfaceUserClient","IOCFPlugInTypes"={"2d9786c6-9ef3-11d4-ad51-000a27052861"="IOUSBFamily.kext/Contents/PlugIns/IOUSBLib.bundle"}}
+|     }
 }}}
