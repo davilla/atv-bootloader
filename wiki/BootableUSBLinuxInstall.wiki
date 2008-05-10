@@ -53,7 +53,7 @@ Partition Table: gpt
 Number  Start  End  Size  File system  Name  Flags
 }}}
 
-Figure out the partition sizes. We want a 512MB swap. The ext3 takes the rest. Sector count is 15728640, ending sector is 15728640s - 34s = 15728606s. That's 15,728,606 !* 512 = 8,053,046,272 bytes. 8,053,046,272 - 536,870,912 (512MB swap) = 7,516,175,360 bytes or 14,680,030 sectors for ext3. Adjust the end of ext3 down by 1 so swap starts on an even boundary.
+Figure out the partition sizes. We want a 512MB swap. The ext3 takes the rest. Sector count is 15728640, ending sector is 15728640s - 34s = 15728606s. That's 15,728,606 \* 512 = 8,053,046,272 bytes. 8,053,046,272 - 536,870,912 (512MB swap) = 7,516,175,360 bytes or 14,680,030 sectors for ext3. Adjust the end of ext3 down by 1 so swap starts on an even boundary.
 {{{
 # create just a recovery partition
 sudo parted -s /dev/sdb mkpart primary HFS 40s 69671s
