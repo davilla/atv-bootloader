@@ -33,7 +33,7 @@ Then choose your install method and prep the partitions. It can be helpful to re
    # [AlternatePartitioning1 Use replacement internal disk]
    # [AlternatePartitioning2 Use original internal disk and resize "Media" to make space for Linux].
 
-Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution. * Warning -- if you are using an LiveCD boot on an existing Windows/Linux system, it is recommended to disconnect or remove power from you existing disk to prevent any possibility of over-writting your existing disks *
+Armed with these, you can proceed to [BootingLiveCD booting a LiveCD] and installing your Linux distribution. * Warning -- if you are using an LiveCD boot on an existing Windows/Linux system, it is recommended to disconnect or remove power from you existing disks to prevent any possibility of over-writting your existing disks *
  * [InstallUbuntuGutsy Ubuntu Gutsy]
  * [InstallGentooVer1 Gentoo]
  * [InstallMythBuntu Mythbuntu (Gutsy/Hardy)]
