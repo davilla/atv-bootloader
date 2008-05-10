@@ -49,6 +49,18 @@ sudo apt-get install nvidia-settings
 sudo nvidia-xconfig --cool-bits=1 --no-composite --no-logo
 }}}
 
+if "nvidia-xconfig" complains about "cool-bits" then just do "sudo nvidia-xconfig --no-composite --no-logo" and add this option manually to 'Section "Screen"' in "/etc/X11/xorg.conf"
+{{{
+    Option         "Coolbits" "1"
+}}}
+
+if "nvidia-xconfig" complains about "--no-composite", manually add that to "/etc/X11/xorg.conf"
+{{{
+Section "Extensions"
+    Option         "Composite" "Disable"
+EndSection
+}}}
+
 To test, stop X11, unload/load the nvidia module then restart X11 and check the gpu clock settings.
 {{{
 # stop X11
