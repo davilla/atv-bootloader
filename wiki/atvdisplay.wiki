@@ -90,5 +90,9 @@ Section "Extensions"
 EndSection
 }}}
 
+  For composite output, Connect a cable from the green (luma) component output on the AppleTV to the yellow composite input on the TV. xorg.conf need the following settings for "Section Screen"{{{Section "Screen"    Identifier     "Default Screen"    Device         "Generic Video Card"    Monitor        "Generic Monitor"    DefaultDepth    24    Option         "DPI" "100x100"    Option         "UseEvents" "1"    Option         "AddARGBVisuals" "1"    Option         "AddARGBGLXVisuals" "1"    Option         "UseDisplayDevice" "TV"    Option         "UseEDID" "FALSE"    Option         "TVOutFormat" "COMPOSITE"    Option         "TVStandard" "NTSC-M"    Option         "TVOverScan" "0.80    Option         "NoLogo" "True"    Option         "Coolbits" "1"    SubSection     "Display"        Depth       24        Modes      "720x480" "800x600" "640x480"    EndSubSectionEndSection}}}
+
+  For PAL output, change TVStandard to one of the nvidia PAL settings and I assume that the resolution size would change to a PAL size.
+
 = Other xorg.conf setups =
 Help out others by posting your " device" and "screen" sections in the comments if you figure out settings for other displays. Make sure you include the model and manufacture of your display for reference.
