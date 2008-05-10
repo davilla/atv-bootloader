@@ -61,7 +61,7 @@ Section "Extensions"
 EndSection
 }}}
 
-To test, stop X11, unload/load the nvidia module then restart X11 and check the gpu clock settings.
+To test, stop X11, unload/load the nvidia module then restart X11 and check the gpu clock settings. Note this might be "nvidia-new" instead of "nvidia".
 {{{
 # stop X11
 sudo /etc/init.d/gdm stop
