@@ -2,6 +2,15 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= May 10, 2008 =
+I've been putting this off for awhile and finally got some quiet time to solve it. I wanted to figure out which disk interface atv-bootloarder was booting from, the internal PATA or an external USB. This way I could skip the 5 second delay for USB device detection. The boot device can be found as a node on the flat device-tree that EFI passes to a mach kernel. 
+
+First I need a copy of the flat device tree so I can decode it outside the boot process. This turns out to be tricky since atv-bootloader has no file i/o capabilities before the embedded Linux kernel loads and after the embedded Linux kernel loads it's too late. So one must be sneaky and create a hole in the e820 memory map where the flat device tree is located. Now Linux will not touch this area, and we can extract it from ram once Linux is up and running.
+
+Next is parsing the flat device tree, this turns out to be easy as there is darwin source code that does this very thing early in the darwin boot process. The only tricky part is knowing the path which is "/chosen/boot-device-path". This gets me a device property, yea, now what to do it. 
+
+A little digging and this device property really the EFI device path so a fetch of the EFI EDK from https://edk.tianocore.org/ and a little poking around gets me the header files and some source code to use as an example for parsing the EFI device path for the boot disk. And presto, now I know the boot disk. Thanks to "David Elliott" who suggested this method and no thanks to the Mac hackers out there who ignored my requests (why do I even ask). I'll be posting a wiki page and download of this sub project as it's a good example of how to parse a flat device tree and how to parse an EFI device path. 
+
 = May 8, 2008 =
 It's always bothered me that I could not find AppleSMC. There is a Linux kernel module for it but when I tried, applesmc reported no device nodes. I even found some code that could run under the AppleTV OS and dump device nodes -- nothing. WTF, how can that be. Apple hardware always uses AppleSMC. 
 
