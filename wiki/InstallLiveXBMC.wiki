@@ -139,7 +139,7 @@ kexec -e
 
 Edit "penboot/com.apple.Boot.plist" on the first partition of the USB flash disk and change the atv-boot parameter to "manual"
 {{{
-<string>atv-boot= manual video=vesafb</string>
+<string>atv-boot=manual video=vesafb</string>
 }}}
 
 Clean up
