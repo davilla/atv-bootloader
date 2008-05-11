@@ -3,7 +3,7 @@
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
 = May 10, 2008 =
-I've been putting this off for awhile and finally got some quiet time to solve it. I wanted to figure out which disk interface atv-bootloarder was booting from, the internal PATA or an external USB. This way I could skip the 5 second delay for USB device detection. The boot device can be found as a node on the flat device-tree that EFI passes to a mach kernel. 
+I've been putting this off for awhile and finally got some quiet time to solve it. I wanted to figure out which disk interface atv-bootloarder was booting from, the internal PATA or an external USB. This way I could skip the 5 second delay for USB device detection if booting off the internal PATA disk for fast booting. The boot device can be found as a node on the flat device-tree that EFI passes to a mach kernel. 
 
 First I need a copy of the flat device tree so I can decode it outside the boot process. This turns out to be tricky since atv-bootloader has no file i/o capabilities before the embedded Linux kernel loads and after the embedded Linux kernel loads it's too late. So one must be sneaky and create a hole in the e820 memory map where the flat device tree is located. Now Linux will not touch this area, and we can extract it from ram once Linux is up and running.
 
