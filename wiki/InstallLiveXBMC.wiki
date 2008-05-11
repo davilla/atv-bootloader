@@ -128,7 +128,7 @@ Create a custom "boot_linux.sh" that will be used to boot LiveXBMC. Edit "penboo
 #!/bin/bash
 
 mkdir /xbmc
-mount /dev/sdb2 /xbmc
+mount /dev/sdb1 /xbmc
 
 kexec --load /xbmc/vmlinuz \
 --initrd=/xbmc/initrd0.img \

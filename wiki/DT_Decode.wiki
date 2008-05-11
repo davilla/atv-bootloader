@@ -225,7 +225,7 @@ A big thanks to "David Elliott" (http://tgwbd.org/darwin/index.html) who suggest
 
 This sub-project turned out to be very interesting as source code examples for parsing darwin flat device-trees and the resulting EFI device paths are next to non-existing on the web. The apps that do this are closed source OS X hacker tools and guess they don't want their secret sauce discovered. So [http://atv-bootloader.googlecode.com/files/DT_decode.zip grab the Xcode project] if you want to play around. 
 
-The extracted flat device tree is included as a binary file. Run it under the debugger and step through to see it work. Free free to use this as you see fit. The only Licensing is Apple Public Source License Version 2.0 on the two files from darwin source. If you pick an older xnu source you might find Apple Public Source License Version 1.0 on these same files. Since I'm not hacking an Apple Operating System, the Version 2.0 License is fine for my usage.
+The extracted flat device tree is included as a binary file. Run it under the debugger and step through to see it work. Free free to use this as you see fit. The only Licensing is Apple Public Source License Version 2.0 on the two files from darwin source and BSD Licensing on the EFI EDK files included for reference. If you pick an older xnu source you might find Apple Public Source License Version 1.0 on the darwin files. Since I'm not hacking an Apple Operating System, the Version 2.0 License is fine for my usage.
 
 
 
