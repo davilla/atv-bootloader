@@ -221,7 +221,7 @@ Type 0xFF - End of Hardware Device Path
 }}}
 
 ----
-A big thanks to "David Elliott" (http://tgwbd.org/darwin/index.html) who suggested this method and no thanks to the Mac hackers out there who ignored my requests (why do I even ask).
+A big thanks to "David Elliott" (http://tgwbd.org/darwin/index.html) who suggested this method and no thanks to the Mac hackers out there who ignored my requests (why do I even ask?).
 
 This sub-project turned out to be very interesting as source code examples for parsing darwin flat device-trees and the resulting EFI device paths are next to non-existing on the web. The apps that do this are closed source OS X hacker tools and guess they don't want their secret sauce discovered. So [http://atv-bootloader.googlecode.com/files/DT_decode.zip grab the Xcode project] if you want to play around. 
 
