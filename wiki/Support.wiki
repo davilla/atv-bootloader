@@ -31,7 +31,10 @@ ubuntu:~$ ls -l /media/Recoverytotal 6148-rw-r--r-- 1  999  999  298800 2008-0
 = X11 fails to launch =
 X11 fails to load, you make changes in "/etc/X11/xorg.conf" to fix the problem and X11 still fails to load. WTF. X11 seems to be ignoring my changes. 
 
-Some Linux installers will place "/etc/X11/xorg.conf.failsafe" for X11 to use if it encounters a failure in loading "/etc/X11/xorg.conf". Sometimes this failsafe is not correct and will also fail to load. 
+Some Linux installers will place "/etc/X11/xorg.conf.failsafe" for X11 to use if it encounters a failure in loading "/etc/X11/xorg.conf". Sometimes this failsafe is not correct and will also fail to load. Look at the "/var/log/Xorg.0.log" and you might see this
+{{{
+(++) Using config file: "/etc/X11/xorg.conf.failsafe"
+}}}
 
 Once X11 starts using the "/etc/X11/xorg.conf.failsafe", it becomes "stuck" using it and will not use "/etc/X11/xorg.conf". 
 
