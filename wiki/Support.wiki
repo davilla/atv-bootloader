@@ -33,4 +33,4 @@ Some Linux installers will place "/etc/X11/xorg.conf.failsafe" for X11 to use if
 
 Once X11 starts using the "/etc/X11/xorg.conf.failsafe", it becomes "stuck" using it and will not use "/etc/X11/xorg.conf". 
 
-The solution is to "sudo rm "/etc/X11/xorg.conf. failsafe". Now you can fix "/etc/X11/xorg.conf" and move on.
+The solution is to "sudo rm "/etc/X11/xorg.conf.failsafe". Now you can fix "/etc/X11/xorg.conf" and move on.
