@@ -29,4 +29,8 @@ ubuntu:~$ ls -l /media/Recoverytotal 6148-rw-r--r-- 1  999  999  298800 2008-0
 
 ----
 = X11 fails to launch =
-Some Linux installer will place "/etc/X11/xorg.conf.failsafe" for X11 to use if it encounters a failure in loading "/etc/X11/xorg.conf". Sometimes this failsafe is not correct and will fail to load. Once X11 starts using the "/etc/X11/xorg.conf.failsafe", it becomes "stuck" using it and will not use "/etc/X11/xorg.conf". The solution is to "sudo rm "/etc/X11/xorg.conf. failsafe". Now you can fix "/etc/X11/xorg.conf" and move on.
+Some Linux installers will place "/etc/X11/xorg.conf.failsafe" for X11 to use if it encounters a failure in loading "/etc/X11/xorg.conf". Sometimes this failsafe is not correct and will fail to load. 
+
+Once X11 starts using the "/etc/X11/xorg.conf.failsafe", it becomes "stuck" using it and will not use "/etc/X11/xorg.conf". 
+
+The solution is to "sudo rm "/etc/X11/xorg.conf. failsafe". Now you can fix "/etc/X11/xorg.conf" and move on.
