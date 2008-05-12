@@ -50,8 +50,7 @@ Boot the AppleTV using this USB flash drive and telnet in. Username is "root", p
 {{{
 mkdir src dst
 
-# mount the destination
-fsck.hfsplus /dev/sdb2
+# mount the destination, we don't need to fsck as this is an ext3 partition
 mount /dev/sdb2 dst
 
 # mount the source
