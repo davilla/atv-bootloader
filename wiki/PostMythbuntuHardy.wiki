@@ -102,6 +102,11 @@ Edit "/etc/modprobe.d/options" and add
 options usbhid quirks=0x05ac:0x8241:0x10
 }}}
 
+Now rebuild the initramfs so that the usbhid module options get propagated to the initramfs 
+{{{
+sudo update-initramfs -u
+}}}
+
 Now follow the "LIRC setup" section [UpdateIRDriver in the old IR Update wiki page].
 
 
