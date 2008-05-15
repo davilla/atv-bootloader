@@ -1,3 +1,4 @@
+{{{
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.24.4
@@ -1379,3 +1380,4 @@ CONFIG_PLIST=y
 CONFIG_HAS_IOMEM=y
 CONFIG_HAS_IOPORT=y
 CONFIG_HAS_DMA=y
+}}}
