@@ -4,7 +4,7 @@ http://atv-bootloader.googlecode.com/svn/branches/web_items/logos/gentoo.jpg
 
 Make sure you first [ATVBackup backup] if you intend on changing the original AppleTV internal PATA.
 
-This page describes the process to install Gentoo Linux on an Apple TV device and was contributed by Oscar Schnitzer following  [http://forum.awkwardtv.org/viewtopic.php?f=23&t=1491 a post on the awkwardtv forum]. Thanks Oscar. 
+This page describes the process to install Gentoo Linux on an Apple TV device and was contributed by Victor Wodecki. 
 
 The aim of this installation is to produce a device that has a good USB support,and that uses as little RAM as possible.  Hence an emphasis has been placed on USB and a lean kernel, and very little on (for example) video and sound.
 
@@ -14,7 +14,6 @@ We use a vanilla kernel rather than a Gentoo-patched one, to make it easier to s
 
 These instructions are a work-in-progress.  At the time of writing I'm aware of these issues:
  * Confusion between /dev/hda & /dev/hdb, means difference between grub.conf and fstab.  Not a big problem, but annoying.
- * Ethernet performance is poor, I plan to spend some time checking my kernel configuration to try to fix this issue.
 
 == Pre-requisites ==
 
@@ -426,3 +425,16 @@ ln -s net.lo net.wlan0
 }}}
 
 Things should now work when you start the interface. Reboot to make sure all is correctly configured, you should then have a wlan0 interface with an address assigned by the AP (assuming the AP is configured for DHCP).
+
+== Optimisations ==
+This should help with power usage and performance. Add the following to "/etc/conf.d/local.start":
+{{{
+echo 2 > /sys/module/processor/parameters/max_cstate
+echo 1500 > /proc/sys/vm/dirty_writeback_centisecs
+}}}
+
+This should help with WiFi power consumption when it's not being used. Add the following to "/etc/conf.d/net":
+{{{
+iwconfig_wlan0="power on"
+}}}
+
