@@ -360,9 +360,9 @@ emerge gentoolkit
 emerge -v --depclean
 }}}
 
-== WiFi ==
+== !WiFi ==
 
-The WiFi interface doesn't have a proper driver, so we have to use NDISwrapper with all the downsides that entails.
+The !WiFi interface doesn't have a proper driver, so we have to use NDISwrapper with all the downsides that entails.
 {{{
 emerge -v -D ndiswrapper
 }}}
@@ -433,7 +433,7 @@ echo 2 > /sys/module/processor/parameters/max_cstate
 echo 1500 > /proc/sys/vm/dirty_writeback_centisecs
 }}}
 
-This should help with WiFi power consumption when it's not being used. Add the following to "/etc/conf.d/net":
+This should help with !WiFi power consumption when it's not being used. Add the following to "/etc/conf.d/net":
 {{{
 iwconfig_wlan0="power on"
 }}}
