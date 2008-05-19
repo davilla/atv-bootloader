@@ -2,6 +2,9 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= May 19, 2008 =
+Still here, just busy breaking the boot. kernel is being cranky and does not want to run "/init", can't find it. Something bad is happening so I'm spending lots of time doing the old, touch code, build, test, buzzz - wrong, touch code, rinse-repeat-cycle.
+
 = May 10, 2008 =
 I've been putting this off for awhile and finally got some quiet time to solve it. I wanted to figure out which disk interface atv-bootloarder was booting from, the internal PATA or an external USB. This way I could skip the 5 second delay for USB device detection if booting off the internal PATA disk for fast booting. The boot device can be found as a node on the flat device-tree that EFI passes to a mach kernel. 
 
