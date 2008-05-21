@@ -3,7 +3,7 @@
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
 = May 20, 2008 =
-Now that was a really, really dumb error. Busybox is used in the initramfs and for those that don't know busybox replaces many standard Linux apps with much smaller applets that are built into busybox. There are two ways to reference the applet a) direct (busybox ls) or b) a sumlink (ls -> busybox). I use the symlink method, it pretty standard. Well, the problem was that I added a Linux app (fsck) that just happened to already exist as a symlink to busybox. Teach me to use "cp -af". This cause "fsck" to replace busybox (the copy followed the symlink) and thus broke the boot because "/init" failed which the kernel reports as "can't find /init". Duh, as Homer says.
+Now that was a really, really dumb error. Busybox is used in the initramfs and for those that don't know busybox replaces many standard Linux apps with much smaller applets that are built into busybox. There are two ways to reference the applet a) direct (busybox ls) or b) a sumlink (ls -> busybox). I use the symlink method, it's pretty standard. Well, the problem was that I added a Linux app (fsck) that just happened to already exist as a symlink to busybox. Teach me to use "cp -af". This cause "fsck" to replace busybox (the copy followed the symlink) and thus broke the boot because "/init" failed which the kernel reports as "can't find /init". Duh, as Homer says.
 
 Now with that problem understood and fixed, I can press on with other issues and hopefully pop a new release in a few days.
 
