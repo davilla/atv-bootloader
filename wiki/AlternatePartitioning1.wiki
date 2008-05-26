@@ -86,14 +86,14 @@ sudo parted -s /dev/sdc mkpart primary linux-swap 193323472s 195371471s
 Format the partitions, note that we are using journaled hfsplus to match the original disk format. We let the Linux install deal with swap.
 {{{
 # sync the system partition tables
-partprobe /dev/sdc
+sudo partprobe /dev/sdc
 
 # format the partitions
-sudo mkfs.msdos -F 32 -n EFI /dev/sdb1
-sudo mkfs.hfsplus -v Recovery /dev/sdb2
-sudo mkfs.hfsplus -J -v OSBoot /dev/sdb3
-sudo mkfs.hfsplus -J -v Media /dev/sdb4
-sudo mkfs.ext3  -b 4096 -L Linux /dev/sdb5
+sudo mkfs.msdos -F 32 -n EFI /dev/sdc1
+sudo mkfs.hfsplus -v Recovery /dev/sdc2
+sudo mkfs.hfsplus -J -v OSBoot /dev/sdc3
+sudo mkfs.hfsplus -J -v Media /dev/sdc4
+sudo mkfs.ext3  -b 4096 -L Linux /dev/sdc5
 }}}
 
 Setup for the clone by making two mount points called "src" and "dst". The source partition gets mounted at "src", the destination gets mounted at "dst" and the contents get copied over. Only copy the recovery partition as OSBoot and Media will be re-created during the "Factory Restore" process. 

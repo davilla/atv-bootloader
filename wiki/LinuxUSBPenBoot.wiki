@@ -19,7 +19,10 @@ Written by <http://parted.alioth.debian.org/cgi-bin/trac.cgi/browser/AUTHORS>.
 
 Assuming you have these items extracted/built/installed, let's start.
 
-Create the recovery partition on a USB pen disk, this does not require very much space so 64MB or greater pen drive is fine. I recommend a USB flash disk of 512MB or greater, that way you can also use the same disk to backup the AppleTV. This guide will assume the device at "/dev/sdb" is the pen drive so remember to adjust this to match your device setup. Also make sure the USB flash drive is unmounted, most Linux distros will auto-mount USB flash drives. If you have problems partitioning, you might have a [FixingUSBFlashDrives USB flash drive that needs fixing].
+Create the recovery partition on a USB pen disk, this does not require very much space so 64MB or greater pen drive is fine. I recommend a USB flash disk of 512MB or greater, that way you can also use the same disk to backup the AppleTV. Make sure the USB flash drive is unmounted, most Linux distros will auto-mount USB flash drives. If you have problems partitioning, you might have a [FixingUSBFlashDrives USB flash drive that needs fixing].
+
+*This guide assumes the device at "/dev/sdb" is the pen drive so remember to adjust this to match your device setup or very bad things will happen* 
+
 {{{
 # zero the initial sectors
 sudo dd if=/dev/zero of=/dev/sdb bs=4096 count=1M
