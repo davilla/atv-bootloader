@@ -6,6 +6,9 @@ Creating the proper GPT disk format and partitions is critical for booting Linux
 
 In order to create GPT format partitions, one must use parted.  The AppleTV uses a special GUID to indicate the "Recovery" partition even though the partition is the same has hfsplus. The normal parted does not understand this special GUID so one needs to patch parted to be able to create the "Recovery" partition.
 
+*Warning* 
+If your file path name has spaces "/home/davilla/atv dev/work", then parted will not build properly. Make sure your file path does not have spaces in it.
+
 * install build tools
 {{{
 sudo /usr/bin/apt-get install build-essential patch
