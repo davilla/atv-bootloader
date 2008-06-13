@@ -4,8 +4,16 @@
 # size -m mach_kernel
 #
 #
+# get OS type from shell
+OSTYPE	= $(shell uname)
+#
 ARCH	= i386
 
+# if Linxu, use the darwin-cross tools to compile/link
+ifeq ($(OSTYPE),Linux)
+P=/opt/darwin-cross/bin/i386-apple-darwin8-
+S=-4.0
+endif
 # uncomment for darwin-cross build on Linux
 #P=/opt/darwin-cross/bin/i386-apple-darwin8-
 #S=-4.0

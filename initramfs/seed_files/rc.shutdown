@@ -1,0 +1,17 @@
+#!/bin/sh
+
+killall -q -15 X
+
+#/sbin/killall5 -15
+#/sbin/swapoff -a
+
+sync
+sleep 1
+
+/bin/umount -a -r
+/bin/mount -n -o remount,ro /
+
+hdparm -Y /dev/sda
+
+/bin/halt
+#busybox reboot 2>/dev/null
