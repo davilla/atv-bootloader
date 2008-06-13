@@ -2,6 +2,10 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= June 13, 2008 =
+Action time. Warning on svn pulls, this is now the development version for recovery-0.7 which include kernel and initramfs construction. It's still a bit rough so if you have questions email or post to the discussion list.
+
+
 = May 28, 2008 =
 Still working on enhancements, and a really, really small test build of a mythbuntu frontend based distro that runs on a 512MB flash drive. Don't ask for it yet, it's a proof-of-concept that is still cooking.
 
