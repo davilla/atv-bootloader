@@ -1,0 +1,94 @@
+#!/bin/sh
+PATH='/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin'
+export PATH
+
+echo "running init.d/rcS"
+
+#make sure we have a /proc to keep things happy
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+
+# remount root as read/write
+mount -n -o remount,rw /
+
+#Set up the basic folders for the RAM disk
+mkdir -p /var/tmp
+mkdir -p /var/log
+mkdir -p /var/run
+mkdir -p /var/spool/cron/crontabs
+mkdir -p /var/lock/subsys
+
+mkdir -p /dev/pts
+mount -t devpts devpts /dev/pts
+
+#Create all the symlinks to /bin/busybox
+#busybox --install -s
+mdev -s
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+
+ # mount everything in /etc/fstab
+ln -sf /proc/mounts /etc/mtab
+#touch /etc/mtab
+mount -a
+
+#Disable kernel messages from popping onto the screen
+echo 0 > /proc/sys/kernel/printk
+
+# make sure all libs are located and linked
+/sbin/ldconfig
+
+#Set the hostname
+hostname -F /etc/hostname
+
+# Delay for USB hardware (this required or you will not see USB devices)
+sleep 5
+
+#---------------------------------------------------------
+#Function for parsing command line options with "=" in them
+# get_opt("init=/sbin/init") will return "/sbin/init"
+get_opt() {
+	echo "$@" | cut -d "=" -f 2
+}
+#Process command line options
+ATVBOOT=""
+for i in $(cat /proc/cmdline); do
+	case "${i}" in
+		atv-boot\=*)
+			ATVBOOT=$(get_opt $i)
+			;;
+	esac
+done
+#
+if [ "$ATVBOOT" == "auto" ]; then
+	echo "atv-boot=auto -- searching for boot configs"
+	/usr/sbin/boot_linux.sh
+elif [ "$ATVBOOT" == "manual" ]; then
+	echo "atv-boot=manual -- searching for boot_linux.sh"
+	if [`/usr/sbin/find_run_script.sh boot_linux.sh` -eq 0 ]; then
+		exit 0
+	fi
+elif [ "$ATVBOOT" == "patchstick" ]; then
+	echo "atv-boot=patchstick -- searching for patchstick.sh"
+	if [`/usr/sbin/find_run_script.sh patchstick.sh` -eq 0 ]; then
+		exit 0
+	fi
+fi
+
+echo "atv-boot=auto/manual/patchstick failed -- starting telnetd"
+#---------------------------------------------------------
+# The following is for dhcp
+ifconfig eth0 0.0.0.0
+/sbin/udhcpc --now
+sleep 4
+ifconfig
+
+
+# Instead, if you want static IP address
+#
+#ifconfig eth0 192.168.1.13  netmask 255.255.255.0
+#route add default gw 192.168.1.1
+#
+
+# Run telnetd daemon
+#
+telnetd -l /bin/login

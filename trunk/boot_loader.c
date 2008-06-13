@@ -81,7 +81,7 @@ load_linux(unsigned int args)
 	VIDEO_CURSOR_POSY = 0;
 	VIDEO_ATTR = 0xffc8c8c8;
 	//
-	printk("ATV: ATV_BootLoader v0.6 (http://code.google.com/p/atv-bootloader)\n");
+	printk("ATV: ATV_BootLoader v0.7 (http://code.google.com/p/atv-bootloader)\n");
 	printk("ATV: Copyright (C) 2008 ATV Bootloader Team - Licensed under the GPL v2\n");
 	printk("ATV: FB Start 0x%08X, with %d height %d rowb %d depth %d\n", 
 		mach_bp->video.addr, 
