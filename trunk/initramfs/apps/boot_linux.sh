@@ -74,11 +74,13 @@ for x in $SEARCH_PARTITIONS; do
 	    		if /tmp/kexec_load.sh; then
 				echo "kexec jump to new kernel"
 				# umount all filesystem
-	    			cd /
-	    			umount -a
+				cd /
+				umount -a
 				kexec -e
 				# if we get here, kexec failed
 				umount $ROOT
+				# mount everything again
+				mount -a
 				exit 1
 			fi
 		fi

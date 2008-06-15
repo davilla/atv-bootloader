@@ -1,0 +1,9 @@
+mk_linux.sh builds the atv-bootloader kernel and copies it up one directory.
+
+Typically you only need to run this scripts once, 
+then for further kernel builds, do the make and copy directly.
+
+This could be fancer using Makefiles but sometimes simplicity is better.
+
+
+

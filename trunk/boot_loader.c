@@ -29,7 +29,7 @@
 // PCI: Failed to allocate mem resource #6:20000@20000000 for 0000:01:00.0
 
 // RAM top					0x10000000
-// mach_kernel  loads at	0x0B000000
+// mach_kernel  loads at	0x02000000
 // linux kernel loads at	0x00100000
 // linux kernel reserve to	0x00400000
 // linux initrd loads at	0x00F43800
@@ -57,16 +57,16 @@ mach_boot_parms		*mach_bp;
 void
 load_linux(unsigned int args)
 {
-	int					i;
-	char				*ptr;
-	kdesc_t				kd;
-	unsigned char		szBootSect[BOOT_PARAM_MEMSIZE];
-	boot_params_t		*bp = (boot_params_t*)szBootSect;
-	char				*cmdline = (char*)&szBootSect[BOOT_PARAM_MEMSIZE - 2048];
-	unsigned long		kernel_len = 0;
-	unsigned char		*kernel_ptr = NULL;
-	unsigned long		initrd_len = 0;
-	unsigned char		*initrd_ptr = NULL;
+	int                     i;
+	char                    *ptr;
+	kdesc_t                 kd;
+	unsigned char           szBootSect[BOOT_PARAM_MEMSIZE];
+	boot_params_t           *bp = (boot_params_t*)szBootSect;
+	char                    *cmdline = (char*)&szBootSect[BOOT_PARAM_MEMSIZE - 2048];
+	unsigned long           kernel_len = 0;
+	unsigned char           *kernel_ptr = NULL;
+	unsigned long           initrd_len = 0;
+	unsigned char           *initrd_ptr = NULL;
 	
 	mach_bp = (mach_boot_parms*)args;
 
@@ -81,7 +81,7 @@ load_linux(unsigned int args)
 	VIDEO_CURSOR_POSY = 0;
 	VIDEO_ATTR = 0xffc8c8c8;
 	//
-	printk("ATV: ATV_BootLoader v0.7 (http://code.google.com/p/atv-bootloader)\n");
+	printk("ATV: ATV_BootLoader v0.8 (http://atv-bootloader.googlecode.com/)\n");
 	printk("ATV: Copyright (C) 2008 ATV Bootloader Team - Licensed under the GPL v2\n");
 	printk("ATV: FB Start 0x%08X, with %d height %d rowb %d depth %d\n", 
 		mach_bp->video.addr, 
@@ -89,6 +89,10 @@ load_linux(unsigned int args)
 		mach_bp->video.height, 
 		mach_bp->video.rowb, 
 		mach_bp->video.depth);
+
+	//printk("mach_bp->devtree_len=0x%08X, mach_bp->devtree_ptr=0x%08X", 
+	//	mach_bp->devtree_len, mach_bp->devtree_ptr);
+	//sleep(10);
 
 	// find the kernel and load it in the proper location
 	kernel_ptr = (unsigned char*)getsectdatafromheader(&_mh_execute_header, "__TEXT", "__vmlinuz", &kernel_len);

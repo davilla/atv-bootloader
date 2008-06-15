@@ -35,7 +35,8 @@ patch -p1 < ../appletv_parted-1.8.8.patch
 echo "Building parted"
 ./configure --enable-static
 make
-cp parted/parted ../build
-cp partprobe/partprobe ../build
+cp parted/.libs/parted ../build
+cp partprobe/.libs/partprobe ../build
+cp libparted/.libs/libparted-1.8.so.8 ../build
 cd ..
 sudo rm -rf parted-1.8.8

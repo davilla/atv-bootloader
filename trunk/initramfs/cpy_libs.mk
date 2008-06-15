@@ -15,10 +15,10 @@ all:
 	LIB_PATH=$$( echo $$LIB | sed -e 's/[^/]*$$//' ) ; \
 	mkdir -p rootfs/$$LIB_PATH ; \
 	cp -aH $$LIB rootfs/$$LIB_PATH
-	mkdir -p rootfs/usr/share/terminfo
-	cp -aL /usr/share/terminfo/a rootfs/usr/share/terminfo
-	cp -aL /usr/share/terminfo/l rootfs/usr/share/terminfo
-	cp -aL /usr/share/terminfo/v rootfs/usr/share/terminfo
-	cp -aL /usr/share/terminfo/x rootfs/usr/share/terminfo
+	#mkdir -p rootfs/usr/share/terminfo
+	#cp -aL /usr/share/terminfo/a rootfs/usr/share/terminfo
+	#cp -aL /usr/share/terminfo/l rootfs/usr/share/terminfo
+	#cp -aL /usr/share/terminfo/v rootfs/usr/share/terminfo
+	#cp -aL /usr/share/terminfo/x rootfs/usr/share/terminfo
 	touch rootfs/etc/ld.so.conf
 
