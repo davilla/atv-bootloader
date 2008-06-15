@@ -14,9 +14,6 @@ ifeq ($(OSTYPE),Linux)
 P=/opt/darwin-cross/bin/i386-apple-darwin8-
 S=-4.0
 endif
-# uncomment for darwin-cross build on Linux
-#P=/opt/darwin-cross/bin/i386-apple-darwin8-
-#S=-4.0
 
 # start.o must be 1st in the link order (ld below)
 OBJ	= start.o vsprintf.o console.o utils.o elilo_code.o darwin_code.o linux_code.o boot_loader.o
@@ -51,4 +48,8 @@ initrd.obj: initrd.gz
 
 clean:
 	rm -f *.o $(KERN_OBJ) mach_kernel
+
+
+
+#xxd mach_kernel | sed -e "s/ffff ffff 1000/0100 0000 1000/" | xxd -r - mach_kernel
 
