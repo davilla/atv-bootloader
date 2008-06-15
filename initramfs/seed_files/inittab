@@ -11,11 +11,6 @@
 tty2::respawn:/sbin/getty 38400 tty2
 tty3::respawn:/sbin/getty 38400 tty3
 tty4::respawn:/sbin/getty 38400 tty4
-tty5::respawn:/sbin/getty 38400 tty5
-tty6::respawn:/sbin/getty 38400 tty6
-tty7::respawn:/sbin/getty 38400 tty7
-tty8::respawn:/sbin/getty 38400 tty8
-tty9::respawn:/sbin/getty 38400 tty9
 #
 #
 # Example of how to put a getty on a serial line (for a terminal)
@@ -30,5 +25,6 @@ tty9::respawn:/sbin/getty 38400 tty9
 ::restart:/sbin/init
 #
 # Stuff to do before rebooting
-::ctrlaltdel:/etc/init.d/rc.reboot
-::shutdown:/etc/init.d/rc.shutdown
+::ctrlaltdel:/sbin/reboot
+::shutdown:/bin/umount -a -r
+::shutdown:/sbin/swapoff -a

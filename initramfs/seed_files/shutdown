@@ -1,0 +1,14 @@
+#!/bin/bash
+
+killall -q -15 X
+
+# sync and umount everything
+sync
+sleep 1
+/bin/umount -a -r
+
+# spin down the internal HD
+hdparm -Y /dev/sda
+
+# best we can do with AppleTV hardware
+/bin/busybox poweroff

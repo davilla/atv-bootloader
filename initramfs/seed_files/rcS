@@ -2,14 +2,14 @@
 PATH='/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin'
 export PATH
 
-echo "running init.d/rcS"
+#echo "running init.d/rcS"
 
 #make sure we have a /proc to keep things happy
 mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 
 # remount root as read/write
-mount -n -o remount,rw /
+#mount -n -o remount,rw /
 
 #Set up the basic folders for the RAM disk
 mkdir -p /var/tmp
@@ -21,13 +21,14 @@ mkdir -p /var/lock/subsys
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
 
-#Create all the symlinks to /bin/busybox
+# create all the symlinks to /bin/busybox
 #busybox --install -s
+# run the busybox version of udev
 mdev -s
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 
- # mount everything in /etc/fstab
-ln -sf /proc/mounts /etc/mtab
+# mount everything in /etc/fstab
+#ln -sf /proc/mounts /etc/mtab
 #touch /etc/mtab
 mount -a
 
@@ -58,24 +59,33 @@ for i in $(cat /proc/cmdline); do
 			;;
 	esac
 done
+
 #
 if [ "$ATVBOOT" == "auto" ]; then
 	echo "atv-boot=auto -- searching for boot configs"
 	/usr/sbin/boot_linux.sh
+	echo "atv-boot=auto failed -- starting telnetd"
 elif [ "$ATVBOOT" == "manual" ]; then
 	echo "atv-boot=manual -- searching for boot_linux.sh"
 	if [`/usr/sbin/find_run_script.sh boot_linux.sh` -eq 0 ]; then
 		exit 0
 	fi
+	echo "atv-boot=manual failed -- starting telnetd"
 elif [ "$ATVBOOT" == "patchstick" ]; then
 	echo "atv-boot=patchstick -- searching for patchstick.sh"
 	if [`/usr/sbin/find_run_script.sh patchstick.sh` -eq 0 ]; then
 		exit 0
 	fi
+	echo "atv-boot=patchstick failed -- starting telnetd"
+elif [ "$ATVBOOT" == "none" ]; then
+	echo "atv-boot=none -- starting telnetd"
 fi
 
 echo "atv-boot=auto/manual/patchstick failed -- starting telnetd"
 #---------------------------------------------------------
+# Set up lo
+ifconfig lo 127.0.0.1 netmask 255.0.0.0
+
 # The following is for dhcp
 ifconfig eth0 0.0.0.0
 /sbin/udhcpc --now
@@ -89,6 +99,5 @@ ifconfig
 #route add default gw 192.168.1.1
 #
 
-# Run telnetd daemon
-#
+# spawn the telnetd daemon
 telnetd -l /bin/login

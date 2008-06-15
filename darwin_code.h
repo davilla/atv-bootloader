@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-#define DARWIN_IMAGE_BASE	0x00B000000
+#define DARWIN_IMAGE_BASE	0x002000000
 // xnu pexpert/pexpert/i386/boot.h
 /* Values for v_display */
 #define VGA_TEXT_MODE		0
@@ -31,7 +31,7 @@ typedef struct _mach_video_parms {
 typedef struct _mach_boot_parms {
     uint16_t	rev;
     uint16_t	ver;
-    char		cmdline[CMDLINE];
+    char	cmdline[CMDLINE];
     uint32_t    efi_mem_map;
     uint32_t    efi_mem_map_size;
     uint32_t    efi_mem_desc_size;
@@ -78,7 +78,7 @@ struct mach_header {
 /* Constant for the magic field of the mach_header (32-bit architectures) */
 #define	MH_MAGIC	0xfeedface	/* the mach magic number */
 #define MH_CIGAM	0xcefaedfe	/* NXSwapInt(MH_MAGIC) */
-#define	MH_OBJECT	0x1			/* relocatable object file */
+#define	MH_OBJECT	0x1		/* relocatable object file */
 //
 //
 #define	LC_SEGMENT	0x1	/* segment of this file to be mapped */

@@ -1,23 +1,23 @@
-/* parse_config.c - Main source
+/* boot_parser.c - Main source
  * Copyright (C) 2008 Scott D. Davilla <davilla@4pi.com>
  * All rights reserved.
 
- *  parse_config is free software; you can redistribute it and/or modify
+ *  boot_parser is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License version 2 as 
  *  published by the Free Software Foundation
  
-   This parse_config inputs grub, kboot, syslinux, isolinux and mb_boot_tv
+   This boot_parser inputs grub, kboot, syslinux, isolinux and mb_boot_tv
    boot configuration files and outputs a kexec load string. 
 	For example;
-		parse_config --root=/mnt/rootfs --file=/mnt/rootfs/boot/grub/menu.lst
-		parse_config --root=/mnt/rootfs --file=/mnt/rootfs/boot/kboot.conf
-		parse_config --root=/mnt/rootfs --file=/mnt/rootfs/syslinux.cfg
-		parse_config --root=/mnt/rootfs --file=/mnt/rootfs/isolinux.cfg
-		parse_config --root=/mnt/rootfs --file=/mnt/rootfs/mb_boot_tv.cfg
+		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/boot/grub/menu.lst
+		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/boot/kboot.conf
+		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/syslinux.cfg
+		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/isolinux.cfg
+		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/mb_boot_tv.cfg
 	
 	where;
 		--root is the mount point for the kexec booted filesystem (where vmlinux/initrd live)
-		--file is the path to the bootloader conf file.
+		--config is the path to the bootloader conf file.
  */
 //
 //

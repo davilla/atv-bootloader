@@ -1,5 +1,4 @@
 # file system  mount-point  type    options        dump   fsck
-#rootfs         /            ext3    defaults,errors=remount-ro 0   0
 proc           /proc        proc    defaults       0      0
 sysfs          /sys         sysfs   defaults       0      0
 tmpfs          /var         tmpfs   size=32m       0      0

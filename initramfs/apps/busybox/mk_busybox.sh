@@ -13,7 +13,8 @@ make
 make install
 
 cd ..
-cp -arp busybox-1.9.1/_install/* build
+rm -rf build/*
+cp -arp busybox-1.9.1/_install/* build/
 
 rm -rf busybox-1.9.1
 

@@ -106,7 +106,7 @@ create_boot_params(boot_params_t *bp, char *cmdline)
 	*/
 	bp->s.loader_flags = LDRFLAG_LOADED_HIGH;
 	//kernel_setup->heap_end_ptr = 0xffff;	/* 64K heap */
-	//kernel_setup->flags = 0x81;			/* loaded high, heap existant */
+	//kernel_setup->flags = 0x81;		/* loaded high, heap existant */
 
 	// Setup command line information.
 	bp->s.cmdline_magik = CMDLINE_MAGIK;
@@ -147,15 +147,15 @@ create_boot_params(boot_params_t *bp, char *cmdline)
 	/*
 	// Find out the kernel's restriction on how high the initrd can be placed
 	(this is from etherboot -> linux_load.c -> load_initrd
-    if (hdr->protocol_version >= 0x203)
-	max = hdr->initrd_addr_max;
-    else
-	max = 0x38000000; // Hardcoded value for older kernels 
-
+	if (hdr->protocol_version >= 0x203) {
+		max = hdr->initrd_addr_max;
+	} else {
+		max = 0x38000000; // Hardcoded value for older kernels 
+	}
 	end = max;
-    start = end - size;
-    start &= ~0xfff; // page align
-    end = start + size;
+	start = end - size;
+	start &= ~0xfff; // page align
+	end = start + size;
 
 	*/
 
@@ -233,7 +233,7 @@ create_boot_params(boot_params_t *bp, char *cmdline)
 	//bp->s.lfb_pages			= 1;
 	bp->s.lfb_red_size		= 8;
 	bp->s.lfb_red_pos		= 16;
-	bp->s.lfb_green_size	= 8;
+	bp->s.lfb_green_size		= 8;
 	bp->s.lfb_green_pos		= 8;
 	bp->s.lfb_blue_size		= 8;
 	bp->s.lfb_blue_pos		= 0;
@@ -257,7 +257,7 @@ create_boot_params(boot_params_t *bp, char *cmdline)
 	fill_e820map(bp);
 	//
 	//print_e820_memory_map(bp);
-	//sleep(20);
+	//sleep(60);
 	//
 	//
 	
