@@ -2,6 +2,45 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= June 15, 2008 =
+Super woot! Finally found the nvidia vbios. Hardware details about the nvidia chipset is very hard to obtain. nvclock has some info but it's dump_bios routine always returned garbage. Now thanks to the nouveau project, some more info was revealed about nvidia chipsets. The important part is where the vbios is located. For standard PCs, vbios can be found at 0xc0000 at runtime. It's the responsibility of the PC-bios to move it to that location. But the AppleTV is pure EFI and no one but Apple knows how the video bios is handled. I knew it was present because the nvidia binary could find it under X11, but it never showed up in any ram dumps. Well, it located off the nvidia chipset at 0x21000000 (first pci bar address) plus 0x00700000 (NV_PRAMIN_OFFSET) or at 0x21700000. Here's a dump of the first few pages.
+{{{
+00000000  55 aa 76 eb 4b 37 34 30  30 e9 4c 19 77 cc 56 49  |U.v.K7400.L.w.VI|
+00000010  44 45 4f 20 0d 00 00 00  08 01 69 11 00 00 49 42  |DEO ......i...IB|
+00000020  4d 20 56 47 41 20 43 6f  6d 70 61 74 69 62 6c 65  |M VGA Compatible|
+00000030  01 00 00 00 c0 10 9e 8e  30 39 2f 30 36 2f 30 37  |........09/06/07|
+00000040  00 00 00 00 00 00 00 00  01 10 00 00 00 00 00 00  |................|
+00000050  e9 5d cd 00 00 00 de 10  ff ff ff 7f 00 00 00 00  |.]..............|
+00000060  ff ff ff 7f 00 00 00 80  22 00 a5 c1 e9 c3 ab e9  |........".......|
+00000070  ca ab 50 4d 49 44 6c 00  6f 00 00 00 00 a0 00 b0  |..PMIDl.o.......|
+00000080  00 b8 00 c0 00 33 7e ca  9b 00 02 00 04 00 6a 21  |.....3~.......j!|
+00000090  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000a0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000b0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000c0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000d0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000e0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000f0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+00000100  ff ff ff ff 48 57 45 41  50 43 49 52 de 10 d7 01  |....HWEAPCIR....|
+00000110  00 00 18 00 00 00 00 03  76 00 01 00 00 80 00 00  |........v.......|
+00000120  47 65 46 6f 72 63 65 20  47 6f 20 37 33 30 30 20  |GeForce Go 7300 |
+00000130  56 47 41 20 42 49 4f 53  20 28 41 70 70 6c 65 20  |VGA BIOS (Apple |
+00000140  4d 36 33 29 0d 0a 00 00  00 00 00 00 00 00 00 00  |M63)............|
+00000150  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+00000160  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+00000170  00 56 65 72 73 69 6f 6e  20 20 35 2e 37 32 2e 32  |.Version  5.72.2|
+00000180  32 2e 36 38 2e 30 30 20  0d 0a 00 43 6f 70 79 72  |2.68.00 ...Copyr|
+00000190  69 67 68 74 20 28 43 29  20 31 39 39 36 2d 32 30  |ight (C) 1996-20|
+000001a0  30 36 20 4e 56 49 44 49  41 20 43 6f 72 70 2e 0d  |06 NVIDIA Corp..|
+000001b0  0a 00 00 00 ba 91 98 96  91 9a 9a 8d 96 91 98 df  |................|
+000001c0  ad 9a 93 9a 9e 8c 9a df  d2 df b1 90 8b df b9 90  |................|
+000001d0  8d df af 8d 90 9b 8a 9c  8b 96 90 91 df aa 8c 9a  |................|
+000001e0  f2 f5 ff ff ff ff ff 47  65 46 6f 72 63 65 20 47  |.......GeForce G|
+000001f0  6f 20 37 33 30 30 00 20  20 20 20 00 00 00 00 00  |o 7300.    .....|
+}}}
+
+This is a very good result and might mean that the issues with video console frame buffers can be solved by dynamically extracting the vbios and locating it where Linux can find it. Tomorrow will be a busy day for me. If this works, then lots of possibilities open up.
+
 = June 13, 2008 =
 Action time. Warning on svn pulls, this is now the development version for recovery-0.7 which include kernel and initramfs construction. It's still a bit rough so if you have questions email or post to the discussion list.
 
