@@ -2,6 +2,9 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= June 18, 2008 =
+Got POST. Right now it's tricky. Running a modified atv-bootloader that does not reserve 0xA0000-0xBFFFF (Video RAM) and copies the nvidia bios from 0x21700000 to 0xC0000. Then boot a linux distro with X11 running the nv driver (which works fine). Then I can run testbios from the coreboot project and I get POST output to the screen. Still don't have console frame buffer (POST is too late) but I can change video modes. Now to move all this into atv-bootloader and create the INT10 hooks.
+
 = June 15, 2008 =
 Super woot! Finally found the nvidia vbios. Hardware details about the nvidia chipset is very hard to obtain. nvclock has some info but it's dump_bios routine always returned garbage. Now thanks to the nouveau project, some more info was revealed about nvidia chipsets. The important part is where the vbios is located. For standard PCs, vbios can be found at 0xc0000 at runtime. It's the responsibility of the PC-bios to move it to that location. But the AppleTV is pure EFI and no one but Apple knows how the video bios is handled. I knew it was present because the nvidia binary could find it under X11, but it never showed up in any ram dumps. Well, it located off the nvidia chipset at 0x21000000 (first pci bar address) plus 0x00700000 (NV_PRAMIN_OFFSET) or at 0x21700000. Here's a dump of the first few pages.
 {{{
