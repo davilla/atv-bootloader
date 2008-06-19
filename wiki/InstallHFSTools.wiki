@@ -6,13 +6,13 @@ In order to boot atv-bootloader, one needs to be able to create a GPT partition 
 
 *Note*
 If you are running Ubuntu Hardy then this step is not required. Hardy has hfs tools via apt-get (http://packages.ubuntu.com/hardy/otherosfs/hfsprogs)
-
-*Warning* 
-If your file path name has spaces "/home/davilla/atv dev/work", then hfs support tools will not build properly. Make sure your file path does not have spaces in it.
-
 {{{
 sudo apt-get install hfsprogs
 }}}
+
+
+*Warning* 
+If your file path name has spaces "/home/davilla/atv dev/work", then hfs support tools will not build properly. Make sure your file path does not have spaces in it.
 
 * build and install hfs support tools
 {{{
