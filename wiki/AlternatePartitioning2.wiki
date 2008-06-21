@@ -86,7 +86,7 @@ Follow one of the guides and install Linux to /dev/sdc5 with swap on /dev/sdc6. 
 
 Make a USB pen drive with just a recovery partition and the contents of recovery.tar.gz. atv-bootloader is just the contents of recovery.tar.gz (note, I am leaving the version number off so I do not have to fix bad links every time the version changes).
 
-After installing Linux to the new disk, re-install the disk into the AppleTV and power up. It should boot to the recovery screen, select "Factory Reset" and wait until it is done. Now you can upgrade to the new version of the AppleTV OS if desired.
+After installing Linux, reboot. It should boot to the recovery screen, select "Factory Reset" and wait until it is done. Now you can upgrade to the new version of the AppleTV OS if desired.
 
 Boot to Linux with the USB pen inserted and do the post install fixes for Linux.
 
