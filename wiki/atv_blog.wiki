@@ -2,6 +2,16 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= June 21, 2008 =
+Still working on vbios. For giggles, here the output from POST
+{{{
+GeForce Go 7300 VGA BIOS (Apple M63)
+Version 5.77.22.68.00
+Engineering Release - Not for Production Use
+Copyright (C) 1996-2006 NVIDIA corp.
+}}}
+Not for Production Use, that's funny.
+
 = June 18, 2008 =
 Got POST. Right now it's tricky. Running a modified atv-bootloader that does not reserve 0xA0000-0xBFFFF (Video RAM) and copies the nvidia bios from 0x21700000 to 0xC0000. Then boot a linux distro with X11 running the nv driver (which works fine). Then I can run testbios from the coreboot project and I get POST output to the screen. Still don't have console frame buffer (POST is too late) but I can change video modes. Now to move all this into atv-bootloader and create the INT10 hooks.
 
