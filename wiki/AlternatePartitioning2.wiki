@@ -82,7 +82,7 @@ mkfs.hfsplus -J -v Media /dev/sda4
 mkfs.ext3  -b 4096 -L Linux /dev/sda5
 }}}
 
-Follow one of the guides and install Linux to /dev/sdc5 with swap on /dev/sdc6. Remember de-select all  partitons other than sdc5 and sdc6, install grub and build and run "gptsync" after the install to fix up the MBR so efi firmware is happy.
+Follow one of the [InstallingLinux install guides at the bottom of the previous page] and install Linux to /dev/sda5 with swap on /dev/sda6. Remember de-select all  partitons other than sda5 and sda6, install grub and build and run "gptsync" after the install to fix up the MBR so efi firmware is happy.
 
 Make a USB pen drive with just a recovery partition and the contents of recovery.tar.gz. atv-bootloader is just the contents of recovery.tar.gz (note, I am leaving the version number off so I do not have to fix bad links every time the version changes).
 
