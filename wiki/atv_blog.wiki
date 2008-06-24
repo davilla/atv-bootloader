@@ -2,6 +2,13 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= June 24, 2008 =
+Tricky little sucker, I need to use x86emu to get the vbios to post and no one seems to claim ownership to x86emu so I have to figure it out from scratch. Coreboot uses it (they ignored my email to their list), Xorg uses it (not going there with questions about x86emu). 
+
+In answer to some questions about why worry about vbios. If I can get vbios POST'ed and working that means I can change the console video modes using standard Linux methods. If I can do it, then Linux can do it which means vgacon would work and most Linux distros expect vgacon to be present and working. The all the work to force vesafb as a console frame buffer would not be required anymore. In addition, I need vgacon to support vbetool in order to save the video state for S3 (to ram) and S4 (to disk) hibernation.
+
+And my home internet is down. Bummer.
+
 = June 21, 2008 =
 Still working on vbios. For giggles, here the output from POST
 {{{
