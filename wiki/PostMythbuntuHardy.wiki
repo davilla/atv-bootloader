@@ -107,7 +107,7 @@ Rebuild the initramfs so that the usbhid module options get propagated to the in
 sudo update-initramfs -u
 }}}
 
-Now follow the "LIRC setup" section [UpdateIRDriver in the old IR Update wiki page].
+Now follow the "Setup LIRC" section (half way down the page) [UpdateIRDriver in the old IR Update wiki page]. Skip the "Enable usbhid" part as it was already enabled by the modprobe quirk above.
 
 
 
