@@ -110,7 +110,7 @@ sync
 }}}
 
 
-Download "recovery.tar.gz", this is avt-bootloader. Copy it to the second "recovery" partition.
+Download "recovery.tar.gz", this is avt-bootloader. Copy it to the second partition ("recovery").
 {{{
 # download atv-bootloader (recovery.tar.gz) and install it
 wget http://atv-bootloader.googlecode.com/files/recovery-0.6.tar.gz
