@@ -2,6 +2,17 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= July 3, 2008 =
+Bingo! On another note, I have boot.efi extraction from the AppleTV 2.02 update from Windows using single GPL tool. This solved the last item of creating an OSX/Linux/Windows application that can create atv-bootloader on a USB flash drive dynamically from a downloaded disk image. It will make hacking the AppleTV for Linux and patchsticks using a pre-crafted disk image really easy and most important completely legal.  So what's this magic GPL tool? You will never guess. 7-Zip. That right 7-Zip now knows how to open a compressed DMG image. You need to the the alpha 3 release [http://www.7-zip.org/alpha/7z459a3.exe 7-Zip 4.59 alpha 3]. Extraction is a two step from the command line. The first step extract the actual hfsplus filesystem.
+{{{
+7z e 2Z694-5428-3.dmg 2.hfs
+}}}
+The second step extracts boot.efi from the hfsplus filesystem
+{{{
+7z e 2.hfs OSBoot\System\Library\CoreServices\boot.efi
+}}}
+And out pops boot.efi. Kudos to the the 7-Zip authors for adding compressed DMG extraction.
+
 = June 24, 2008 =
 Tricky little sucker, I need to use x86emu to get the vbios to post and no one seems to claim ownership to x86emu so I have to figure it out from scratch. Coreboot uses it (they ignored my email to their list), Xorg uses it (not going there with questions about x86emu). 
 
