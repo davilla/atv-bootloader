@@ -2,6 +2,25 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= July 4, 2008 =
+And another bingo. I've been looking for a way to turn off the nvidia binary driver use of TurboCache. TurboCache basically uses part of system memory for video memory. Useful if you want to say you video card has more memory than it physically has but totally useless on something like the AppleTV where with only 256MB of physical ram, stealing 64MB for vram hurts. But no more, even though NVIDIA says there's no way to disable TurboCache under Linux, there is. This comes from a post on the nvidia forums which says to add the following in the Driver "nvidia" section of xorg.conf and restart xorg.
+{{{
+Option "RegistryDwords" "RMDisableRenderToSysmem=1"
+}}}
+
+This seems to work with nvidia binary versions 173.14.09 and 169.12. 
+{{{
+Before:
+(II) NVIDIA(0): NVIDIA GPU GeForce Go 7300 (G72) at PCI:1:0:0 (GPU-0)
+(--) NVIDIA(0): Memory: 131072 kBytes
+(--) NVIDIA(0): VideoBIOS: 05.72.22.68.00
+
+After:
+(II) NVIDIA(0): NVIDIA GPU GeForce Go 7300 (G72) at PCI:1:0:0 (GPU-0)
+(--) NVIDIA(0): Memory: 65536 kBytes
+(--) NVIDIA(0): VideoBIOS: 05.72.22.68.00
+}}}
+
 = July 3, 2008 =
 Bingo! On another note, I have boot.efi extraction from the AppleTV 2.02 update from Windows using single GPL tool. This solved the last item of creating an OSX/Linux/Windows application that can create atv-bootloader on a USB flash drive dynamically from a downloaded disk image. It will make hacking the AppleTV for Linux and patchsticks using a pre-crafted disk image really easy and most important completely legal.  So what's this magic GPL tool? You will never guess. 7-Zip. That right 7-Zip now knows how to open a compressed DMG image. You need to the the alpha 3 release [http://www.7-zip.org/alpha/7z459a3.exe 7-Zip 4.59 alpha 3]. Extraction is a two step from the command line. The first step extract the actual hfsplus filesystem.
 {{{
@@ -11,12 +30,12 @@ The second step extracts boot.efi from the hfsplus filesystem
 {{{
 7z e 2.hfs OSBoot\System\Library\CoreServices\boot.efi
 }}}
-And out pops boot.efi. Kudos to the the 7-Zip authors for adding compressed DMG extraction.
+And out pops boot.efi. Kudos to the the 7-Zip authors for adding compressed DMG extraction and hfsplus file system handling.
 
 = June 24, 2008 =
 Tricky little sucker, I need to use x86emu to get the vbios to post and no one seems to claim ownership to x86emu so I have to figure it out from scratch. Coreboot uses it (they ignored my email to their list), Xorg uses it (not going there with questions about x86emu). 
 
-In answer to some questions about why worry about vbios. If I can get vbios POST'ed and working that means I can change the console video modes using standard Linux methods. If I can do it, then Linux can do it which means vgacon would work and most Linux distros expect vgacon to be present and working. The all the work to force vesafb as a console frame buffer would not be required anymore. In addition, I need vgacon to support vbetool in order to save the video state for S3 (to ram) and S4 (to disk) hibernation.
+In answer to some questions about why worry about vbios. If I can get vbios POST'ed and working that means I can change the console video modes using standard Linux methods. If I can do it, then Linux can do it which means vgacon would work and most Linux distros expect vgacon to be present and working. Then all the work to force vesafb as a console frame buffer would not be required anymore. In addition, I need vgacon to support vbetool in order to save the video state for S3 (to ram) and S4 (to disk) hibernation.
 
 And my home internet is down. Bummer.
 
