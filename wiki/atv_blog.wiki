@@ -2,6 +2,9 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= July 8, 2008 =
+Yes I know about the release of Knoppmyth 5.5. A install guide is brewing and should pop out this weekend. My time is being occupied with the rapid development of a special project that I can't talk about yet. I can say it's going very, very cool.
+
 = July 4, 2008 =
 And another bingo. I've been looking for a way to turn off the nvidia binary driver use of TurboCache. TurboCache basically uses part of system memory for video memory. Useful if you want to say you video card has more memory than it physically has but totally useless on something like the AppleTV where with only 256MB of physical ram, stealing 64MB for vram hurts. But no more, even though NVIDIA says there's no way to disable TurboCache under Linux, there is. This comes from a post on the nvidia forums which says to add the following in the Driver "nvidia" section of xorg.conf and restart xorg.
 {{{
