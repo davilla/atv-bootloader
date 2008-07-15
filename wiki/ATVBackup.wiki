@@ -99,6 +99,20 @@ rmdir tmp
 
 Remove the USB flash drive and store it in a safe place. If you want, you can also tar and gzip the contents of the "backup" partition on the USB flash drive to another location. That was quick and painless.
 
+For a 160GB disk, the end result will look something like this
+{{{
+# parted -s /dev/sda unit s print
+Model: ATA SAMSUNG HM160JC (scsi)
+Disk /dev/sda: 312581808s
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Number  Start     End         Size        File system  Name Flags
+ 1      40s       69671s      69632s      fat32        primary boot
+ 2      69672s    888823s     819152s     hfs+         primary atvrecv
+ 3      888824s   2732015s    1843192s    hfs+ primary
+ 4      2732016s  312319663s  309587648s  hfs+ primary
+}}}
+
 = Restore =
 
 Boot the AppleTV using the same USB flash drive and telnet in. Again nothing is mounted. Mount the first partition of the USB flash drive and copy over the dump of the original partitioning.
@@ -264,4 +278,3 @@ rm 2Z694-5428-3.dmg
 }}}
 
 Done, the contents of the directory "staging" can now be copied to the "backup" partition on your Linux USB pen rescue disk. Proceed to the Restore section above. 
-
