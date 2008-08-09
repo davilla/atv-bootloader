@@ -2,6 +2,11 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+
+= August 9, 2008 =
+I'm back. I've been vectored the last few weeks on a work related crunch and that's over now so I'll be able to spend time on atv-bootloader again. Coming up in the next few weeks is a new version that addresses a few minor issues and hopefully the release of the special project that I've been developing. This special project should make it much, much easier to create an atv-bootloader USB flash drive for Linux usage.
+
+
 = July 16, 2008 =
 This just hot off the presses. Seems someone has done the dirty on good old osputil. Be prepared for LED and fan control coming to an Linux based AppleTV near you. See the discussion groups thread "Random rebooting problem" for a play by play.
 
