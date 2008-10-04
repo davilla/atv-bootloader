@@ -2,6 +2,8 @@
 
 This blog contains the development notes of what I'm working on. Check back frequently and you can see what I'm currently doing regarding atv-bootloader and Linux installation.
 
+= October 4, 2008 =
+Well, this has been a fun month, a triple play, atvusb-creator, xbmc-launcher and XBMC/Boxee for Mac, all for the AppleTV. And remember, you can use atvusb-creator to make basic atv-bootloaders. There's more to come under atvusb-creator including a creators for a few USB based Linux distros.
 
 = August 9, 2008 =
 I'm back. I've been vectored the last few weeks on a work related crunch and that's over now so I'll be able to spend time on atv-bootloader again. Coming up in the next few weeks is a new version that addresses a few minor issues and hopefully the release of the special project that I've been developing. This special project should make it much, much easier to create an atv-bootloader USB flash drive for Linux usage.
