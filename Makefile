@@ -11,18 +11,18 @@ ARCH	= i386
 
 # if Linxu, use the darwin-cross tools to compile/link
 ifeq ($(OSTYPE),Linux)
-  CC  = /opt/darwin-cross/bin/i386-apple-darwin8-gcc-4.0
-  LD  = /opt/darwin-cross/bin/i386-apple-darwin8-ld
+  CC  := /opt/darwin-cross/bin/i386-apple-darwin8-gcc-4.0
+  LD  := /opt/darwin-cross/bin/i386-apple-darwin8-ld
 else
-  CC  = /usr/bin/gcc-4.0
-  LD  = /usr/bin/ld
+  CC  := /usr/bin/gcc-4.0
+  LD  := /usr/bin/ld
 	LDFLAGS = -classic_linker
 endif
 
 # start.o must be 1st in the link order (ld below)
 OBJ	= start.o vsprintf.o console.o utils.o elilo_code.o darwin_code.o linux_code.o boot_loader.o
 
-KERN_OBJ= vmlinuz.obj initrd.obj
+KERN_OBJ:= vmlinuz.obj initrd.obj
 
 mach_kernel: $(KERN_OBJ) $(OBJ)
 	$(LD) $(LDFLAGS) -arch $(ARCH) -o mach_kernel $(OBJ) $(KERN_OBJ) \
@@ -53,7 +53,4 @@ initrd.obj: initrd.gz
 clean:
 	rm -f *.o $(KERN_OBJ) mach_kernel
 
-
-
 #xxd mach_kernel | sed -e "s/ffff ffff 1000/0100 0000 1000/" | xxd -r - mach_kernel
-
