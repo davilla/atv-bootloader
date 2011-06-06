@@ -101,3 +101,6 @@ ifconfig
 
 # spawn the telnetd daemon
 telnetd -l /bin/login
+
+# making the blinking light go white
+atvclient &>/dev/null &

@@ -13,6 +13,9 @@
 # equivalent busybox symlinks or they will over-write busybox
 # when copied. This can cause very bad things to happen.
 
+SCRIPT_DIR=$(dirname `readlink -f "$0"`)
+cd "${SCRIPT_DIR}"
+
 # go into rootfs
 mkdir -p rootfs
 rm -rf rootfs/*
@@ -21,7 +24,7 @@ cd rootfs
 
 # create default driectory structure
 mkdir -p bin dev etc/init.d lib media mnt proc root sbin sys
-mkdir -p tmp usr/bin usr/sbin usr/lib usr/share usr/local
+mkdir -p tmp usr/bin usr/sbin usr/lib usr/share usr/local lib/firmware
 mkdir -p usr/share/terminfo
 ln -s ../../usr/bin  usr/local/bin 
 ln -s ../../usr/sbin usr/local/sbin
@@ -48,16 +51,36 @@ cp -a  /sbin/ldconfig.real		sbin/ldconfig
 cp -a  /sbin/dosfsck			sbin/fsck.msdos
 ln -s  /sbin/fsck.msdos sbin/fsck.vfat
 cp -a  /sbin/mkdosfs			sbin/mkfs.msdos
+
+rm sbin/mkfs.ext2
+cp -a  /sbin/mkfs.ext2			sbin/
 cp -a  /sbin/mkfs.ext3			sbin/
-#cp -a  /sbin/fsck                  sbin/
+cp -a  /sbin/mkfs.ext4			sbin/
+
+cp -a  /sbin/mkfs.hfsplus		sbin/
+cp -a  /sbin/mkfs.reiserfs		sbin/
+cp -a  /sbin/mkfs.reiser4		sbin/
+cp -a  /sbin/mkfs.btrfs			sbin/
+
+cp -a  /sbin/fsck                       sbin/
+cp -a  /sbin/fsck.ext2                  sbin/
 cp -a  /sbin/fsck.ext3                  sbin/
-ln -s  /sbin/fsck.ext3 sbin/fsck.ext2
+cp -a  /sbin/fsck.ext4                  sbin/
+#ln -s  /sbin/fsck.ext2 sbin/fsck.ext3
+#ln -s  /sbin/fsck.ext2 sbin/fsck.ext4
 
 cp -a  /sbin/fsck.nfs			sbin/
 cp -a  /sbin/fsck.xfs			sbin/
 cp -a  /sbin/fsck.reiserfs		sbin/
+cp -a  /sbin/fsck.reiser4		sbin/
+cp -a  /sbin/fsck.hfsplus		sbin/
+cp -a  /sbin/fsck.btrfs			sbin/
 
 # copy blkid, findfs
+rm sbin/blkid
+rm sbin/findfs
+rm usr/bin/lspci
+
 cp -a  /sbin/blkid                    sbin/
 cp -a  /sbin/findfs                    sbin/
 
@@ -69,18 +92,27 @@ cp -a  /bin/nano                        bin/
 ln -s  /bin/nano bin/pico
 
 # copy our built apps
-cp -a  ../apps/kexec/build/kexec        sbin/
-cp -a  ../apps/rEFIt/build/gptsync	usr/bin/
-cp -a  ../apps/parted/build/parted	usr/sbin/
-cp -a  ../apps/parted/build/partprobe	usr/sbin/
-cp -a  ../apps/hfs_support/build/fsck.hfsplus sbin/
+cp -a  `which kexec`		sbin/
+cp -a  `which gptsync`		usr/bin/
+cp -a  `which parted`		usr/sbin/
+cp -a  `which partprobe`	usr/sbin/
+cp -a  `which gdisk`		usr/sbin/
+cp -a  `which rsync`		usr/sbin/
+
 ln -s  sbin/fsck.hfsplus sbin/fsck.hfs
-cp -a  ../apps/hfs_support/build/mkfs.hfsplus sbin/
 ln -s  sbin/mkfs.hfsplus sbin/mkfs.hfs
+
+# wireless
+#for BINARY in iwconfig iwlist wpa_supplicant wpa_cli wpa_passphrase wpa_action ; do
+for BINARY in iwconfig iwlist; do
+	cp -a `which ${BINARY}` sbin
+done;
+
 # copy out helper apps/scripts
 cp -a  ../apps/boot_linux.sh		usr/sbin/
 cp -a  ../apps/boot_parser/boot_parser	usr/sbin/
 cp -a  ../apps/find_run_script.sh	usr/sbin/
+cp -a  ../apps/atvclient/atvclient	usr/bin/
 
 # copy seed files for startup
 cp -a  ../seed_files/init		./
@@ -113,8 +145,8 @@ cp -aL /usr/share/terminfo/x		usr/share/terminfo/
 cd ..
 make -f cpy_libs.mk >/dev/null 2>&1
 # copy Libs that get missed ??
-cp /lib/libnss_dns.so.2			rootfs/lib/
-cp /lib/libresolv.so.2			rootfs/lib/
+cp /lib/i386-linux-gnu/libnss_dns.so.2			rootfs/lib/i386-linux-gnu
+cp /lib/i386-linux-gnu/libresolv.so.2			rootfs/lib/i386-linux-gnu
 
 cd rootfs
 strip --strip-debug lib/*  >/dev/null 2>&1
@@ -128,8 +160,16 @@ strip --strip-debug usr/sbin/* >/dev/null 2>&1
 #   have access to the libraries that they need
 ldconfig -r ./
 
+# kernel modules
+cd "${SCRIPT_DIR}/../linux/linux-2.6.39"* && make INSTALL_MOD_PATH="${SCRIPT_DIR}/rootfs" modules_install && cd "${SCRIPT_DIR}/rootfs/lib/modules/"* && rm build && rm source
+
+cd "${SCRIPT_DIR}/rootfs"
+
+# firmware
+cp -a "${SCRIPT_DIR}/firmware/"* lib/firmware
+
 # create initramfs (initrd)
 echo "Create cpio based initrd"
 find . | cpio -H newc -o | gzip >../../initrd.gz
 #
-cd ..
+cd "${SCRIPT_DIR}"
