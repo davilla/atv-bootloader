@@ -1,6 +1,7 @@
-# file system  mount-point  type    options        dump   fsck
-proc           /proc        proc    defaults       0      0
-sysfs          /sys         sysfs   defaults       0      0
-tmpfs          /var         tmpfs   size=32m       0      0
-none           /dev/pts     devpts  gid=4,mode=620 0      0
-#shm           /dev/shm     tmpfs   defaults       0      0
+# file system  mount-point          type    options        dump   fsck
+proc           /proc                proc    defaults       0      0
+sysfs          /sys                 sysfs   defaults       0      0
+tmpfs          /var                 tmpfs   size=32m       0      0
+usbfs          /proc/bus/usb        usbfs   defaults       0      0
+none           /dev/pts             devpts  gid=4,mode=620 0      0
+#shm           /dev/shm             tmpfs   defaults       0      0

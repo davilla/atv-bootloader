@@ -10,6 +10,7 @@
    boot configuration files and outputs a kexec load string. 
 	For example;
 		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/boot/grub/menu.lst
+		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/boot/grub/grub.cfg
 		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/boot/kboot.conf
 		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/syslinux.cfg
 		boot_parser --root=/mnt/rootfs --config=/mnt/rootfs/isolinux.cfg
@@ -42,6 +43,7 @@ char*	freadline(char *bp, int n, FILE *fp);
 //
 int	parse_line(char *line, char *name, char *value);
 void	parse_grub(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec);
+void	parse_grub2(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec);
 void	parse_kboot(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec);
 void	parse_syslinux(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec);
 void	parse_mb_boot_tv(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec);
@@ -60,6 +62,7 @@ int main (int argc, const char *argv[]) {
 	strcpy(io_root, "");
 	strcpy(io_filename, "");
 	//strcpy(io_filename, "/boot/grub/menu.lst");
+	//strcpy(io_filename, "/boot/grub/grub.cfg");
 	//strcpy(io_filename, "/boot/mb_boot_tv.conf");
 	//strcpy(io_filename, "menu.lst");
 	//strcpy(io_filename, "/syslinux.cfg");
@@ -114,6 +117,9 @@ int main (int argc, const char *argv[]) {
 		parse_grub(io_root, io_filename, &io_kexec);
 	} else if ( strstr(io_filename, "menu.lst" ) ) {
 		parse_grub(io_root, io_filename, &io_kexec);
+		//
+	} else if ( strstr(io_filename, "grub.cfg" ) ) {
+		parse_grub2(io_root, io_filename, &io_kexec);
 		//
 	} else if ( strstr(io_filename, "syslinux.cfg") ) {
 		parse_syslinux(io_root, io_filename, &io_kexec);
@@ -405,6 +411,103 @@ parse_grub(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec)
 //________________________________________________________________________________
 //________________________________________________________________________________
 void
+parse_grub2(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec)
+{
+	// example grub2 entry (under Ubuntu 10.04)
+	//
+	//set default="0"
+	//
+	//menuentry 'Ubuntu, with Linux 2.6.32-21-generic' --class ubuntu --class gnu-linux --class gnu --class os {
+	//	recordfail
+	//	insmod ext2
+	//	set root='(hd0,1)'
+	//	search --no-floppy --fs-uuid --set 96a4d1e9-5d3f-4fde-a1d3-882ced7aa161
+	//	linux	/vmlinuz-2.6.32-21-generic root=/dev/mapper/vorlon-root ro   quiet splash
+	//	initrd	/initrd.img-2.6.32-21-generic
+	//}
+	//
+
+	int			kexec_entries;
+	int			kexec_default;
+	KEXEC_ENTRY		kexec[20];
+	//
+	FILE			*io_file;
+	char			name[256], value[256];
+
+	kexec_entries =-1;
+	kexec_default =-1;
+	
+	io_file = fopen(io_filename, "r");
+	if (io_file) {
+		char		line_str[256];
+			
+		while ( freadline(line_str, 256, io_file) ) {
+			if (0) {
+				fprintf(stdout, "%s\n", line_str);
+			}
+			if ( parse_line(line_str, name, value) ) {
+				if ( strcasestr(name, "set") && strcasestr(value, "default") ) {
+					kexec_default = atoi (strpbrk (value, "0123456789"));
+				} else if ( strcasestr(name, "menuentry") ) {
+					// there should be a title for all entries so
+					// use it to drive the index counter.
+					if ( strlen(value) ) {
+						if (kexec_entries < 19) {
+							kexec_entries++;
+						} else {
+							break;
+						}
+					}
+					strcpy(kexec[kexec_entries].title, value);
+					strcpy(kexec[kexec_entries].kernel, "");
+					strcpy(kexec[kexec_entries].initrd, "");
+					strcpy(kexec[kexec_entries].cmdline, "");
+					//
+				} else if ( strcasestr(name, "linux") ) {
+					char			*cmdline;
+					
+					cmdline = value;
+					while(!IS_WHITESPACE(cmdline[0]) && (cmdline[0] != '\0') ) {
+						cmdline++;
+					}
+					// this will terminate the kernel path token
+					if(cmdline[0] != '\0') {
+						cmdline[0] = '\0';
+						cmdline++;
+						// the rest is either the command-line token or end of string
+						strcpy(kexec[kexec_entries].cmdline, cmdline);
+					}
+					// append root path to this filesystem
+					strcpy(kexec[kexec_entries].kernel, io_root);
+					if ( value[0] != '/' ) {
+						strcat(kexec[kexec_entries].kernel, "/");
+					}
+					strcat(kexec[kexec_entries].kernel, value);
+					//
+				} else if ( strcasestr(name, "initrd") ) {
+					// append root path to this filesystem
+					strcpy(kexec[kexec_entries].initrd, io_root);
+					if ( value[0] != '/' ) {
+						strcat(kexec[kexec_entries].initrd, "/");
+					}
+					strcat(kexec[kexec_entries].initrd, value);
+				}
+			}
+		}
+		// done with the config file
+		fclose(io_file);
+		
+		if ( (kexec_entries > -1) && (kexec_default > -1) ) {
+			strcpy(io_kexec->title,   kexec[ kexec_default ].title);
+			strcpy(io_kexec->kernel,  kexec[ kexec_default ].kernel);
+			strcpy(io_kexec->initrd,  kexec[ kexec_default ].initrd);
+			strcpy(io_kexec->cmdline, kexec[ kexec_default ].cmdline);
+		}
+	}
+}
+//________________________________________________________________________________
+//________________________________________________________________________________
+void
 parse_syslinux(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec)
 {
 	// example syslinux/isolinux entry (under Ubuntu)
@@ -582,4 +685,3 @@ parse_mb_boot_tv(char *io_root, char *io_filename, KEXEC_ENTRY *io_kexec)
 		}
 	}
 }
-
