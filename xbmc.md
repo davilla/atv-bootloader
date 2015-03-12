@@ -1,0 +1,7 @@
+# XBMC on the AppleTV #
+
+[XBMC on Linux](http://xbmc.org/wiki/?title=Linux_port_project) is in an [alpha release level](http://xbmc.org/forum/showthread.php?t=32073). There is a deb based install that seems to work fine, see this [forum link](http://xbmc.org/forum/showthread.php?t=32073) for details. As an alpha release, there are still issues and over time these will be resolved by the XBMC on Linux developers. There is a thread on their forums that discusses [XBMC on the AppleTV](http://xbmc.org/forum/showthread.php?t=31348).
+
+XBMC on Linux uses GL for rendering and ffmpeg for decode. As such, Xv and XvMC hardware assist in decode and rendering is not an option. Even so, 480i/p mpeg2  and 480p h.264 SD content plays fine as does some 720p h.264 content. That means DVD rips are ok and all of the Apple SD content with most of the Apple HD content are also fine. Higher resolutions and bitrates are not possible with GL rendering.
+
+There is a hack to support MPlayer as an [external player](http://xbmc.org/forum/showthread.php?t=30829) under XBMC on Linux but this is unsupported and the use of external players is discouraged by the XBMC on Linux developers. Do not ask about MPlayer as an external player on their forum, they are not interested.
